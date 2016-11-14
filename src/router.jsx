@@ -7,6 +7,7 @@ import MainLayout from './view/layout/main-layout';
 import Home from './view/pages/Home';
 
 import MyHisList from './view/containers/MyHisList';
+import AddHisProj from './view/containers/AddHisProj';
 
 export default (
     <Router history={browserHistory}>
@@ -20,6 +21,10 @@ export default (
                     {/*<IndexRoute component={AppleBasket} />*/}
                 {/*</Route>*/}
                 {/*<Route path=":userId" component={UserProfileContainer} />*/}
+            </Route>
+
+            <Route path="/addHisProj">
+                <IndexRoute component={AddHisProj} />
             </Route>
 
             {/*<Route path="widgets">*/}

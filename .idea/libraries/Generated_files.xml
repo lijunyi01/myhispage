@@ -4,15 +4,18 @@
       <sourceFilesUrls>
         <item url="file://$PROJECT_DIR$/src/router.js" />
         <item url="file://$PROJECT_DIR$/src/index.js" />
-        <item url="file://$PROJECT_DIR$/src/view/pages/Home.js" />
+        <item url="file://$PROJECT_DIR$/src/view/containers/AddHisProj.js" />
+        <item url="file://$PROJECT_DIR$/src/view/pages/AddHisProj.js" />
         <item url="file://$PROJECT_DIR$/src/view/containers/MyHisList.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
       <root url="file://$PROJECT_DIR$/src/view/pages/Home.js" />
+      <root url="file://$PROJECT_DIR$/src/view/pages/Home.js" />
       <root url="file://$PROJECT_DIR$/src/router.js" />
       <root url="file://$PROJECT_DIR$/src/index.js" />
-      <root url="file://$PROJECT_DIR$/src/view/pages/Home.js" />
+      <root url="file://$PROJECT_DIR$/src/view/containers/AddHisProj.js" />
+      <root url="file://$PROJECT_DIR$/src/view/pages/AddHisProj.js" />
       <root url="file://$PROJECT_DIR$/src/view/containers/MyHisList.js" />
     </CLASSES>
     <SOURCES />

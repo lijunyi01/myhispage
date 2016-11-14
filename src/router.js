@@ -22,9 +22,13 @@ var _MyHisList = require('./view/containers/MyHisList');
 
 var _MyHisList2 = _interopRequireDefault(_MyHisList);
 
+var _AddHisProj = require('./view/containers/AddHisProj');
+
+var _AddHisProj2 = _interopRequireDefault(_AddHisProj);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// Pages or Containers
+// Layout
 exports.default = _react2.default.createElement(
     _reactRouter.Router,
     { history: _reactRouter.browserHistory },
@@ -36,10 +40,14 @@ exports.default = _react2.default.createElement(
             _reactRouter.Route,
             { path: '/myHisList' },
             _react2.default.createElement(_reactRouter.IndexRoute, { component: _MyHisList2.default })
+        ),
+        _react2.default.createElement(
+            _reactRouter.Route,
+            { path: '/addHisProj' },
+            _react2.default.createElement(_reactRouter.IndexRoute, { component: _AddHisProj2.default })
         )
     )
 );
-
-// Layout
+// Pages or Containers
 
 //# sourceMappingURL=router.js.map

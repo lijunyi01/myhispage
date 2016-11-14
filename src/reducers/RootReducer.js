@@ -3,7 +3,9 @@
  */
 import { combineReducers } from 'redux';
 import MyHisListReducer from './MyHisListReducer';
+import AddHisProjReducer from './AddHisProjReducer';
 
 export default combineReducers({
     myHisListState:MyHisListReducer,
+    addHisProjState:AddHisProjReducer,
 });

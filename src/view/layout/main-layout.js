@@ -18,6 +18,7 @@ export default function(props) {
                         <li><p>&nbsp;</p></li>
                         <li><IndexLink to="/" activeClassName={styles.active}>Home</IndexLink></li>
                         <li><Link to="/myHisList" activeClassName={styles.active}>MyHisList</Link></li>
+                        <li><Link to="/addHisProj" activeClassName={styles.active}>AddHisProj</Link></li>
                     </ul>
                 </aside>
                 <main>
