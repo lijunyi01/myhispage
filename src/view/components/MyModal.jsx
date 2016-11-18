@@ -21,6 +21,7 @@ class MyModal extends React.Component {
          */
         // let mockState = {
         //     show: true,
+        //     content: 'asdfadf'
         // };
         //
         // let mockActions = {
@@ -37,19 +38,11 @@ class MyModal extends React.Component {
         return (
             <Modal show={componentState.show} bsSize="small" aria-labelledby="contained-modal-title-sm">
                 <Modal.Header closeButton={ 1===1 } onClick={() => actions.shutMyModal() }>
-                    <Modal.Title id="contained-modal-title-sm">Modal heading</Modal.Title>
+                    <Modal.Title id="contained-modal-title-sm">信息提示</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <h4>Wrapped Text</h4>
-                    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-                    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-                    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-                    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-                    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-                    <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                    <h4> {componentState.content } </h4>
+                    {/*<p> { componentState.content } </p>*/}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={() => actions.shutMyModal() }>Close</Button>

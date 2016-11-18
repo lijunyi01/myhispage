@@ -32,13 +32,11 @@ let actions = {
             (data)=>{
                 console.log(data);
                 if(data.errorCode=='0'){
-                    let genAckContent = data.generalAckContent;
-                    // console.log(genAckContent);
-                    let contentJson = JSON.parse(genAckContent);
-                    // console.log(contentJson.projectId);
-                    dispatch(actions.doneSubmit(contentJson.projectId));
+                    // let genAckContent = data.generalAckContent;
+                    // let contentJson = JSON.parse(genAckContent);
+                    dispatch(actions.doneSubmit(data));
                 }else{
-                    dispatch(actions.doneSubmit(-1));
+                    dispatch(actions.doneSubmit(data));
                     console.log('data error');
                 }
             }
@@ -50,9 +48,9 @@ let actions = {
         type: 'myhis/BEGIN_SUBMIT'
     }),
 
-    doneSubmit: projectId => ({
+    doneSubmit: retMessage => ({
         type: 'myhis/DONE_SUBMIT',
-        payload: projectId
+        payload: retMessage
     }),
 
     failSubmit: error => ({
