@@ -10,6 +10,7 @@ import { fromJS } from 'immutable';
 
 const initState = {
     isSubmitting : false,
+    modalParam: {show: true},
 };
 
 export default (state = initState, action) => {
@@ -23,9 +24,11 @@ export default (state = initState, action) => {
     } else if (action.type === 'myhis/BEGIN_SUBMIT') {
         console.log(state);
         return fromJS(state).setIn(['isSubmitting'], true).toJS();
-    } else if(action.type === 'myhis/DONE_SUBMIT'){
+    } else if(action.type === 'myhis/DONE_SUBMIT') {
         console.log(action.payload);
         return fromJS(state).setIn(['isSubmitting'], false).toJS();
+    } else if(action.type === 'myhis/SHUT_MYMODAL'){
+        return fromJS(state).setIn(['modalParam','show'],false).toJS();
     } else {
         return state;
     }

@@ -5,14 +5,15 @@ import { connect } from 'react-redux';
 // import styles from '../styles/AppleItem.css';
 // import appleimage from '../images/apple.png';
 // import styles from '../styles/AddHisProj.css';
-import { Form,FormGroup,ControlLabel,Col,Button,FormControl,Checkbox } from 'react-bootstrap';
+import { Form,FormGroup,ControlLabel,Col,Button,FormControl,Checkbox,Modal } from 'react-bootstrap';
 import actions from '../../actions/addHisProjAction_creators';
 import { bindActionCreators } from 'redux';
+import MyModal from '../components/MyModal';
 
 class AddHisProj extends React.Component {
 
     shouldComponentUpdate(nextProps){
-        return nextProps.componentState != this.props.componentState;
+        return nextProps.containerState != this.props.containerState;
     }
 
     render() {
@@ -66,12 +67,20 @@ class AddHisProj extends React.Component {
 
                     <FormGroup>
                         <Col smOffset={2} sm={10}>
-                            <Button bsStyle="danger" onClick={actioncreator.createProj}>
-                                提 交
-                            </Button>
+                            {   containerState.isSubmitting?
+                                <Button bsStyle="danger" disabled>
+                                    提 交
+                                </Button>
+                                :
+                                <Button bsStyle="danger" onClick={actioncreator.createProj}>
+                                    提 交
+                                </Button>
+                            }
                         </Col>
                     </FormGroup>
                 </Form>
+
+                <MyModal componentState={containerState.modalParam} actions={{shutMyModal: actioncreator.shutMyModal}}/>
 
             </div>
         );

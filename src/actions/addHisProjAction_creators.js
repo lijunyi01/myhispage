@@ -30,7 +30,7 @@ let actions = {
             'createProject',
             {projectName:'project1',projectDes:'project1 desc'},
             (data)=>{
-                // console.log(data);
+                console.log(data);
                 if(data.errorCode=='0'){
                     let genAckContent = data.generalAckContent;
                     // console.log(genAckContent);
@@ -38,6 +38,7 @@ let actions = {
                     // console.log(contentJson.projectId);
                     dispatch(actions.doneSubmit(contentJson.projectId));
                 }else{
+                    dispatch(actions.doneSubmit(-1));
                     console.log('data error');
                 }
             }
@@ -58,6 +59,10 @@ let actions = {
         type: 'myhis/FAIL_SUBMIT',
         payload: error,
         error: true
+    }),
+
+    shutMyModal: () => ({
+        type: 'myhis/SHUT_MYMODAL',
     })
 
     // eatApple: appleId => ({
