@@ -10,6 +10,9 @@ import actions from '../../actions/addHisProjAction_creators';
 import { bindActionCreators } from 'redux';
 import MyModal from '../components/MyModal';
 
+let projectName = "";
+let projectDes = "";
+
 class AddHisProj extends React.Component {
 
     shouldComponentUpdate(nextProps){
@@ -37,7 +40,7 @@ class AddHisProj extends React.Component {
                             项目名称
                         </Col>
                         <Col sm={6}>
-                            <FormControl type="text" placeholder="请填入项目名称" />
+                            <FormControl type="text" placeholder="请填入项目名称" onBlur={ handlePNBlur }  />
                         </Col>
                     </FormGroup>
 
@@ -46,7 +49,7 @@ class AddHisProj extends React.Component {
                             项目描述
                         </Col>
                         <Col sm={6}>
-                            <FormControl type="text" placeholder="请填入项目描述" />
+                            <FormControl type="text" placeholder="请填入项目描述" onBlur={ handlePDBlur }/>
                         </Col>
                     </FormGroup>
 
@@ -72,7 +75,14 @@ class AddHisProj extends React.Component {
                                     提 交
                                 </Button>
                                 :
-                                <Button bsStyle="danger" onClick={actioncreator.createProj}>
+                                <Button bsStyle="danger" onClick={ ()=>{
+                                    actioncreator.createProj(
+                                        {
+                                            projectName: projectName,
+                                            projectDes: projectDes
+                                        }
+                                    )
+                                } } >
                                     提 交
                                 </Button>
                             }
@@ -101,5 +111,19 @@ function buildActionDispatcher(dispatch) {
         actioncreator: bindActionCreators(actions, dispatch)
     };
 }
+
+function handleChange(e) {
+    console.log(e.target.value)
+}
+
+function handlePNBlur(e) {
+    projectName = e.target.value
+    // console.log(projectName);
+}
+
+function handlePDBlur(e) {
+    projectDes = e.target.value
+}
+
 
 export default connect(selectState,buildActionDispatcher)(AddHisProj);

@@ -13,7 +13,7 @@ const prefix = 'myhis/';
 let actions = {
 
     //注意这里需要 () => ... , 不然 createProj 不是一个actionCreator, 而是一个thunk
-    createProj: () => (dispatch, getState) => {
+    createProj: inParam => (dispatch, getState) => {
 
         //如果正在提交，则结束这个thunk, 不执行
         if(getState().isSubmitting)
@@ -28,7 +28,8 @@ let actions = {
         mySocket.init('222.46.16.173','8001','1','6969da5b-1af1-4ade-8f99-7a174c9d1018');
         mySocket.emit(
             'createProject',
-            {projectName:'project1',projectDes:'project1 desc'},
+            {projectName:inParam.projectName,projectDes:inParam.projectDes},
+            // {projectName:'n1',projectDes:'d1'},
             (data)=>{
                 console.log(data);
                 if(data.errorCode=='0'){
