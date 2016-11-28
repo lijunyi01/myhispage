@@ -8,30 +8,20 @@ import mySocket from '../services/mySocket';
 // import ajax from '../services/ajax'; //经过封装的加强型 ajax 函数
 
 //这是名空间，对普通action做划分
-// const prefix = 'apple/';
+const prefix = 'lists/';
 
 let actions = {
 
-    //注意这里需要 () => ... , 不然 pickAppleAction 不是一个actionCreator, 而是一个thunk
-    pickApple: () => (dispatch, getState) => {
+    //注意这里需要 () => ... , 不然 不是一个actionCreator, 而是一个thunk
+    getAllProjects: () => (dispatch, getState) => {
 
-        //如果正在摘苹果，则结束这个thunk, 不执行摘苹果
-        if(getState().isPicking)
-            return;
-
-        //通知开始摘苹果
-        dispatch(actions.beginPickApple());
-
-        // mySocket.init('222.46.16.173','8001','10000000','eatappletesttoken');
         mySocket.emit(
-            'pickapple',
+            'getAllProjects',
             {},
             (data)=>{
-                // console.log(data);
+                console.log(data);
                 if(data.errorCode=='0'){
-                    let genAckContent = data.generalAckContent;
-                    console.log(genAckContent);
-                    dispatch(actions.donePickApple(10));
+                    dispatch(actions.doneGetAllProjects(data));
                 }else{
                     console.log('data error');
                 }
@@ -47,24 +37,15 @@ let actions = {
         // });
     },
 
-    beginPickApple: () => ({
-        type: 'apple/BEGIN_PICK_APPLE'
-    }),
-
-    donePickApple: appleWeight => ({
-        type: 'apple/DONE_PICK_APPLE',
-        payload: appleWeight
+    doneGetAllProjects: data => ({
+        type: 'lists/DONE_GETALLPROJECTS',
+        payload: data
     }),
 
     failPickApple: error => ({
         type: 'apple/FAIL_PICK_APPLE',
         payload: error,
         error: true
-    }),
-
-    eatApple: appleId => ({
-        type: 'apple/EAT_APPLE',
-        payload: appleId
     })
 
 };

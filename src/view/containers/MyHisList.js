@@ -16,6 +16,10 @@ var _MyHisList = require('../styles/MyHisList.css');
 
 var _MyHisList2 = _interopRequireDefault(_MyHisList);
 
+var _ProjectsListItem = require('../components/ProjectsListItem');
+
+var _ProjectsListItem2 = _interopRequireDefault(_ProjectsListItem);
+
 var _myHisListAction_creators = require('../../actions/myHisListAction_creators');
 
 var _myHisListAction_creators2 = _interopRequireDefault(_myHisListAction_creators);
@@ -31,8 +35,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 // import PureRenderMixin from 'react-addons-pure-render-mixin';
 // import { render } from 'react-dom';
-
-// import AppleItem from '../components/AppleItem';
 
 var MyHisList = function (_React$Component) {
     _inherits(MyHisList, _React$Component);
@@ -54,60 +56,26 @@ var MyHisList = function (_React$Component) {
             var _props = this.props,
                 containerState = _props.containerState,
                 actioncreator = _props.actioncreator;
-            //模拟数据
-            // let mockstate = {
-            //     isPicking : false,
-            //     newAppleId: 3,
-            //     apples: [
-            //         {
-            //             id: 1,
-            //             weight: 235,
-            //             isEaten: true
-            //         },
-            //         {
-            //             id: 2,
-            //             weight: 256,
-            //             isEaten: false
-            //         },
-            //         {
-            //             id: 3,
-            //             weight: 266,
-            //             isEaten: false
-            //         }
-            //
-            //     ]
-            // };
 
-            //是否开启模拟数据的开关，注释这行代码关闭模拟数据
-            //containerState = mockstate;
+            if (containerState.projectsList.length == 0) {
+                actioncreator.getAllProjects();
+            }
 
-            //对 state 做显示级别的转化;局部数据,根据state得来
-            // let stats = {
-            //     appleNow: {
-            //         quantity: 0,
-            //         weight: 0
-            //     },
-            //     appleEaten: {
-            //         quantity: 0,
-            //         weight: 0
-            //     }
-            // };
-
-            // console.log('AppleBasket.jsx');
-            // console.log(containerState);
-            // console.log(state.apples);
-
-            // if(containerState.apples.length!=0) {
-            //     containerState.apples.map(apple => {
-            //         let selector = apple.isEaten ? 'appleEaten' : 'appleNow';
-            //         stats[selector].quantity++;
-            //         stats[selector].weight += apple.weight;
-            //     });
-            // }else{
-            //     // console.log('containerState is undefined');
-            // }
-
-            return _react2.default.createElement('div', { className: _MyHisList2.default.myHisList });
+            return _react2.default.createElement(
+                'div',
+                { className: _MyHisList2.default.myHisList },
+                _react2.default.createElement(
+                    'div',
+                    { className: _MyHisList2.default.projectList },
+                    containerState.projectsList.length == 0 ? _react2.default.createElement(
+                        'div',
+                        { className: _MyHisList2.default.emptytip },
+                        '您还没有建立过项目'
+                    ) : containerState.projectsList.map(function (project) {
+                        return _react2.default.createElement(_ProjectsListItem2.default, { key: project.id, componentState: project });
+                    })
+                )
+            );
         }
     }]);
 

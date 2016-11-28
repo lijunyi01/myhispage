@@ -49,6 +49,11 @@ var store = (0, _redux.createStore)(_RootReducer2.default, (0, _redux.applyMiddl
     _router2.default
 ), document.getElementById('app'));
 
-_mySocket2.default.init('222.46.16.173', '8001', '1', '6969da5b-1af1-4ade-8f99-7a174c9d1018');
+var siteip = '222.46.16.173';
+var siteport = '8001';
+var umid = '1';
+var token = '6969da5b-1af1-4ade-8f99-7a174c9d1018';
+//实际通过登录页面传递参数(直接传或通过本地存储传)
+_mySocket2.default.init(siteip, siteport, umid, token);
 
 //# sourceMappingURL=index.js.map

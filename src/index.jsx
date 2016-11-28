@@ -28,4 +28,9 @@ render(
     document.getElementById('app')
 );
 
-mySocket.init('222.46.16.173','8001','1','6969da5b-1af1-4ade-8f99-7a174c9d1018');
+let siteip = '222.46.16.173';
+let siteport = '8001';
+let umid = '1';
+let token = '6969da5b-1af1-4ade-8f99-7a174c9d1018';
+//实际通过登录页面传递参数(直接传或通过本地存储传)
+mySocket.init(siteip,siteport,umid,token);

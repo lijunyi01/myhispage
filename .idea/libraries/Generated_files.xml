@@ -5,9 +5,11 @@
         <item url="file://$PROJECT_DIR$/src/router.js" />
         <item url="file://$PROJECT_DIR$/src/index.js" />
         <item url="file://$PROJECT_DIR$/src/view/containers/AddHisProj.js" />
+        <item url="file://$PROJECT_DIR$/src/view/ProjectsListItem.js" />
         <item url="file://$PROJECT_DIR$/src/view/pages/AddHisProj.js" />
         <item url="file://$PROJECT_DIR$/src/view/components/MyModal.js" />
         <item url="file://$PROJECT_DIR$/src/view/containers/MyHisList.js" />
+        <item url="file://$PROJECT_DIR$/src/view/components/ProjectItem.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
@@ -16,9 +18,11 @@
       <root url="file://$PROJECT_DIR$/src/router.js" />
       <root url="file://$PROJECT_DIR$/src/index.js" />
       <root url="file://$PROJECT_DIR$/src/view/containers/AddHisProj.js" />
+      <root url="file://$PROJECT_DIR$/src/view/components/ProjectsListItem.js" />
       <root url="file://$PROJECT_DIR$/src/view/pages/AddHisProj.js" />
       <root url="file://$PROJECT_DIR$/src/view/components/MyModal.js" />
       <root url="file://$PROJECT_DIR$/src/view/containers/MyHisList.js" />
+      <root url="file://$PROJECT_DIR$/src/view/components/ProjectItem.js" />
     </CLASSES>
     <SOURCES />
   </library>

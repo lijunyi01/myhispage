@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 // import PureRenderMixin from 'react-addons-pure-render-mixin';
 // import { render } from 'react-dom';
 import styles from '../styles/MyHisList.css';
-// import AppleItem from '../components/AppleItem';
+import ProjectsListItem from '../components/ProjectsListItem';
 import actions from '../../actions/myHisListAction_creators';
 import { bindActionCreators } from 'redux';
 
@@ -14,65 +14,21 @@ class MyHisList extends React.Component {
         return nextProps.containerState != this.props.containerState;
     }
 
-    render(){
+    render() {
 
-        let { containerState, actioncreator } = this.props;
-        //模拟数据
-        // let mockstate = {
-        //     isPicking : false,
-        //     newAppleId: 3,
-        //     apples: [
-        //         {
-        //             id: 1,
-        //             weight: 235,
-        //             isEaten: true
-        //         },
-        //         {
-        //             id: 2,
-        //             weight: 256,
-        //             isEaten: false
-        //         },
-        //         {
-        //             id: 3,
-        //             weight: 266,
-        //             isEaten: false
-        //         }
-        //
-        //     ]
-        // };
+        let {containerState, actioncreator} = this.props;
 
-        //是否开启模拟数据的开关，注释这行代码关闭模拟数据
-        //containerState = mockstate;
-
-        //对 state 做显示级别的转化;局部数据,根据state得来
-        // let stats = {
-        //     appleNow: {
-        //         quantity: 0,
-        //         weight: 0
-        //     },
-        //     appleEaten: {
-        //         quantity: 0,
-        //         weight: 0
-        //     }
-        // };
-
-        // console.log('AppleBasket.jsx');
-        // console.log(containerState);
-        // console.log(state.apples);
-
-        // if(containerState.apples.length!=0) {
-        //     containerState.apples.map(apple => {
-        //         let selector = apple.isEaten ? 'appleEaten' : 'appleNow';
-        //         stats[selector].quantity++;
-        //         stats[selector].weight += apple.weight;
-        //     });
-        // }else{
-        //     // console.log('containerState is undefined');
-        // }
-
+        if (containerState.projectsList.length == 0) {
+            actioncreator.getAllProjects();
+        }
 
         return (
             <div className={styles.myHisList}>
+                <div className={styles.projectList}>
+                    { containerState.projectsList.length==0?
+                        <div className={styles.emptytip}>您还没有建立过项目</div>
+                        : containerState.projectsList.map(project => <ProjectsListItem key={project.id} componentState ={project} />) }
+                </div>
 
             </div>
         );
