@@ -22,8 +22,11 @@ class ProjectsListItem extends React.Component {
                 {/*<div className={styles.apple}><img src="../images/apple.png" alt=""/></div>*/}
                 {/*<div className={styles.apple}><img src={appleimage} alt=""/></div>*/}
                 <div className={styles.info}>
-                    <div className={styles.name}> 项目 - {componentState.id}号</div>
-                    <div className={styles.name}>{componentState.name}</div>
+                    {/*<div className={styles.name}> 项目 - {componentState.id}号</div>*/}
+                    <div className={styles.name}>{componentState.projectname}</div>
+                </div>
+                <div className={styles.createdate}>
+                    <div className={styles.name}>{componentState.createtime}</div>
                 </div>
                 {/*<div className={styles.btndiv}>*/}
                     {/*<button onClick={() => actions.eatApple(componentState.id) }>吃掉</button>*/}
