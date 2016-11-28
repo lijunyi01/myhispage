@@ -36,17 +36,18 @@ class AddHisProj extends React.Component {
 
                 <Form horizontal>
                     <FormGroup controlId="formHorizontalProjName">
-                        <Col componentClass={ControlLabel} sm={2}>
-                            项目名称
+                        <Col sm={2}>
+                            <ControlLabel>项目名称</ControlLabel>
                         </Col>
                         <Col sm={6}>
                             <FormControl type="text" placeholder="请填入项目名称" onBlur={ handlePNBlur }  />
+                            <FormControl.Feedback />
                         </Col>
                     </FormGroup>
 
                     <FormGroup controlId="formHorizontalProjDes">
-                        <Col componentClass={ControlLabel} sm={2}>
-                            项目描述
+                        <Col sm={2}>
+                            <ControlLabel>项目描述</ControlLabel>
                         </Col>
                         <Col sm={6}>
                             <FormControl type="text" placeholder="请填入项目描述" onBlur={ handlePDBlur }/>
@@ -76,12 +77,16 @@ class AddHisProj extends React.Component {
                                 </Button>
                                 :
                                 <Button bsStyle="danger" onClick={ ()=>{
-                                    actioncreator.createProj(
-                                        {
-                                            projectName: projectName,
-                                            projectDes: projectDes
-                                        }
-                                    )
+                                    if(projectDes == ""){
+                                        actioncreator.popAlert('项目描述部分不能为空')
+                                    }else {
+                                        actioncreator.createProj(
+                                            {
+                                                projectName: projectName,
+                                                projectDes: projectDes
+                                            }
+                                        )
+                                    }
                                 } } >
                                     提 交
                                 </Button>
@@ -90,7 +95,8 @@ class AddHisProj extends React.Component {
                     </FormGroup>
                 </Form>
 
-                <MyModal componentState={containerState.modalParam} actions={{shutMyModal: actioncreator.shutMyModal}}/>
+                <MyModal componentState={containerState.resultModal} actions={{shutMyModal: actioncreator.shutResultModal}}/>
+                <MyModal componentState={containerState.selfCheckModal} actions={{shutMyModal: actioncreator.shutSelfCheckModal}}/>
 
             </div>
         );
@@ -117,7 +123,7 @@ function handleChange(e) {
 }
 
 function handlePNBlur(e) {
-    projectName = e.target.value
+    projectName = e.target.value;
     // console.log(projectName);
 }
 

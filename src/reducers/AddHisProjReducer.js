@@ -10,7 +10,8 @@ import { fromJS } from 'immutable';
 
 const initState = {
     isSubmitting : false,
-    modalParam: {show: false , content:''},
+    resultModal: {show: false , content:''},
+    selfCheckModal: {show: false , content:''},
 };
 
 export default (state = initState, action) => {
@@ -26,9 +27,13 @@ export default (state = initState, action) => {
         return fromJS(state).setIn(['isSubmitting'], true).toJS();
     } else if(action.type === 'myhis/DONE_SUBMIT') {
         console.log(action.payload);
-        return fromJS(state).setIn(['isSubmitting'], false).setIn(['modalParam','show'],true).setIn(['modalParam','content'],action.payload.errorMessage).toJS();
-    } else if(action.type === 'myhis/SHUT_MYMODAL'){
-        return fromJS(state).setIn(['modalParam','show'],false).toJS();
+        return fromJS(state).setIn(['isSubmitting'], false).setIn(['resultModal','show'],true).setIn(['resultModal','content'],action.payload.errorMessage).toJS();
+    } else if(action.type === 'myhis/SHUT_RESULTMODAL') {
+        return fromJS(state).setIn(['resultModal','show'], false).toJS();
+    } else if(action.type == 'myhis/SHUT_SELFCHECKMODAL') {
+        return fromJS(state).setIn(['selfCheckModal','show'], false).toJS();
+    } else if(action.type == 'myhis/POP_ALERT'){
+        return fromJS(state).setIn(['selfCheckModal','show'],true).setIn(['selfCheckModal','content'],action.payload).toJS();
     } else {
         return state;
     }

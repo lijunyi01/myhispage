@@ -60,9 +60,20 @@ let actions = {
         error: true
     }),
 
-    shutMyModal: () => ({
-        type: 'myhis/SHUT_MYMODAL',
+    shutResultModal: () => ({
+        type: 'myhis/SHUT_RESULTMODAL',
+    }),
+
+    shutSelfCheckModal: () => ({
+        type: 'myhis/SHUT_SELFCHECKMODAL',
+    }),
+
+    popAlert: message => ({
+        type: 'myhis/POP_ALERT',
+        payload: message
     })
+
+
 
     // eatApple: appleId => ({
     //     type: 'apple/EAT_APPLE',
