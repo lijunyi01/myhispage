@@ -12,6 +12,7 @@ import createLogger from 'redux-logger';
 import  { Provider } from 'react-redux';
 import router from './router';
 // import io from 'socket.io-client';
+import mySocket from './services/mySocket';
 
 
 const loggerMiddleware = createLogger();
@@ -26,3 +27,5 @@ render(
     </Provider>,
     document.getElementById('app')
 );
+
+mySocket.init('222.46.16.173','8001','1','6969da5b-1af1-4ade-8f99-7a174c9d1018');

@@ -25,7 +25,7 @@ let actions = {
         dispatch(actions.beginSubmit());
 
         //发送create project请求
-        mySocket.init('222.46.16.173','8001','1','6969da5b-1af1-4ade-8f99-7a174c9d1018');
+        // mySocket.init('222.46.16.173','8001','1','6969da5b-1af1-4ade-8f99-7a174c9d1018');
         mySocket.emit(
             'createProject',
             {projectName:inParam.projectName,projectDes:inParam.projectDes},

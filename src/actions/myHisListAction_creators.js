@@ -22,14 +22,7 @@ let actions = {
         //通知开始摘苹果
         dispatch(actions.beginPickApple());
 
-        //发送摘苹果请求
-        // mySocket.siteip = '222.46.16.173';
-        // mySocket.siteip = '192.168.8.153';
-        // mySocket.siteport = '8001';
-        // mySocket.umid = '10000000';
-        // mySocket.token = 'eatappletesttoken';
-
-        mySocket.init('222.46.16.173','8001','10000000','eatappletesttoken');
+        // mySocket.init('222.46.16.173','8001','10000000','eatappletesttoken');
         mySocket.emit(
             'pickapple',
             {},
