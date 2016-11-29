@@ -9,7 +9,8 @@
 import { fromJS } from 'immutable';
 
 const initState = {
-    projectsList: []
+    projectsList: [],
+    activeId: -1
 };
 
 export default (state = initState, action) => {

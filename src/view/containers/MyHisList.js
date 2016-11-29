@@ -16,15 +16,17 @@ var _MyHisList = require('../styles/MyHisList.css');
 
 var _MyHisList2 = _interopRequireDefault(_MyHisList);
 
-var _ProjectsListItem = require('../components/ProjectsListItem');
+var _ProjectsList = require('../components/ProjectsList');
 
-var _ProjectsListItem2 = _interopRequireDefault(_ProjectsListItem);
+var _ProjectsList2 = _interopRequireDefault(_ProjectsList);
 
 var _myHisListAction_creators = require('../../actions/myHisListAction_creators');
 
 var _myHisListAction_creators2 = _interopRequireDefault(_myHisListAction_creators);
 
 var _redux = require('redux');
+
+var _reactBootstrap = require('react-bootstrap');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -62,18 +64,40 @@ var MyHisList = function (_React$Component) {
             }
 
             return _react2.default.createElement(
-                'div',
-                { className: _MyHisList2.default.myHisList },
+                _reactBootstrap.Row,
+                null,
                 _react2.default.createElement(
-                    'div',
-                    { className: _MyHisList2.default.projectList },
-                    containerState.projectsList.length == 0 ? _react2.default.createElement(
+                    _reactBootstrap.Col,
+                    { md: 4 },
+                    _react2.default.createElement(
+                        _reactBootstrap.Row,
+                        null,
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            'This is a list'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _reactBootstrap.ListGroup,
+                        null,
+                        containerState.projectsList.length == 0 ? _react2.default.createElement('div', { className: _MyHisList2.default.emptytip }) : containerState.projectsList.map(function (project) {
+                            return _react2.default.createElement(_ProjectsList2.default, { key: project.id, componentState: project, activeId: containerState.activeId });
+                        })
+                    )
+                ),
+                _react2.default.createElement(
+                    _reactBootstrap.Col,
+                    { md: 4, smHidden: true, xsHidden: true },
+                    _react2.default.createElement(
                         'div',
-                        { className: _MyHisList2.default.emptytip },
-                        '您还没有建立过项目'
-                    ) : containerState.projectsList.map(function (project) {
-                        return _react2.default.createElement(_ProjectsListItem2.default, { key: project.id, componentState: project });
-                    })
+                        { className: _MyHisList2.default.oneItem },
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            'asdfasdfsadfsadf'
+                        )
+                    )
                 )
             );
         }

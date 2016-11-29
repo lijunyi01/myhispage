@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 // import PureRenderMixin from 'react-addons-pure-render-mixin';
 // import { render } from 'react-dom';
 import styles from '../styles/MyHisList.css';
-import ProjectsListItem from '../components/ProjectsListItem';
+import ProjectsList from '../components/ProjectsList';
 import actions from '../../actions/myHisListAction_creators';
 import { bindActionCreators } from 'redux';
+import { Row,Col,ListGroup } from 'react-bootstrap';
 
 
 class MyHisList extends React.Component {
@@ -23,14 +24,40 @@ class MyHisList extends React.Component {
         }
 
         return (
-            <div className={styles.myHisList}>
-                <div className={styles.projectList}>
-                    { containerState.projectsList.length==0?
-                        <div className={styles.emptytip}>您还没有建立过项目</div>
-                        : containerState.projectsList.map(project => <ProjectsListItem key={project.id} componentState ={project} />) }
-                </div>
-
-            </div>
+            // <div className={styles.myHisListMain}>
+            //     <div className={styles.myHisList}>
+            //         <div className={styles.projectList}>
+            //             { containerState.projectsList.length==0?
+            //                 <div className={styles.emptytip}></div>
+            //                 : containerState.projectsList.map(project => <ProjectsList key={project.id} componentState ={project} />) }
+            //         </div>
+            //     </div>
+            //     <div className={styles.oneItem}>
+            //         <p>asdfadfeeeeeeeeeeeeeeeeeeeeee</p>
+            //     </div>
+            // </div>
+            <Row>
+                <Col md={4}>
+                    <Row>
+                        <p>This is a list</p>
+                    </Row>
+                    <ListGroup>
+                    {/*<div className={styles.myHisList}>*/}
+                        {/*<div className={styles.projectList}>*/}
+                            { containerState.projectsList.length==0?
+                                <div className={styles.emptytip}></div>
+                                : containerState.projectsList.map(project => <ProjectsList key={project.id} componentState ={project} activeId={containerState.activeId} />)
+                            }
+                        {/*</div>*/}
+                    {/*</div>*/}
+                    </ListGroup>
+                </Col>
+                <Col md={4} smHidden xsHidden>
+                    <div className={styles.oneItem}>
+                        <p>asdfasdfsadfsadf</p>
+                    </div>
+                </Col>
+            </Row>
         );
     }
 
