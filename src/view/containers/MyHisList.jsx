@@ -46,7 +46,7 @@ class MyHisList extends React.Component {
                         {/*<div className={styles.projectList}>*/}
                             { containerState.projectsList.length==0?
                                 <div className={styles.emptytip}></div>
-                                : containerState.projectsList.map(project => <ProjectsList key={project.id} componentState ={project} activeId={containerState.activeId} actions={{clickItem: actioncreator.clickItem}} />)
+                                : containerState.projectsList.map(project => <ProjectsList key={project.id} componentState ={project} activeId={containerState.activeId} actions={{getProjectContent: actioncreator.getProjectContent}} />)
                             }
                         {/*</div>*/}
                     {/*</div>*/}

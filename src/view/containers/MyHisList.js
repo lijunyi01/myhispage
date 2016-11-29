@@ -82,7 +82,7 @@ var MyHisList = function (_React$Component) {
                         _reactBootstrap.ListGroup,
                         null,
                         containerState.projectsList.length == 0 ? _react2.default.createElement('div', { className: _MyHisList2.default.emptytip }) : containerState.projectsList.map(function (project) {
-                            return _react2.default.createElement(_ProjectsList2.default, { key: project.id, componentState: project, activeId: containerState.activeId, actions: { clickItem: actioncreator.clickItem } });
+                            return _react2.default.createElement(_ProjectsList2.default, { key: project.id, componentState: project, activeId: containerState.activeId, actions: { getProjectContent: actioncreator.getProjectContent } });
                         })
                     )
                 ),

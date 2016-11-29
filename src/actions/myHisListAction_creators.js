@@ -27,14 +27,31 @@ let actions = {
                 }
             }
         );
-        // ajax({
-        //     url: '/appleBasket/pickApple',
-        //     method: 'GET'
-        // }).done(data => {
-        //     dispatch(actions.donePickApple(data.weight));
-        // }).fail(error => {
-        //     dispatch(actions.failPickApple(error));
-        // });
+    },
+
+    getProjectContent: projectId => (dispatch, getState) => {
+
+        let projectContent = getState().myHisListState.projectContents[projectId];
+        // console.log(projectContent);
+        if(projectContent == undefined) {
+            // console.log('fetch remote data!');
+            mySocket.emit(
+                'getProjectItems',
+                {'projectId':projectId},
+                (data)=> {
+                    console.log(data);
+                    if (data.errorCode == '0') {
+                        dispatch(actions.clickItem(projectId));
+                        let content = JSON.parse(data.generalAckContent);
+                        dispatch(actions.pushProjectContent(projectId,content));
+                    } else {
+                        console.log('data error');
+                    }
+                }
+            );
+        }else{
+            dispatch(actions.clickItem(projectId));
+        }
     },
 
     doneGetAllProjects: data => ({
@@ -51,6 +68,11 @@ let actions = {
     clickItem: id => ({
         type: 'lists/CLICK_ITEM',
         payload:id
+    }),
+
+    pushProjectContent: (id,content) => ({
+        type: 'lists/PUSH_PCONTENT',
+        payload:{'id':id,'content':content}
     })
 
 };

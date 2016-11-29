@@ -10,7 +10,8 @@ import { fromJS } from 'immutable';
 
 const initState = {
     projectsList: [],
-    activeId: -1
+    activeId: -1,
+    projectContents: {}
 };
 
 export default (state = initState, action) => {
@@ -24,8 +25,15 @@ export default (state = initState, action) => {
     } else if(action.type === 'lists/DONE_GETALLPROJECTS') {
         let projectsList_s = action.payload.generalAckContent;
         return fromJS(state).set('projectsList', JSON.parse(projectsList_s)).toJS();
-    } else if(action.type === 'lists/CLICK_ITEM'){
-        return fromJS(state).set('activeId',action.payload).toJS();
+    } else if(action.type === 'lists/CLICK_ITEM') {
+        return fromJS(state).set('activeId', action.payload).toJS();
+    } else if(action.type === 'lists/PUSH_PCONTENT') {
+        let idInPayload = action.payload.id;
+        let contentInPayload = action.payload.content;
+        let newProjectContents = fromJS(state).get('projectContents').set(idInPayload,contentInPayload).toJS();
+        // console.log(newProjectContents);
+        return fromJS(state).set('projectContents',newProjectContents).toJS();
+        // return fromJS(state).get('projectContents').set(idInPayload,contentInPayload).toJS();
     } else {
         return state;
     }
