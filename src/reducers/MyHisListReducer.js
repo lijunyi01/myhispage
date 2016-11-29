@@ -21,9 +21,11 @@ export default (state = initState, action) => {
     if (action.type === 'lists/SET_STATE') {
         newState = Object.assign({}, state, action.payload);
         return newState;
-    } else if(action.type === 'lists/DONE_GETALLPROJECTS'){
+    } else if(action.type === 'lists/DONE_GETALLPROJECTS') {
         let projectsList_s = action.payload.generalAckContent;
-        return fromJS(state).set('projectsList',JSON.parse(projectsList_s)).toJS();
+        return fromJS(state).set('projectsList', JSON.parse(projectsList_s)).toJS();
+    } else if(action.type === 'lists/CLICK_ITEM'){
+        return fromJS(state).set('activeId',action.payload).toJS();
     } else {
         return state;
     }

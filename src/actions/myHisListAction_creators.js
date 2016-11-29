@@ -46,6 +46,11 @@ let actions = {
         type: 'apple/FAIL_PICK_APPLE',
         payload: error,
         error: true
+    }),
+
+    clickItem: id => ({
+        type: 'lists/CLICK_ITEM',
+        payload:id
     })
 
 };

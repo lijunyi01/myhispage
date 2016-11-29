@@ -38,7 +38,7 @@ class ProjectsList extends React.Component {
 
                 </ListGroupItem>
                 :
-                <ListGroupItem href="#1" header={componentState.projectname}>
+                <ListGroupItem href="#1" header={componentState.projectname} onClick={()=>actions.clickItem(componentState.id)} >
 
                     {componentState.projectdes}
 
