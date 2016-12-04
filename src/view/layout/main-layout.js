@@ -4,7 +4,7 @@
 import React from 'react';
 import { Link,IndexLink } from 'react-router';
 import styles from '../styles/Main-Layout.css';
-import appleimage from '../images/apple.png';
+// import appleimage from '../images/apple.png';
 
 // Using "Stateless Functional Components"
 export default function(props) {
@@ -24,7 +24,11 @@ export default function(props) {
             <aside className={styles.aside}>
                 <div className={styles.item1}></div>
                 <br/><br/>
-                <div className={styles.item_add}></div>
+
+                <Link className={styles.link_add} to="/addHisProj">
+                    <div className={styles.item_add}></div>
+                </Link>
+
                 <div className={styles.item1}></div>
                 <div className={styles.item1}></div>
             </aside>

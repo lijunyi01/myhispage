@@ -15,19 +15,21 @@
       height: 40px;
       background-color: #c9302c;
     }
-    >.item_add{
-      margin-left: 15px;
-      margin-bottom: 15px;
-      width: 40px;
-      height: 40px;
-      background:url("../images/menu_add_1.png") no-repeat;
-    }
-    >.item_add:hover{
-      margin-left: 15px;
-      margin-bottom: 15px;
-      width: 40px;
-      height: 40px;
-      background:url("../images/menu_add_2.png") no-repeat;
+    >.link_add {
+      > .item_add {
+        margin-left: 15px;
+        margin-bottom: 15px;
+        width: 40px;
+        height: 40px;
+        background: url("../images/menu_add_1.png") no-repeat;
+      }
+      > .item_add:hover {
+        margin-left: 15px;
+        margin-bottom: 15px;
+        width: 40px;
+        height: 40px;
+        background: url("../images/menu_add_2.png") no-repeat;
+      }
     }
   }
   >.main{
