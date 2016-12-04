@@ -31,7 +31,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // Layout
 exports.default = _react2.default.createElement(
     _reactRouter.Router,
-    { history: _reactRouter.browserHistory },
+    { history: _reactRouter.hashHistory },
     _react2.default.createElement(
         _reactRouter.Route,
         { component: _mainLayout2.default },

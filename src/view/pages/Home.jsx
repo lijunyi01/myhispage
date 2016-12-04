@@ -3,7 +3,7 @@ import React from 'react';
 // import { render } from 'react-dom';
 // import styles from '../styles/AppleItem.css';
 // import appleimage from '../images/apple.png';
-import styles from '../styles/LayoutAndHome.css';
+// import styles from '../styles/LayoutAndHome-bak.css';
 
 class Home extends React.Component {
 
@@ -13,7 +13,7 @@ class Home extends React.Component {
 
     render() {
         return (
-            <div className={styles.homepage}>
+            <div>
                 <h1>The app is now using Redux</h1>
                 <p>
                     While the <a href="#">CSS-Tricks article</a> for

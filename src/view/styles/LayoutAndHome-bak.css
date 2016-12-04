@@ -1,13 +1,13 @@
-html {
-    box-sizing: border-box;
-    color: #222;
-    font: 12pt Arial;
-}
+/*html {*/
+    /*box-sizing: border-box;*/
+    /*color: #222;*/
+    /*font: 12pt Arial;*/
+/*}*/
 
-*, *::before, *::after {
-    box-sizing: inherit;
-    color: inherit;
-}
+/**, *::before, *::after {*/
+    /*box-sizing: inherit;*/
+    /*color: inherit;*/
+/*}*/
 
 
 
@@ -15,9 +15,9 @@ html {
   Elements
 *****************************************/
 
-body {
-    margin: 3rem;
-}
+/*body {*/
+    /*margin: 3rem;*/
+/*}*/
 
 a {
     color: #2297D1;
