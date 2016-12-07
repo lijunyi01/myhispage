@@ -6,19 +6,32 @@
   >.aside{
     width:70px;
     height: 100%;
-    background-color: #c7ddef;
+    background-color: whitesmoke;
     padding-top: 20px;
     >.item1{
       margin-left: 15px;
-      margin-bottom: 15px;
+      margin-bottom: 50px;
       width: 40px;
       height: 40px;
       background-color: #c9302c;
     }
-    >.link_add {
+    >.item2{
+      margin-bottom: 25px;
+      width: 70px;
+      height: 40px;
+      >.active{
+        border-left: 2px solid saddlebrown;
+      }
+    }
+    //对应与Link,react-router中的Link其实是a标签
+    a{
+      display: block;
+      width: 70px;
+      height: 40px;
+      //padding-top: 15px;
+      //background-color: #1b6d85;
       > .item_add {
         margin-left: 15px;
-        margin-bottom: 15px;
         width: 40px;
         height: 40px;
         background: url("../images/menu_add_1.png") no-repeat;
@@ -30,11 +43,25 @@
         height: 40px;
         background: url("../images/menu_add_2.png") no-repeat;
       }
+
+      > .item_bj {
+        margin-left: 15px;
+        width: 40px;
+        height: 40px;
+        background: url("../images/menu_bj_1.png") no-repeat;
+      }
+      > .item_bj:hover {
+        margin-left: 15px;
+        margin-bottom: 15px;
+        width: 40px;
+        height: 40px;
+        background: url("../images/menu_bj_2.png") no-repeat;
+      }
     }
   }
   >.main{
     width: calc(100% - 70px);
     heigth: 100%;
-    background-color: #2b542c;
+    //background-color: #2b542c;
   }
 }

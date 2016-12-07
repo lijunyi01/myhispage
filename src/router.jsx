@@ -13,9 +13,9 @@ export default (
     <Router history={hashHistory}>
         {/*省略path属性,表示不管路径是否匹配，总是会加载指定组件;嵌套表示先加载外层的组件,再加载内层的组件*/}
         <Route component={MainLayout}>
-            <Route path="/" component={Home} />
+            {/*<Route path="/" component={Home} />*/}
 
-            <Route path="/myHisList">
+            <Route path="/">
                 <IndexRoute component={MyHisList} />
                 {/*<Route component={AppleBasket}>*/}
                     {/*<IndexRoute component={AppleBasket} />*/}

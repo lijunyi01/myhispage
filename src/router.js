@@ -35,10 +35,9 @@ exports.default = _react2.default.createElement(
     _react2.default.createElement(
         _reactRouter.Route,
         { component: _mainLayout2.default },
-        _react2.default.createElement(_reactRouter.Route, { path: '/', component: _Home2.default }),
         _react2.default.createElement(
             _reactRouter.Route,
-            { path: '/myHisList' },
+            { path: '/' },
             _react2.default.createElement(_reactRouter.IndexRoute, { component: _MyHisList2.default })
         ),
         _react2.default.createElement(
