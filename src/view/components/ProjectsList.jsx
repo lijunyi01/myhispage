@@ -15,41 +15,21 @@ class ProjectsList extends React.Component {
 
         let { componentState, actions ,activeId } = this.props;
 
-        // if (componentState.isEaten) return null;
-
-
         return (
-            // <div className={styles.projectsListItem}>
-            //     {/*<div className={styles.apple}><img src="../images/apple.png" alt=""/></div>*/}
-            //     {/*<div className={styles.apple}><img src={appleimage} alt=""/></div>*/}
-            //     <div className={styles.info}>
-            //         {/*<div className={styles.name}> 项目 - {componentState.id}号</div>*/}
-            //         <div className={styles.name}>{componentState.projectname}</div>
-            //     </div>
-            //     <div className={styles.createdate}>
-            //         <div className={styles.name}>{componentState.createtime}</div>
-            //     </div>
-            //
-            // </div>
-            <div>
-            { activeId == componentState.id ?
-                <ListGroupItem href="#1" header={componentState.projectname} active>
-                    {componentState.projectdes}
-
-                </ListGroupItem>
-                :
-                <ListGroupItem href="#1" header={componentState.projectname} onClick={()=>actions.getProjectContent(componentState.id)} >
-
-                    {componentState.projectdes}
-
-                </ListGroupItem>
-            }
+            <div className={styles.projectsListItem}>
+                <div className={styles.projectsListItem2} onClick={() => actions.getProjectContent(componentState.id)} >
+                    <div className={styles.info}>
+                        <div className={styles.name}>{componentState.projectname}</div>
+                        <div className={styles.des}>{componentState.projectdes}</div>
+                    </div>
+                    <div className={styles.createdate}>
+                        {componentState.createtime}
+                    </div>
+                </div>
             </div>
         );
 
     }
-
-
 }
 
 export default ProjectsList;

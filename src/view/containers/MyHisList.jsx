@@ -24,40 +24,19 @@ class MyHisList extends React.Component {
         }
 
         return (
-            // <div className={styles.myHisListMain}>
-            //     <div className={styles.myHisList}>
-            //         <div className={styles.projectList}>
-            //             { containerState.projectsList.length==0?
-            //                 <div className={styles.emptytip}></div>
-            //                 : containerState.projectsList.map(project => <ProjectsList key={project.id} componentState ={project} />) }
-            //         </div>
-            //     </div>
-            //     <div className={styles.oneItem}>
-            //         <p>asdfadfeeeeeeeeeeeeeeeeeeeeee</p>
-            //     </div>
-            // </div>
-            <Row>
-                <Col md={4}>
-                    <Row>
-                        <p>This is a list</p>
-                    </Row>
-                    <ListGroup>
-                    {/*<div className={styles.myHisList}>*/}
-                        {/*<div className={styles.projectList}>*/}
-                            { containerState.projectsList.length==0?
-                                <div className={styles.emptytip}></div>
-                                : containerState.projectsList.map(project => <ProjectsList key={project.id} componentState ={project} activeId={containerState.activeId} actions={{getProjectContent: actioncreator.getProjectContent}} />)
-                            }
-                        {/*</div>*/}
-                    {/*</div>*/}
-                    </ListGroup>
-                </Col>
-                <Col md={4} smHidden xsHidden>
-                    <div className={styles.oneItem}>
-                        <p>asdfasdfsadfsadf</p>
+            <div className={styles.myHisListMain}>
+                <div className={styles.list}>
+                    <div className={styles.top}>
+                       <p>我的笔记</p>
                     </div>
-                </Col>
-            </Row>
+                    <div className={styles.bottom}>
+                        {containerState.projectsList.map(project => <ProjectsList key={project.id} componentState ={project} activeId={containerState.activeId} actions={{getProjectContent: actioncreator.getProjectContent}} />)}
+                    </div>
+                </div>
+                <div className={styles.main}>
+
+                </div>
+            </div>
         );
     }
 

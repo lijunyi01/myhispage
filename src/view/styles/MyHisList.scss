@@ -1,66 +1,26 @@
-.myHisList {
-    width: 200px;
-    margin: 20px;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-    > .title {
-      padding: 6px 0px;
-      text-align: center;
-      color: #069;
-      font-size: 21px;
-      //font-weight: 600;
-    }
-    > .stats {
+.myHisListMain {
+    width: 100%;
+    height: 100%;
+    display: flex;
+  >.list{
+    width: 350px;
+    height: 100%;
+    //background-color: #c1e2b3;
+    >.top{
       width: 100%;
-      $border: 1px dashed #ddd;
-      border-top: $border;
-      border-bottom: $border;
-      padding: 10px 0px;
-      .section {
-        display: inline-block;
-        width: 45%;
-        padding-left: 8px;
-        .head {
-          padding: 6px 0px;
-          font-size: 16px;
-          color: #069;
-        }
-        .content {
-          font-size: 20px;
-          font-weight: 200;
-        }
-        &:first-of-type {
-          border-right: 1px solid #f0f0f0;
-        }
-      }
+      height: 100px;
+      border-bottom: 1px solid silver;
     }
-    > .appleList {
-      padding: 10px 0px;
-      .emptytip {
-        text-align: center;
-        font-size: 16px;
-        color: #ccc;
-        padding: 20px 0px;
-      }
-      //.lis{
-      //  list-style-type: none;
-      //}
+    >.bottom{
+      width: 100%;
+      height: calc(100% - 100px);
+      overflow: scroll;
     }
-    > .btndiv {
-      text-align: center;
-      button {
-        color: #fff;
-        background-color: #096;
-        border: none;
-        font-size: 14px;
-        padding: 6px 40px;
-        border-radius: 6px;
-        margin: 20px auto;
-      }
-    }
-}
-
-
-.oneItem{
-  color: #c9302c;
+  }
+  >.main{
+    width: calc(100% - 350px);
+    height: 100%;
+    border-left: 1px solid silver;
+    //background-color: #c1e2b3;
+  }
 }

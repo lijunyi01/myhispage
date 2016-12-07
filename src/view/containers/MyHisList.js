@@ -64,41 +64,29 @@ var MyHisList = function (_React$Component) {
             }
 
             return _react2.default.createElement(
-                _reactBootstrap.Row,
-                null,
+                'div',
+                { className: _MyHisList2.default.myHisListMain },
                 _react2.default.createElement(
-                    _reactBootstrap.Col,
-                    { md: 4 },
+                    'div',
+                    { className: _MyHisList2.default.list },
                     _react2.default.createElement(
-                        _reactBootstrap.Row,
-                        null,
+                        'div',
+                        { className: _MyHisList2.default.top },
                         _react2.default.createElement(
                             'p',
                             null,
-                            'This is a list'
+                            '我的笔记'
                         )
                     ),
                     _react2.default.createElement(
-                        _reactBootstrap.ListGroup,
-                        null,
-                        containerState.projectsList.length == 0 ? _react2.default.createElement('div', { className: _MyHisList2.default.emptytip }) : containerState.projectsList.map(function (project) {
+                        'div',
+                        { className: _MyHisList2.default.bottom },
+                        containerState.projectsList.map(function (project) {
                             return _react2.default.createElement(_ProjectsList2.default, { key: project.id, componentState: project, activeId: containerState.activeId, actions: { getProjectContent: actioncreator.getProjectContent } });
                         })
                     )
                 ),
-                _react2.default.createElement(
-                    _reactBootstrap.Col,
-                    { md: 4, smHidden: true, xsHidden: true },
-                    _react2.default.createElement(
-                        'div',
-                        { className: _MyHisList2.default.oneItem },
-                        _react2.default.createElement(
-                            'p',
-                            null,
-                            'asdfasdfsadfsadf'
-                        )
-                    )
-                )
+                _react2.default.createElement('div', { className: _MyHisList2.default.main })
             );
         }
     }]);
