@@ -5,7 +5,7 @@ import styles from '../styles/ProjectsList.css';
 // import appleimage from '../images/apple.png';
 import { OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 
-class ProjectsList extends React.Component {
+class ProjectsListItem extends React.Component {
 
     shouldComponentUpdate(nextProps){
         return (nextProps.componentState != this.props.componentState || nextProps.activeId != this.props.activeId);
@@ -42,4 +42,4 @@ class ProjectsList extends React.Component {
     }
 }
 
-export default ProjectsList;
+export default ProjectsListItem;

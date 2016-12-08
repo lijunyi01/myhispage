@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 // import PureRenderMixin from 'react-addons-pure-render-mixin';
 // import { render } from 'react-dom';
 import styles from '../styles/MyHisList.css';
-import ProjectsList from '../components/ProjectsList';
+import ProjectsListItem from '../components/ProjectsListItem';
 import actions from '../../actions/myHisListAction_creators';
 import { bindActionCreators } from 'redux';
 import { Row,Col,ListGroup } from 'react-bootstrap';
@@ -30,7 +30,7 @@ class MyHisList extends React.Component {
                        <p>我的笔记</p>
                     </div>
                     <div className={styles.bottom}>
-                        {containerState.projectsList.map(project => <ProjectsList key={project.id} componentState ={project} activeId={containerState.activeId} actions={{getProjectContent: actioncreator.getProjectContent}} />)}
+                        {containerState.projectsList.map(project => <ProjectsListItem key={project.id} componentState ={project} activeId={containerState.activeId} actions={{getProjectContent: actioncreator.getProjectContent}} />)}
                     </div>
                 </div>
                 <div className={styles.main}>

@@ -16,9 +16,9 @@ var _MyHisList = require('../styles/MyHisList.css');
 
 var _MyHisList2 = _interopRequireDefault(_MyHisList);
 
-var _ProjectsList = require('../components/ProjectsList');
+var _ProjectsListItem = require('../components/ProjectsListItem');
 
-var _ProjectsList2 = _interopRequireDefault(_ProjectsList);
+var _ProjectsListItem2 = _interopRequireDefault(_ProjectsListItem);
 
 var _myHisListAction_creators = require('../../actions/myHisListAction_creators');
 
@@ -82,7 +82,7 @@ var MyHisList = function (_React$Component) {
                         'div',
                         { className: _MyHisList2.default.bottom },
                         containerState.projectsList.map(function (project) {
-                            return _react2.default.createElement(_ProjectsList2.default, { key: project.id, componentState: project, activeId: containerState.activeId, actions: { getProjectContent: actioncreator.getProjectContent } });
+                            return _react2.default.createElement(_ProjectsListItem2.default, { key: project.id, componentState: project, activeId: containerState.activeId, actions: { getProjectContent: actioncreator.getProjectContent } });
                         })
                     )
                 ),

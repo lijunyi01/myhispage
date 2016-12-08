@@ -21,7 +21,7 @@
       <root url="file://$PROJECT_DIR$/src/view/components/ProjectsListItem.js" />
       <root url="file://$PROJECT_DIR$/src/view/pages/Home.js" />
       <root url="file://$PROJECT_DIR$/src/view/pages/AddHisProj.js" />
-      <root url="file://$PROJECT_DIR$/src/view/components/ProjectsList.js" />
+      <root url="file://$PROJECT_DIR$/src/view/components/ProjectsListItem.js" />
       <root url="file://$PROJECT_DIR$/src/view/components/MyModal.js" />
       <root url="file://$PROJECT_DIR$/src/view/containers/MyHisList.js" />
       <root url="file://$PROJECT_DIR$/src/view/components/ProjectItem.js" />
