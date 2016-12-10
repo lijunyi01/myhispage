@@ -44,6 +44,7 @@ var loggerMiddleware = (0, _reduxLogger2.default)();
 var store = (0, _redux.createStore)(_RootReducer2.default, (0, _redux.applyMiddleware)(_reduxThunk2.default, loggerMiddleware));
 
 var siteip = '222.46.16.173';
+// let siteip = 'www.myfax.cn';
 var siteport = '8001';
 var umid = '1';
 var token = '6969da5b-1af1-4ade-8f99-7a174c9d1018';
