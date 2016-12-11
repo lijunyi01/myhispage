@@ -1,7 +1,7 @@
 import React from 'react';
 // import PureRenderMixin from 'react-addons-pure-render-mixin';
 // import { render } from 'react-dom';
-import styles from '../styles/ProjectsList.css';
+import styles from '../styles/ProjectsListItem.css';
 // import appleimage from '../images/apple.png';
 import { OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 
