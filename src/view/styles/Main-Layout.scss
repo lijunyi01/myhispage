@@ -23,6 +23,18 @@
         border-left: 2px solid saddlebrown;
       }
     }
+
+    > .itembottom{
+      width: 40px;
+      height: 40px;
+      margin-left: 15px;
+      margin-top: 10px;
+      position: fixed;
+      bottom: 10px;
+      //border-top: 1px solid red;
+      background: url("../images/menu_set.png") no-repeat;
+      border-radius: 50%;
+    }
     //对应与Link,react-router中的Link其实是a标签
     a{
       display: block;

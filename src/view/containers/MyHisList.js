@@ -86,7 +86,20 @@ var MyHisList = function (_React$Component) {
                         })
                     )
                 ),
-                _react2.default.createElement('div', { className: _MyHisList2.default.main })
+                _react2.default.createElement(
+                    'div',
+                    { className: _MyHisList2.default.main },
+                    _react2.default.createElement(
+                        'div',
+                        { className: _MyHisList2.default.top },
+                        _react2.default.createElement('div', { className: _MyHisList2.default.top2 })
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: _MyHisList2.default.bottom },
+                        _react2.default.createElement('div', { className: _MyHisList2.default.bottom2 })
+                    )
+                )
             );
         }
     }]);

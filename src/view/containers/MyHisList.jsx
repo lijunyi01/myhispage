@@ -34,6 +34,15 @@ class MyHisList extends React.Component {
                     </div>
                 </div>
                 <div className={styles.main}>
+                    <div className={styles.top}>
+                        <div className={styles.top2}>
+                        </div>
+                    </div>
+
+                    <div className={styles.bottom}>
+                        <div className={styles.bottom2}>
+                        </div>
+                    </div>
 
                 </div>
             </div>

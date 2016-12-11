@@ -4,6 +4,7 @@
 import React from 'react';
 import { Link,IndexLink } from 'react-router';
 import styles from '../styles/Main-Layout.css';
+import MyModal from '../components/MyModal';
 // import appleimage from '../images/apple.png';
 
 // Using "Stateless Functional Components"
@@ -30,6 +31,11 @@ export default function(props) {
                     <Link activeClassName={styles.active} to="/dd">
                         <div className={styles.item_bj}></div>
                     </Link>
+                </div>
+
+
+                <div className={styles.itembottom}>
+
                 </div>
 
             </aside>
