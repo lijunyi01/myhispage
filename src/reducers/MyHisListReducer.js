@@ -6,12 +6,20 @@
  * 以下setIn 就是库isPicking暴露出的函数,看似直接操作state,实际实现了浅复制,返回了一个新的js对象
  */
 
-import { fromJS } from 'immutable';
+import { fromJS,Map,List } from 'immutable';
 
 const initState = {
     projectsList: [],
     activeId: -1,
-    projectContents: {}
+    projectContents: {},
+    addProjectModal: {
+        show: false,
+        isSubmitting: false,
+        resultModal:{
+            show: false,
+            content: ''
+        }
+    },
 };
 
 export default (state = initState, action) => {
@@ -30,10 +38,24 @@ export default (state = initState, action) => {
     } else if(action.type === 'lists/PUSH_PCONTENT') {
         let idInPayload = action.payload.id;
         let contentInPayload = action.payload.content;
-        let newProjectContents = fromJS(state).get('projectContents').set(idInPayload,contentInPayload).toJS();
+        let newProjectContents = fromJS(state).get('projectContents').set(idInPayload, contentInPayload).toJS();
         // console.log(newProjectContents);
-        return fromJS(state).set('projectContents',newProjectContents).toJS();
+        return fromJS(state).set('projectContents', newProjectContents).toJS();
         // return fromJS(state).get('projectContents').set(idInPayload,contentInPayload).toJS();
+    } else if(action.type === 'lists/SHUT_ADDPROJECTMODAL') {
+        return fromJS(state).setIn(['addProjectModal', 'show'], false).toJS();
+    } else if(action.type === 'lists/SHUT_RESULTMODAL') {
+        return fromJS(state).setIn(['addProjectModal','resultModal','show'], false).toJS();
+    } else if(action.type === 'lists/CLICK_ADDPROJECTBUTTON') {
+        return fromJS(state).setIn(['addProjectModal', 'show'], true).toJS();
+    } else if(action.type === 'lists/BEGIN_CREATEPROJ') {
+        return fromJS(state).setIn(['addProjectModal', 'isSubmitting'], true).toJS();
+    } else if(action.type === 'lists/DONE_CREATEPROJ') {
+        return fromJS(state)
+            .set('projectsList',List())
+            .setIn(['addProjectModal', 'isSubmitting'], false)
+            .setIn(['addProjectModal', 'resultModal', 'show'], true)
+            .setIn(['addProjectModal', 'resultModal', 'content'], action.payload.errorMessage).toJS();
     } else {
         return state;
     }

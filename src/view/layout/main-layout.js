@@ -16,7 +16,7 @@ export default function(props) {
             <aside className={styles.aside}>
                 <div className={styles.item1}></div>
                 <div className={styles.item2}>
-                    <Link activeClassName={styles.active} to="/addHisProj">
+                    <Link activeClassName={styles.active} to="/aa">
                         <div className={styles.item_add}></div>
                     </Link>
                 </div>
@@ -35,7 +35,8 @@ export default function(props) {
 
 
                 <div className={styles.itembottom}>
-
+                    <Link activeClassName={styles.active} to="/userSet">
+                    </Link>
                 </div>
 
             </aside>

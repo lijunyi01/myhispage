@@ -54,15 +54,54 @@ let actions = {
         }
     },
 
+    createProj: inParam => (dispatch, getState) => {
+
+        // console.log(getState());
+
+        //如果正在提交，则结束这个thunk, 不执行
+        if(getState().myHisListState.addProjectModal.isSubmitting)
+            return;
+
+        // console.log("create project");
+
+        //通知开始提交
+        dispatch(actions.beginCreateProj());
+
+        //发送create project请求
+        // mySocket.init('222.46.16.173','8001','1','6969da5b-1af1-4ade-8f99-7a174c9d1018');
+        mySocket.emit(
+            'createProject',
+            // {projectName:inParam.projectName,projectDes:inParam.projectDes},
+            inParam,
+            // {projectName:'n1',projectDes:'d1'},
+            (data)=>{
+                console.log(data);
+                if(data.errorCode=='0'){
+                    // let genAckContent = data.generalAckContent;
+                    // let contentJson = JSON.parse(genAckContent);
+                    dispatch(actions.doneCreateProj(data));
+                    dispatch(actions.getAllProjects());
+                }else{
+                    dispatch(actions.doneCreateProj(data));
+                    console.log('data error');
+                }
+            }
+        );
+
+    },
+
+    beginCreateProj: () => ({
+        type: 'lists/BEGIN_CREATEPROJ',
+    }),
+
+    doneCreateProj: (retMessage) => ({
+        type: 'lists/DONE_CREATEPROJ',
+        payload: retMessage
+    }),
+
     doneGetAllProjects: data => ({
         type: 'lists/DONE_GETALLPROJECTS',
         payload: data
-    }),
-
-    failPickApple: error => ({
-        type: 'apple/FAIL_PICK_APPLE',
-        payload: error,
-        error: true
     }),
 
     clickItem: id => ({
@@ -73,6 +112,18 @@ let actions = {
     pushProjectContent: (id,content) => ({
         type: 'lists/PUSH_PCONTENT',
         payload:{'id':id,'content':content}
+    }),
+
+    shutAddProjectModal: () => ({
+        type: 'lists/SHUT_ADDPROJECTMODAL',
+    }),
+
+    shutResultModal: () => ({
+        type: 'lists/SHUT_RESULTMODAL',
+    }),
+
+    addProjectButtonClick: () => ({
+        type: 'lists/CLICK_ADDPROJECTBUTTON',
     })
 
 };

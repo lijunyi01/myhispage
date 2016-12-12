@@ -28,6 +28,10 @@ var _redux = require('redux');
 
 var _reactBootstrap = require('react-bootstrap');
 
+var _AddProjectModal = require('../components/AddProjectModal');
+
+var _AddProjectModal2 = _interopRequireDefault(_AddProjectModal);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -73,9 +77,30 @@ var MyHisList = function (_React$Component) {
                         'div',
                         { className: _MyHisList2.default.top },
                         _react2.default.createElement(
-                            'p',
-                            null,
-                            '我的笔记'
+                            'div',
+                            { className: _MyHisList2.default.infoarea },
+                            _react2.default.createElement(
+                                'p',
+                                null,
+                                '我的笔记'
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: _MyHisList2.default.buttonarea },
+                            _react2.default.createElement('div', { className: _MyHisList2.default.button1 }),
+                            _react2.default.createElement('div', { className: _MyHisList2.default.button1 }),
+                            _react2.default.createElement('div', { className: _MyHisList2.default.button1 }),
+                            _react2.default.createElement('div', { className: _MyHisList2.default.button1 }),
+                            _react2.default.createElement(
+                                'div',
+                                { className: _MyHisList2.default.button1 },
+                                _react2.default.createElement(
+                                    _reactBootstrap.Button,
+                                    { bsSize: 'sm', bsStyle: 'success', onClick: actioncreator.addProjectButtonClick },
+                                    '新建'
+                                )
+                            )
                         )
                     ),
                     _react2.default.createElement(
@@ -99,7 +124,13 @@ var MyHisList = function (_React$Component) {
                         { className: _MyHisList2.default.bottom },
                         _react2.default.createElement('div', { className: _MyHisList2.default.bottom2 })
                     )
-                )
+                ),
+                _react2.default.createElement(_AddProjectModal2.default, { componentState: containerState.addProjectModal,
+                    actions: { shutAddProjectModal: actioncreator.shutAddProjectModal,
+                        shutResultModal: actioncreator.shutResultModal,
+                        createProj: actioncreator.createProj
+                    }
+                })
             );
         }
     }]);

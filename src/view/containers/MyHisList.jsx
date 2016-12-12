@@ -6,7 +6,8 @@ import styles from '../styles/MyHisList.css';
 import ProjectsListItem from '../components/ProjectsListItem';
 import actions from '../../actions/myHisListAction_creators';
 import { bindActionCreators } from 'redux';
-import { Row,Col,ListGroup } from 'react-bootstrap';
+import { Button,Col,ListGroup } from 'react-bootstrap';
+import AddProjectModal from '../components/AddProjectModal'
 
 
 class MyHisList extends React.Component {
@@ -27,7 +28,18 @@ class MyHisList extends React.Component {
             <div className={styles.myHisListMain}>
                 <div className={styles.list}>
                     <div className={styles.top}>
-                       <p>我的笔记</p>
+                        <div className={styles.infoarea}>
+                            <p>我的笔记</p>
+                        </div>
+                        <div className={styles.buttonarea}>
+                            <div className={styles.button1}></div>
+                            <div className={styles.button1}></div>
+                            <div className={styles.button1}></div>
+                            <div className={styles.button1}></div>
+                            <div className={styles.button1}>
+                                <Button bsSize="sm" bsStyle="success" onClick={actioncreator.addProjectButtonClick}>新建</Button>
+                            </div>
+                        </div>
                     </div>
                     <div className={styles.bottom}>
                         {containerState.projectsList.map(project => <ProjectsListItem key={project.id} componentState ={project} activeId={containerState.activeId} actions={{getProjectContent: actioncreator.getProjectContent}} />)}
@@ -45,6 +57,14 @@ class MyHisList extends React.Component {
                     </div>
 
                 </div>
+
+                <AddProjectModal componentState={containerState.addProjectModal}
+                                 actions={{shutAddProjectModal: actioncreator.shutAddProjectModal,
+                                           shutResultModal: actioncreator.shutResultModal,
+                                           createProj: actioncreator.createProj
+                                         }
+                                 }
+                />
             </div>
         );
     }

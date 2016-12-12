@@ -7,7 +7,7 @@ import MainLayout from './view/layout/main-layout';
 import Home from './view/pages/Home';
 
 import MyHisList from './view/containers/MyHisList';
-import AddHisProj from './view/containers/AddHisProj';
+import UserSet from './view/containers/UserSet';
 
 export default (
     <Router history={hashHistory}>
@@ -23,8 +23,8 @@ export default (
                 {/*<Route path=":userId" component={UserProfileContainer} />*/}
             </Route>
 
-            <Route path="/addHisProj">
-                <IndexRoute component={AddHisProj} />
+            <Route path="/userSet">
+                <IndexRoute component={UserSet} />
             </Route>
 
             {/*<Route path="widgets">*/}
