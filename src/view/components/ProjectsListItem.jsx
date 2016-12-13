@@ -18,8 +18,8 @@ class ProjectsListItem extends React.Component {
         return (
             //{activeId == componentState.id ? styles.projectsListItemAction :styles.projectsListItem}
             <div className={activeId == componentState.id ? styles.projectsListItemActive :styles.projectsListItem }>
-                <div className={styles.projectsListItem2} onClick={() => actions.getProjectContent(componentState.id)} >
-                    <div className={styles.left}>
+                <div className={styles.projectsListItem2} >
+                    <div className={styles.left} onClick={() => actions.getProjectContent(componentState.id)}>
                         <div className={styles.name}>{componentState.projectname}</div>
                         <div className={styles.des}>{componentState.projectdes}</div>
                     </div>
@@ -37,12 +37,12 @@ class ProjectsListItem extends React.Component {
                                 </OverlayTrigger>
 
                                 <OverlayTrigger placement="bottom" overlay={tooltip2}>
-                                    <div className={styles.button2}></div>
+                                    <div className={styles.button2} onClick={() => actions.deleteProj(componentState.id)}></div>
                                 </OverlayTrigger>
 
                             </div>
                         </div>
-                        <div className={styles.down}> {componentState.createtime}</div>
+                        <div className={styles.down} onClick={() => actions.getProjectContent(componentState.id)}> {componentState.createtime}</div>
                     </div>
                 </div>
             </div>

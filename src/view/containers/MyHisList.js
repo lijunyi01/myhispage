@@ -63,9 +63,11 @@ var MyHisList = function (_React$Component) {
                 containerState = _props.containerState,
                 actioncreator = _props.actioncreator;
 
-            if (containerState.projectsList.length == 0) {
+            if (containerState.projectsList.length == 0 && containerState.justLogin == true) {
                 actioncreator.getAllProjects();
             }
+
+            // actioncreator.getAllProjects();
 
             return _react2.default.createElement(
                 'div',
@@ -106,9 +108,17 @@ var MyHisList = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         { className: _MyHisList2.default.bottom },
-                        containerState.projectsList.map(function (project) {
-                            return _react2.default.createElement(_ProjectsListItem2.default, { key: project.id, componentState: project, activeId: containerState.activeId, actions: { getProjectContent: actioncreator.getProjectContent } });
-                        })
+                        containerState.projectsList.length > 0 ? containerState.projectsList.map(function (project) {
+                            return _react2.default.createElement(_ProjectsListItem2.default, { key: project.id, componentState: project, activeId: containerState.activeId,
+                                actions: { getProjectContent: actioncreator.getProjectContent,
+                                    deleteProj: actioncreator.deleteProj
+                                }
+                            });
+                        }) : _react2.default.createElement(
+                            'div',
+                            null,
+                            '暂无项目,请创建'
+                        )
                     )
                 ),
                 _react2.default.createElement(
@@ -128,7 +138,9 @@ var MyHisList = function (_React$Component) {
                 _react2.default.createElement(_AddProjectModal2.default, { componentState: containerState.addProjectModal,
                     actions: { shutAddProjectModal: actioncreator.shutAddProjectModal,
                         shutResultModal: actioncreator.shutResultModal,
-                        createProj: actioncreator.createProj
+                        createProj: actioncreator.createProj,
+                        popAlertAddProj: actioncreator.popAlertAddProj,
+                        shutSelfCheckModal: actioncreator.shutSelfCheckModal
                     }
                 })
             );

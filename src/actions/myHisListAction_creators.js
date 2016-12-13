@@ -77,9 +77,8 @@ let actions = {
             (data)=>{
                 console.log(data);
                 if(data.errorCode=='0'){
-                    // let genAckContent = data.generalAckContent;
-                    // let contentJson = JSON.parse(genAckContent);
                     dispatch(actions.doneCreateProj(data));
+                    //不必以下步骤,因为container- MyHisList 中有逻辑,如果containerState.projectsList.length == 0,则取一次
                     dispatch(actions.getAllProjects());
                 }else{
                     dispatch(actions.doneCreateProj(data));
@@ -90,12 +89,35 @@ let actions = {
 
     },
 
+    deleteProj: projectId => (dispatch, getState) => {
+        // console.log('deleteproj');
+        mySocket.emit(
+            'delProject',
+            {projectId:projectId},
+            (data)=>{
+                console.log(data);
+                if(data.errorCode=='0'){
+                    dispatch(actions.doneDeleteProj(data));
+                    dispatch(actions.getAllProjects());
+                }else{
+                    dispatch(actions.doneDeleteProj(data));
+                    console.log('data error');
+                }
+            }
+        );
+    },
+
     beginCreateProj: () => ({
         type: 'lists/BEGIN_CREATEPROJ',
     }),
 
     doneCreateProj: (retMessage) => ({
         type: 'lists/DONE_CREATEPROJ',
+        payload: retMessage
+    }),
+
+    doneDeleteProj: (retMessage) => ({
+        type: 'lists/DONE_DELETEPROJ',
         payload: retMessage
     }),
 
@@ -122,9 +144,20 @@ let actions = {
         type: 'lists/SHUT_RESULTMODAL',
     }),
 
+    shutSelfCheckModal: () => ({
+        type: 'lists/SHUT_SELFCHECKMODAL',
+    }),
+
     addProjectButtonClick: () => ({
         type: 'lists/CLICK_ADDPROJECTBUTTON',
-    })
+    }),
+
+    popAlertAddProj: alertMsg => ({
+        type: 'lists/POPALERT_ADDPROJ',
+        payload: alertMsg
+    }),
+
+
 
 };
 

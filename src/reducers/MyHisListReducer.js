@@ -11,11 +11,16 @@ import { fromJS,Map,List } from 'immutable';
 const initState = {
     projectsList: [],
     activeId: -1,
+    justLogin: false,
     projectContents: {},
     addProjectModal: {
         show: false,
         isSubmitting: false,
         resultModal:{
+            show: false,
+            content: ''
+        },
+        selfCheckModal:{
             show: false,
             content: ''
         }
@@ -30,11 +35,26 @@ export default (state = initState, action) => {
     if (action.type === 'lists/SET_STATE') {
         newState = Object.assign({}, state, action.payload);
         return newState;
+
+    } else if(action.type === 'lists/SET_JUSTLOGIN') {
+        return fromJS(state).set('justLogin',true).toJS();
+
     } else if(action.type === 'lists/DONE_GETALLPROJECTS') {
-        let projectsList_s = action.payload.generalAckContent;
-        return fromJS(state).set('projectsList', JSON.parse(projectsList_s)).toJS();
+        let projectsList = JSON.parse(action.payload.generalAckContent);
+        let firstId = -1;
+        // let noProjectData = false;
+        if(projectsList.length > 0) {
+            firstId = projectsList[0].id;
+        }
+        return fromJS(state)
+            .set('projectsList', projectsList)
+            .set('activeId',firstId)
+            .set('justLogin',false)
+            .toJS();
+
     } else if(action.type === 'lists/CLICK_ITEM') {
         return fromJS(state).set('activeId', action.payload).toJS();
+
     } else if(action.type === 'lists/PUSH_PCONTENT') {
         let idInPayload = action.payload.id;
         let contentInPayload = action.payload.content;
@@ -42,20 +62,39 @@ export default (state = initState, action) => {
         // console.log(newProjectContents);
         return fromJS(state).set('projectContents', newProjectContents).toJS();
         // return fromJS(state).get('projectContents').set(idInPayload,contentInPayload).toJS();
+
     } else if(action.type === 'lists/SHUT_ADDPROJECTMODAL') {
         return fromJS(state).setIn(['addProjectModal', 'show'], false).toJS();
+
     } else if(action.type === 'lists/SHUT_RESULTMODAL') {
-        return fromJS(state).setIn(['addProjectModal','resultModal','show'], false).toJS();
+        return fromJS(state).setIn(['addProjectModal', 'resultModal', 'show'], false).toJS();
+
+    } else if(action.type === 'lists/SHUT_SELFCHECKMODAL') {
+        return fromJS(state).setIn(['addProjectModal', 'selfCheckModal', 'show'], false).toJS();
+
     } else if(action.type === 'lists/CLICK_ADDPROJECTBUTTON') {
         return fromJS(state).setIn(['addProjectModal', 'show'], true).toJS();
+
     } else if(action.type === 'lists/BEGIN_CREATEPROJ') {
         return fromJS(state).setIn(['addProjectModal', 'isSubmitting'], true).toJS();
+
+    } else if(action.type === 'lists/POPALERT_ADDPROJ') {
+        return fromJS(state)
+            .setIn(['addProjectModal', 'selfCheckModal', 'show'], true)
+            .setIn(['addProjectModal', 'selfCheckModal', 'content'], action.payload)
+            .toJS();
+
     } else if(action.type === 'lists/DONE_CREATEPROJ') {
         return fromJS(state)
-            .set('projectsList',List())
+            .set('projectsList', List())
             .setIn(['addProjectModal', 'isSubmitting'], false)
             .setIn(['addProjectModal', 'resultModal', 'show'], true)
-            .setIn(['addProjectModal', 'resultModal', 'content'], action.payload.errorMessage).toJS();
+            .setIn(['addProjectModal', 'resultModal', 'content'], action.payload.errorMessage)
+            .toJS();
+
+    } else if(action.type === 'lists/DONE_DELETEPROJ') {
+        return fromJS(state).set('projectsList', List()).toJS();
+
     } else {
         return state;
     }

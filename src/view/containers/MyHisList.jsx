@@ -20,9 +20,11 @@ class MyHisList extends React.Component {
 
         let {containerState, actioncreator} = this.props;
 
-        if (containerState.projectsList.length == 0) {
+        if (containerState.projectsList.length == 0 && containerState.justLogin == true) {
             actioncreator.getAllProjects();
         }
+
+        // actioncreator.getAllProjects();
 
         return (
             <div className={styles.myHisListMain}>
@@ -42,7 +44,14 @@ class MyHisList extends React.Component {
                         </div>
                     </div>
                     <div className={styles.bottom}>
-                        {containerState.projectsList.map(project => <ProjectsListItem key={project.id} componentState ={project} activeId={containerState.activeId} actions={{getProjectContent: actioncreator.getProjectContent}} />)}
+                        {containerState.projectsList.length > 0 ?
+                            containerState.projectsList.map(project => <ProjectsListItem key={project.id} componentState ={project} activeId={containerState.activeId}
+                                                                                      actions={{getProjectContent: actioncreator.getProjectContent,
+                                                                                                deleteProj: actioncreator.deleteProj
+                                                                                      }}
+                                                                    />
+                        ): <div>暂无项目,请创建</div>
+                        }
                     </div>
                 </div>
                 <div className={styles.main}>
@@ -61,7 +70,9 @@ class MyHisList extends React.Component {
                 <AddProjectModal componentState={containerState.addProjectModal}
                                  actions={{shutAddProjectModal: actioncreator.shutAddProjectModal,
                                            shutResultModal: actioncreator.shutResultModal,
-                                           createProj: actioncreator.createProj
+                                           createProj: actioncreator.createProj,
+                                           popAlertAddProj: actioncreator.popAlertAddProj,
+                                           shutSelfCheckModal: actioncreator.shutSelfCheckModal
                                          }
                                  }
                 />
