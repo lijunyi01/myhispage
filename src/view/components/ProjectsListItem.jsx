@@ -15,6 +15,9 @@ class ProjectsListItem extends React.Component {
 
         let { componentState, actions ,activeId } = this.props;
 
+        let confirmModalContent = '您确认删除笔记:"'+ componentState.projectname + '" 吗?';
+        let confirmModalTitle = '删除笔记确认';
+
         return (
             //{activeId == componentState.id ? styles.projectsListItemAction :styles.projectsListItem}
             <div className={activeId == componentState.id ? styles.projectsListItemActive :styles.projectsListItem }>
@@ -37,7 +40,8 @@ class ProjectsListItem extends React.Component {
                                 </OverlayTrigger>
 
                                 <OverlayTrigger placement="bottom" overlay={tooltip2}>
-                                    <div className={styles.button2} onClick={() => actions.deleteProj(componentState.id)}></div>
+                                    {/*<div className={styles.button2} onClick={() => actions.deleteProj(componentState.id)}></div>*/}
+                                    <div className={styles.button2} onClick={() => actions.showConfirm({title:confirmModalTitle,content:confirmModalContent,id:componentState.id})}></div>
                                 </OverlayTrigger>
 
                             </div>

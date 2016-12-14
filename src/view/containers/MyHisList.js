@@ -32,6 +32,14 @@ var _AddProjectModal = require('../components/AddProjectModal');
 
 var _AddProjectModal2 = _interopRequireDefault(_AddProjectModal);
 
+var _ConfirmModal = require('../components/ConfirmModal');
+
+var _ConfirmModal2 = _interopRequireDefault(_ConfirmModal);
+
+var _ResultModal = require('../components/ResultModal');
+
+var _ResultModal2 = _interopRequireDefault(_ResultModal);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -111,7 +119,8 @@ var MyHisList = function (_React$Component) {
                         containerState.projectsList.length > 0 ? containerState.projectsList.map(function (project) {
                             return _react2.default.createElement(_ProjectsListItem2.default, { key: project.id, componentState: project, activeId: containerState.activeId,
                                 actions: { getProjectContent: actioncreator.getProjectContent,
-                                    deleteProj: actioncreator.deleteProj
+                                    deleteProj: actioncreator.deleteProj,
+                                    showConfirm: actioncreator.showConfirm
                                 }
                             });
                         }) : _react2.default.createElement(
@@ -137,12 +146,19 @@ var MyHisList = function (_React$Component) {
                 ),
                 _react2.default.createElement(_AddProjectModal2.default, { componentState: containerState.addProjectModal,
                     actions: { shutAddProjectModal: actioncreator.shutAddProjectModal,
-                        shutResultModal: actioncreator.shutResultModal,
                         createProj: actioncreator.createProj,
                         popAlertAddProj: actioncreator.popAlertAddProj,
                         shutSelfCheckModal: actioncreator.shutSelfCheckModal
                     }
-                })
+                }),
+                _react2.default.createElement(_ConfirmModal2.default, { componentState: containerState.confirmModal,
+                    actions: {
+                        shutConfirmModal: actioncreator.shutConfirmModal,
+                        deleteProj: actioncreator.deleteProj
+                    }
+
+                }),
+                _react2.default.createElement(_ResultModal2.default, { componentState: containerState.resultModal, actions: { shutResultModal: actioncreator.shutResultModal } })
             );
         }
     }]);

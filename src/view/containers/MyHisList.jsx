@@ -7,7 +7,9 @@ import ProjectsListItem from '../components/ProjectsListItem';
 import actions from '../../actions/myHisListAction_creators';
 import { bindActionCreators } from 'redux';
 import { Button,Col,ListGroup } from 'react-bootstrap';
-import AddProjectModal from '../components/AddProjectModal'
+import AddProjectModal from '../components/AddProjectModal';
+import ConfirmModal from '../components/ConfirmModal';
+import ResultModal from '../components/ResultModal';
 
 
 class MyHisList extends React.Component {
@@ -47,7 +49,8 @@ class MyHisList extends React.Component {
                         {containerState.projectsList.length > 0 ?
                             containerState.projectsList.map(project => <ProjectsListItem key={project.id} componentState ={project} activeId={containerState.activeId}
                                                                                       actions={{getProjectContent: actioncreator.getProjectContent,
-                                                                                                deleteProj: actioncreator.deleteProj
+                                                                                                deleteProj: actioncreator.deleteProj,
+                                                                                                showConfirm: actioncreator.showConfirm,
                                                                                       }}
                                                                     />
                         ): <div>暂无项目,请创建</div>
@@ -69,13 +72,23 @@ class MyHisList extends React.Component {
 
                 <AddProjectModal componentState={containerState.addProjectModal}
                                  actions={{shutAddProjectModal: actioncreator.shutAddProjectModal,
-                                           shutResultModal: actioncreator.shutResultModal,
                                            createProj: actioncreator.createProj,
                                            popAlertAddProj: actioncreator.popAlertAddProj,
                                            shutSelfCheckModal: actioncreator.shutSelfCheckModal
                                          }
                                  }
                 />
+
+                <ConfirmModal componentState={containerState.confirmModal}
+                              actions={{
+                                  shutConfirmModal: actioncreator.shutConfirmModal,
+                                  deleteProj: actioncreator.deleteProj
+                              }}
+
+                />
+
+                <ResultModal componentState={containerState.resultModal} actions={{shutResultModal: actioncreator.shutResultModal}}/>
+
             </div>
         );
     }

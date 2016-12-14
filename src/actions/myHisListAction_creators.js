@@ -20,7 +20,10 @@ let actions = {
             {},
             (data)=>{
                 console.log(data);
-                if(data.errorCode=='0'){
+                if(data.errorCode=='0') {
+                    if (getState().myHisListState.justLogin == true) {
+                        dispatch(actions.resetJustLogin());
+                    }
                     dispatch(actions.doneGetAllProjects(data));
                 }else{
                     console.log('data error');
@@ -77,12 +80,11 @@ let actions = {
             (data)=>{
                 console.log(data);
                 if(data.errorCode=='0'){
-                    dispatch(actions.doneCreateProj(data));
-                    //不必以下步骤,因为container- MyHisList 中有逻辑,如果containerState.projectsList.length == 0,则取一次
+                    dispatch(actions.doneCreateProj());
                     dispatch(actions.getAllProjects());
                 }else{
-                    dispatch(actions.doneCreateProj(data));
-                    console.log('data error');
+                    dispatch(actions.doneCreateProjError(data));
+                    // console.log('data error');
                 }
             }
         );
@@ -97,27 +99,35 @@ let actions = {
             (data)=>{
                 console.log(data);
                 if(data.errorCode=='0'){
-                    dispatch(actions.doneDeleteProj(data));
+                    dispatch(actions.doneDeleteProj());
                     dispatch(actions.getAllProjects());
                 }else{
-                    dispatch(actions.doneDeleteProj(data));
-                    console.log('data error');
+                    dispatch(actions.doneDeleteProjError(data));
+                    // console.log('data error');
                 }
             }
         );
     },
 
     beginCreateProj: () => ({
-        type: 'lists/BEGIN_CREATEPROJ',
+        type: 'lists/BEGIN_CREATEPROJ'
     }),
 
-    doneCreateProj: (retMessage) => ({
+    doneCreateProj: () => ({
         type: 'lists/DONE_CREATEPROJ',
+    }),
+
+    doneCreateProjError: (retMessage) => ({
+        type: 'lists/DONE_CREATEPROJ_ERROR',
         payload: retMessage
     }),
 
-    doneDeleteProj: (retMessage) => ({
-        type: 'lists/DONE_DELETEPROJ',
+    doneDeleteProj: () => ({
+        type: 'lists/DONE_DELETEPROJ'
+    }),
+
+    doneDeleteProjError: (retMessage) => ({
+        type: 'lists/DONE_DELETEPROJ_ERROR',
         payload: retMessage
     }),
 
@@ -148,6 +158,10 @@ let actions = {
         type: 'lists/SHUT_SELFCHECKMODAL',
     }),
 
+    shutConfirmModal: () => ({
+        type: 'lists/SHUT_CONFIRMMODAL',
+    }),
+
     addProjectButtonClick: () => ({
         type: 'lists/CLICK_ADDPROJECTBUTTON',
     }),
@@ -157,7 +171,14 @@ let actions = {
         payload: alertMsg
     }),
 
+    resetJustLogin: () => ({
+        type: 'lists/RESET_JUSTLOGIN',
+    }),
 
+    showConfirm: inParam => ({
+        type: 'lists/SHOW_CONFIRM',
+        payload: inParam
+    })
 
 };
 

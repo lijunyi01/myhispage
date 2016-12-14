@@ -4,7 +4,6 @@ import React from 'react';
 // import styles from '../styles/AppleItem.css';
 // import appleimage from '../images/apple.png';
 import { Modal,Button,Form,FormGroup,Col,FormControl,ControlLabel } from 'react-bootstrap';
-import MyModal from './MyModal';
 
 
 let projectName = "";
@@ -80,8 +79,7 @@ class AddProjectModal extends React.Component {
                     {/*</Modal.Footer>*/}
                 </Modal>
 
-                <MyModal componentState={componentState.resultModal} actions={{shutMyModal: actions.shutResultModal}}/>
-                <MyModal componentState={componentState.selfCheckModal} actions={{shutMyModal: actions.shutSelfCheckModal}}/>
+                {/*<MyModal componentState={componentState.selfCheckModal} actions={{shutMyModal: actions.shutSelfCheckModal}}/>*/}
 
             </div>
         );
