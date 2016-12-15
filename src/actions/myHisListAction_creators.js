@@ -35,7 +35,7 @@ let actions = {
     getProjectContent: projectId => (dispatch, getState) => {
 
         let projectContent = getState().myHisListState.projectContents[projectId];
-        // console.log(projectContent);
+        // console.log("click");
         if(projectContent == undefined) {
             // console.log('fetch remote data!');
             mySocket.emit(
@@ -164,6 +164,10 @@ let actions = {
 
     addProjectButtonClick: () => ({
         type: 'lists/CLICK_ADDPROJECTBUTTON',
+    }),
+
+    addItemButtonClick: () => ({
+        type: 'lists/CLICK_ADDITEMBUTTON',
     }),
 
     popAlertAddProj: alertMsg => ({

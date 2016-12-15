@@ -75,8 +75,6 @@ var MyHisList = function (_React$Component) {
                 actioncreator.getAllProjects();
             }
 
-            // actioncreator.getAllProjects();
-
             return _react2.default.createElement(
                 'div',
                 { className: _MyHisList2.default.myHisListMain },
@@ -101,14 +99,13 @@ var MyHisList = function (_React$Component) {
                             _react2.default.createElement('div', { className: _MyHisList2.default.button1 }),
                             _react2.default.createElement('div', { className: _MyHisList2.default.button1 }),
                             _react2.default.createElement('div', { className: _MyHisList2.default.button1 }),
-                            _react2.default.createElement('div', { className: _MyHisList2.default.button1 }),
                             _react2.default.createElement(
                                 'div',
                                 { className: _MyHisList2.default.button1 },
                                 _react2.default.createElement(
                                     _reactBootstrap.Button,
                                     { bsSize: 'sm', bsStyle: 'success', onClick: actioncreator.addProjectButtonClick },
-                                    '新建'
+                                    '新建笔记'
                                 )
                             )
                         )
@@ -123,7 +120,11 @@ var MyHisList = function (_React$Component) {
                                     showConfirm: actioncreator.showConfirm
                                 }
                             });
-                        }) : _react2.default.createElement(
+                        }) : containerState.justLogin ? _react2.default.createElement(
+                            'div',
+                            null,
+                            'loading...'
+                        ) : _react2.default.createElement(
                             'div',
                             null,
                             '暂无项目,请创建'
@@ -136,7 +137,24 @@ var MyHisList = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         { className: _MyHisList2.default.top },
-                        _react2.default.createElement('div', { className: _MyHisList2.default.top2 })
+                        _react2.default.createElement(
+                            'div',
+                            { className: _MyHisList2.default.top2 },
+                            _react2.default.createElement('div', { className: _MyHisList2.default.info }),
+                            _react2.default.createElement(
+                                'div',
+                                { className: _MyHisList2.default.toolbar },
+                                _react2.default.createElement(
+                                    _reactBootstrap.ButtonToolbar,
+                                    null,
+                                    _react2.default.createElement(
+                                        _reactBootstrap.Button,
+                                        { bsSize: 'sm', bsStyle: 'success', onClick: actioncreator.addItemButtonClick },
+                                        '新增事件'
+                                    )
+                                )
+                            )
+                        )
                     ),
                     _react2.default.createElement(
                         'div',

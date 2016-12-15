@@ -16,10 +16,6 @@ const initState = {
     addProjectModal: {
         show: false,
         isSubmitting: false,
-        // selfCheckModal:{
-        //     show: false,
-        //     content: ''
-        // }
     },
     confirmModal: {
         show: false,
@@ -93,6 +89,9 @@ export default (state = initState, action) => {
     } else if(action.type === 'lists/CLICK_ADDPROJECTBUTTON') {
         return fromJS(state).setIn(['addProjectModal', 'show'], true).toJS();
 
+    } else if(action.type === 'lists/CLICK_ADDITEMBUTTON') {
+        return fromJS(state).setIn(['addItemModal', 'show'], true).toJS();
+
     } else if(action.type === 'lists/BEGIN_CREATEPROJ') {
         return fromJS(state).setIn(['addProjectModal', 'isSubmitting'], true).toJS();
 
@@ -104,7 +103,7 @@ export default (state = initState, action) => {
 
     } else if(action.type === 'lists/DONE_CREATEPROJ') {
         return fromJS(state)
-            .set('projectsList', List())
+            // .set('projectsList', List())
             .setIn(['addProjectModal', 'isSubmitting'], false)
             .setIn(['addProjectModal', 'show'], false)
             .toJS();
@@ -118,7 +117,7 @@ export default (state = initState, action) => {
 
     } else if(action.type === 'lists/DONE_DELETEPROJ') {
         return fromJS(state)
-            .set('projectsList', List())
+            // .set('projectsList', List())
             .setIn(['confirmModal', 'show'], false)
             .setIn(['confirmModal', 'delId'], -1)
             .setIn(['confirmModal', 'title'], '')
