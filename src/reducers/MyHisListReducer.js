@@ -17,6 +17,14 @@ const initState = {
         show: false,
         isSubmitting: false,
     },
+    addItemModal: {
+        show: false,
+        isSubmitting: false,
+        projectId: -1,
+        projectName: '',
+        isDotTime: true,
+        tmld: 'M'
+    },
     confirmModal: {
         show: false,
         title: '',
@@ -71,8 +79,6 @@ export default (state = initState, action) => {
         return fromJS(state).setIn(['addProjectModal', 'show'], false).toJS();
 
     } else if(action.type === 'lists/SHUT_RESULTMODAL') {
-        // return fromJS(state).setIn(['addProjectModal', 'resultModal', 'show'], false).toJS();
-        console.log('shutresult');
         return fromJS(state).setIn(['resultModal', 'show'], false).toJS();
 
     } else if(action.type === 'lists/SHUT_SELFCHECKMODAL') {
@@ -80,22 +86,32 @@ export default (state = initState, action) => {
 
     } else if(action.type === 'lists/SHUT_CONFIRMMODAL') {
         return fromJS(state)
-            .setIn(['confirmModal','show'], false)
-            .setIn(['confirmModal','delId'], -1)
-            .setIn(['confirmModal','title'], '')
-            .setIn(['confirmModal','content'], '')
+            .setIn(['confirmModal', 'show'], false)
+            .setIn(['confirmModal', 'delId'], -1)
+            .setIn(['confirmModal', 'title'], '')
+            .setIn(['confirmModal', 'content'], '')
+            .toJS();
+
+    } else if(action.type === 'lists/SHUT_ADDITEMMODAL') {
+        return fromJS(state)
+            .setIn(['addItemModal', 'show'], false)
+            .setIn(['addItemModal', 'projectId'], -1)
             .toJS();
 
     } else if(action.type === 'lists/CLICK_ADDPROJECTBUTTON') {
         return fromJS(state).setIn(['addProjectModal', 'show'], true).toJS();
 
     } else if(action.type === 'lists/CLICK_ADDITEMBUTTON') {
-        return fromJS(state).setIn(['addItemModal', 'show'], true).toJS();
+        return fromJS(state)
+            .setIn(['addItemModal', 'show'], true)
+            .setIn(['addItemModal', 'projectName'],action.payload.pname)
+            .setIn(['addItemModal', 'projectId'],action.payload.pid)
+            .toJS();
 
     } else if(action.type === 'lists/BEGIN_CREATEPROJ') {
         return fromJS(state).setIn(['addProjectModal', 'isSubmitting'], true).toJS();
 
-    } else if(action.type === 'lists/POPALERT_ADDPROJ') {
+    } else if(action.type === 'lists/POPALERT') {
         return fromJS(state)
             .setIn(['resultModal', 'show'], true)
             .setIn(['resultModal', 'content'], action.payload)
@@ -137,11 +153,21 @@ export default (state = initState, action) => {
     } else if(action.type === 'lists/SHOW_CONFIRM') {
         console.log(action.payload);
         return fromJS(state)
-            .setIn(['confirmModal','show'], true)
-            .setIn(['confirmModal','title'], action.payload.title)
-            .setIn(['confirmModal','content'], action.payload.content)
-            .setIn(['confirmModal','delId'], action.payload.id)
+            .setIn(['confirmModal', 'show'], true)
+            .setIn(['confirmModal', 'title'], action.payload.title)
+            .setIn(['confirmModal', 'content'], action.payload.content)
+            .setIn(['confirmModal', 'delId'], action.payload.id)
             .toJS();
+
+    } else if(action.type === 'lists/CHANGE_TMRADIO') {
+        let isDot;
+        console.log(action.payload);
+        if(action.payload === 'A'){
+            isDot = true;
+        }else{
+            isDot = false;
+        }
+        return fromJS(state).setIn(['addItemModal','isDotTime'],isDot).toJS()
 
     } else {
         return state;

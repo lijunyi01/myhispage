@@ -40,6 +40,10 @@ var _ResultModal = require('../components/ResultModal');
 
 var _ResultModal2 = _interopRequireDefault(_ResultModal);
 
+var _AddItemModal = require('../components/AddItemModal');
+
+var _AddItemModal2 = _interopRequireDefault(_AddItemModal);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -144,12 +148,23 @@ var MyHisList = function (_React$Component) {
                             _react2.default.createElement(
                                 'div',
                                 { className: _MyHisList2.default.toolbar },
-                                _react2.default.createElement(
+                                containerState.activeId == -1 ? _react2.default.createElement(
                                     _reactBootstrap.ButtonToolbar,
                                     null,
                                     _react2.default.createElement(
                                         _reactBootstrap.Button,
-                                        { bsSize: 'sm', bsStyle: 'success', onClick: actioncreator.addItemButtonClick },
+                                        { bsSize: 'sm', bsStyle: 'success', disabled: true },
+                                        '新增事件'
+                                    )
+                                ) : _react2.default.createElement(
+                                    _reactBootstrap.ButtonToolbar,
+                                    null,
+                                    _react2.default.createElement(
+                                        _reactBootstrap.Button,
+                                        { bsSize: 'sm', bsStyle: 'success',
+                                            onClick: function onClick() {
+                                                return actioncreator.addItemButtonClick(containerState.activeId);
+                                            } },
                                         '新增事件'
                                     )
                                 )
@@ -165,8 +180,16 @@ var MyHisList = function (_React$Component) {
                 _react2.default.createElement(_AddProjectModal2.default, { componentState: containerState.addProjectModal,
                     actions: { shutAddProjectModal: actioncreator.shutAddProjectModal,
                         createProj: actioncreator.createProj,
-                        popAlertAddProj: actioncreator.popAlertAddProj,
+                        popAlert: actioncreator.popAlert,
                         shutSelfCheckModal: actioncreator.shutSelfCheckModal
+                    }
+                }),
+                _react2.default.createElement(_AddItemModal2.default, { componentState: containerState.addItemModal,
+                    actions: { shutAddItemModal: actioncreator.shutAddItemModal,
+                        createItem: actioncreator.createItem,
+                        popAlertAddProj: actioncreator.popAlertAddProj,
+                        shutSelfCheckModal: actioncreator.shutSelfCheckModal,
+                        changeTmRadio: actioncreator.changeTmRadio
                     }
                 }),
                 _react2.default.createElement(_ConfirmModal2.default, { componentState: containerState.confirmModal,

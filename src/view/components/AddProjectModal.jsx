@@ -55,7 +55,7 @@ class AddProjectModal extends React.Component {
                                         :
                                         <Button bsStyle="danger" onClick={ ()=>{
                                             if(projectDes == ""){
-                                                actions.popAlertAddProj('项目描述部分不能为空')
+                                                actions.popAlert('项目描述部分不能为空')
                                             }else {
                                                 actions.createProj(
                                                     {

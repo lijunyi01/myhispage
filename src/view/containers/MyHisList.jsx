@@ -10,6 +10,7 @@ import { Button,Col,ListGroup,ButtonToolbar } from 'react-bootstrap';
 import AddProjectModal from '../components/AddProjectModal';
 import ConfirmModal from '../components/ConfirmModal';
 import ResultModal from '../components/ResultModal';
+import AddItemModal from '../components/AddItemModal'
 
 
 class MyHisList extends React.Component {
@@ -60,9 +61,16 @@ class MyHisList extends React.Component {
                             <div className={styles.info}>
                             </div>
                             <div className={styles.toolbar}>
-                                <ButtonToolbar>
-                                    <Button bsSize="sm" bsStyle="success" onClick={actioncreator.addItemButtonClick}>新增事件</Button>
-                                </ButtonToolbar>
+                                { containerState.activeId == -1?
+                                    <ButtonToolbar>
+                                        <Button bsSize="sm" bsStyle="success" disabled>新增事件</Button>
+                                    </ButtonToolbar>
+                                    :
+                                    <ButtonToolbar>
+                                        <Button bsSize="sm" bsStyle="success"
+                                                onClick={()=>actioncreator.addItemButtonClick(containerState.activeId)}>新增事件</Button>
+                                    </ButtonToolbar>
+                                }
                             </div>
                         </div>
                     </div>
@@ -78,9 +86,19 @@ class MyHisList extends React.Component {
                 <AddProjectModal componentState={containerState.addProjectModal}
                                  actions={{shutAddProjectModal: actioncreator.shutAddProjectModal,
                                            createProj: actioncreator.createProj,
-                                           popAlertAddProj: actioncreator.popAlertAddProj,
+                                           popAlert: actioncreator.popAlert,
                                            shutSelfCheckModal: actioncreator.shutSelfCheckModal
                                          }
+                                 }
+                />
+
+                <AddItemModal componentState={containerState.addItemModal}
+                                 actions={{shutAddItemModal: actioncreator.shutAddItemModal,
+                                     createItem: actioncreator.createItem,
+                                     popAlertAddProj: actioncreator.popAlertAddProj,
+                                     shutSelfCheckModal: actioncreator.shutSelfCheckModal,
+                                     changeTmRadio:actioncreator.changeTmRadio
+                                 }
                                  }
                 />
 

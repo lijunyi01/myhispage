@@ -3,6 +3,7 @@
     <properties>
       <sourceFilesUrls>
         <item url="file://$PROJECT_DIR$/src/view/containers/AddHisProj.js" />
+        <item url="file://$PROJECT_DIR$/src/view/components/AddItemModal.js" />
         <item url="file://$PROJECT_DIR$/src/view/pages/AddHisProj.js" />
         <item url="file://$PROJECT_DIR$/src/view/components/MyModal.js" />
         <item url="file://$PROJECT_DIR$/src/view/containers/MyHisList.js" />
@@ -19,6 +20,7 @@
     </properties>
     <CLASSES>
       <root url="file://$PROJECT_DIR$/src/view/containers/AddHisProj.js" />
+      <root url="file://$PROJECT_DIR$/src/view/components/AddItemModal.js" />
       <root url="file://$PROJECT_DIR$/src/view/pages/AddHisProj.js" />
       <root url="file://$PROJECT_DIR$/src/view/components/MyModal.js" />
       <root url="file://$PROJECT_DIR$/src/view/containers/MyHisList.js" />

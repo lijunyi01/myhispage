@@ -109,6 +109,27 @@ let actions = {
         );
     },
 
+    addItemButtonClick: projectId => (dispatch, getState) => {
+        if(projectId == -1){
+            dispatch(actions.popAlert('尚未选中笔记,请在左侧列表选择'));
+        }else{
+
+            let name = '';
+            let length = getState().myHisListState.projectsList.length;
+            for(let i=0; i< length; i++){
+               if(getState().myHisListState.projectsList[i].id == projectId){
+                   name = getState().myHisListState.projectsList[i].projectname;
+                   break;
+               }
+            }
+            if(! name == ''){
+                dispatch(actions.addItemButtonClickA({pid:projectId,pname:name}));
+            }else{
+                dispatch(actions.popAlert('未查到项目名称,请先在左侧列表选择项目'));
+            }
+        }
+    },
+
     beginCreateProj: () => ({
         type: 'lists/BEGIN_CREATEPROJ'
     }),
@@ -162,16 +183,21 @@ let actions = {
         type: 'lists/SHUT_CONFIRMMODAL',
     }),
 
+    shutAddItemModal: () => ({
+        type: 'lists/SHUT_ADDITEMMODAL',
+    }),
+
     addProjectButtonClick: () => ({
         type: 'lists/CLICK_ADDPROJECTBUTTON',
     }),
 
-    addItemButtonClick: () => ({
+    addItemButtonClickA: inParam => ({
         type: 'lists/CLICK_ADDITEMBUTTON',
+        payload: inParam
     }),
 
-    popAlertAddProj: alertMsg => ({
-        type: 'lists/POPALERT_ADDPROJ',
+    popAlert: alertMsg => ({
+        type: 'lists/POPALERT',
         payload: alertMsg
     }),
 
@@ -182,6 +208,11 @@ let actions = {
     showConfirm: inParam => ({
         type: 'lists/SHOW_CONFIRM',
         payload: inParam
+    }),
+
+    changeTmRadio: param =>({
+        type: 'lists/CHANGE_TMRADIO',
+        payload: param
     })
 
 };
