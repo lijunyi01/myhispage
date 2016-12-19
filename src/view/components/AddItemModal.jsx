@@ -35,7 +35,7 @@ class AddItemModal extends React.Component {
                         <Form horizontal>
                             <FormGroup controlId="formHorizontalProjName">
                                 <Col sm={2}>
-                                    <ControlLabel>事件名称</ControlLabel>
+                                    <ControlLabel>事件名称:</ControlLabel>
                                 </Col>
                                 <Col sm={6}>
                                     <FormControl type="text" placeholder="请填入事件名称" onBlur={ handlePNBlur }  />
@@ -47,7 +47,7 @@ class AddItemModal extends React.Component {
 
                             <FormGroup controlId="formHorizontalProjDes">
                                 <Col sm={2}>
-                                    <ControlLabel>事件描述</ControlLabel>
+                                    <ControlLabel>事件描述:</ControlLabel>
                                 </Col>
                                 <Col sm={6}>
                                     <FormControl type="text" componentClass="textarea" placeholder="请填入事件描述" onBlur={ handlePDBlur }/>
@@ -58,7 +58,7 @@ class AddItemModal extends React.Component {
 
                             <FormGroup>
                                 <Col sm={2}>
-                                    <ControlLabel>时间类型选择</ControlLabel>
+                                    <ControlLabel>时间类型选择:</ControlLabel>
                                 </Col>
                                 <Col sm={6}>
                                     <Radio name="tm" value="A" inline defaultChecked onChange={(e)=> actions.changeTmRadio(e.target.value)}>时间点事件</Radio>
@@ -68,7 +68,7 @@ class AddItemModal extends React.Component {
 
                             <FormGroup>
                                 <Col sm={2}>
-                                    <ControlLabel>纪年方式选择</ControlLabel>
+                                    <ControlLabel>纪年方式选择:</ControlLabel>
                                 </Col>
                                 <Col sm={6}>
                                     <Radio name="yeartype" value="A" inline defaultChecked onChange={ (e)=> actions.changeYearRadio(e.target.value) }>公元纪年</Radio>
@@ -79,45 +79,76 @@ class AddItemModal extends React.Component {
                             {componentState.isDotTime ==true ?
                                 <div>
                                     {componentState.isGongYuan == true ?
-                                        <FormGroup>
-                                            <Col sm={2}>
-                                                <ControlLabel>事件时间</ControlLabel>
-                                            </Col>
-                                            <Col sm={2}>
-                                                <FormControl componentClass="select" onChange={ handleSelect }>
-                                                    <option value="After">公元</option>
-                                                    <option value="Before">公元前</option>
-                                                </FormControl>
-                                            </Col>
+                                        <div>
+                                            <FormGroup>
+                                                <Col sm={2}>
+                                                    <ControlLabel>事件时间:</ControlLabel>
+                                                </Col>
+                                                <Col sm={2}>
+                                                    <FormControl componentClass="select" onChange={ handleSelect }>
+                                                        <option value="After">公元</option>
+                                                        <option value="Before">公元前</option>
+                                                    </FormControl>
+                                                </Col>
 
-                                            <Col sm={2}>
-                                                <InputGroup>
-                                                    <FormControl type="text"/>
-                                                    <InputGroup.Addon>年</InputGroup.Addon>
-                                                </InputGroup>
-                                            </Col>
+                                                <Col sm={2}>
+                                                    <InputGroup>
+                                                        <FormControl type="text" placeholder="2016"/>
+                                                        <InputGroup.Addon>年</InputGroup.Addon>
+                                                    </InputGroup>
+                                                </Col>
 
-                                            <Col sm={4}>
-                                                <ControlLabel>例如: 2016 或 -221 其中负数表示公元前</ControlLabel>
-                                            </Col>
-                                        </FormGroup>
+                                                <Col sm={5}>
+                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空"/>
+                                                </Col>
+                                            </FormGroup>
+
+                                            <FormGroup>
+                                                <Col sm={2}>
+                                                    <ControlLabel>关于时间的说明:</ControlLabel>
+                                                </Col>
+                                                <Col sm={9}>
+                                                    <p>年份处请填阿拉伯数字。 如时间精确到年,则年份后的时间可不填; 否则填入月日及时间,此处可只填写月份(如:02),也可
+                                                        只填写月日(如:02-01),还可填入月日及时间(如:02-01 12:53:36)。
+                                                    </p>
+                                                </Col>
+                                            </FormGroup>
+                                        </div>
                                         :
-                                        <FormGroup>
-                                            <Col sm={2}>
-                                                <ControlLabel>事件时间</ControlLabel>
-                                            </Col>
+                                        <div>
+                                            <FormGroup>
+                                                <Col sm={2}>
+                                                    <ControlLabel>事件时间</ControlLabel>
+                                                </Col>
 
-                                            <Col sm={2}>
-                                                <InputGroup>
-                                                    <FormControl type="text"/>
-                                                    <InputGroup.Addon>年</InputGroup.Addon>
-                                                </InputGroup>
-                                            </Col>
+                                                <Col sm={2}>
+                                                    <InputGroup>
+                                                        <FormControl type="text" placeholder="鲁隐公"/>
+                                                        <InputGroup.Addon>年号</InputGroup.Addon>
+                                                    </InputGroup>
+                                                </Col>
+                                                <Col sm={2}>
+                                                    <InputGroup>
+                                                        <FormControl type="text" placeholder="1"/>
+                                                        <InputGroup.Addon>年</InputGroup.Addon>
+                                                    </InputGroup>
+                                                </Col>
+                                                <Col sm={5}>
+                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空"/>
+                                                </Col>
 
-                                            <Col sm={4}>
-                                                <ControlLabel>例如: 2016 或 -221 其中负数表示公元前</ControlLabel>
-                                            </Col>
-                                        </FormGroup>
+                                            </FormGroup>
+                                            <FormGroup>
+                                                <Col sm={2}>
+                                                    <ControlLabel>关于时间的说明:</ControlLabel>
+                                                </Col>
+                                                <Col sm={9}>
+                                                    <p>年份处请填阿拉伯数字。 如时间精确到年,则年份后的时间可不填; 否则填入月日及时间,此处可只填写月份(如:02),也可
+                                                        只填写月日(如:02-01),还可填入月日及时间(如:02-01 12:53:36)。最后还可加备注(如:农历)
+                                                    </p>
+                                                </Col>
+                                            </FormGroup>
+                                        </div>
                                     }
                                 </div>
                                 :
@@ -126,23 +157,122 @@ class AddItemModal extends React.Component {
                                         <div>
                                             <FormGroup>
                                                 <Col sm={2}>
-                                                    <ControlLabel>事件开始时间</ControlLabel>
+                                                    <ControlLabel>事件开始时间:</ControlLabel>
                                                 </Col>
-                                                <Col sm={6}>
-                                                    <FormControl type="text" placeholder="请填入事件开始的时间"/>
+
+                                                <Col sm={2}>
+                                                    <FormControl componentClass="select" onChange={ handleSelect }>
+                                                        <option value="After">公元</option>
+                                                        <option value="Before">公元前</option>
+                                                    </FormControl>
+                                                </Col>
+
+                                                <Col sm={2}>
+                                                    <InputGroup>
+                                                        <FormControl type="text" placeholder="2016"/>
+                                                        <InputGroup.Addon>年</InputGroup.Addon>
+                                                    </InputGroup>
+                                                </Col>
+
+                                                <Col sm={5}>
+                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空"/>
                                                 </Col>
                                             </FormGroup>
+
                                             <FormGroup>
-                                            <Col sm = {2}>
-                                                <ControlLabel> 事件结束时间 </ControlLabel>
+                                                <Col sm = {2}>
+                                                    <ControlLabel> 事件结束时间: </ControlLabel>
                                                 </Col>
-                                                <Col sm={6}>
-                                                <FormControl type="text" placeholder="请填入事件开始的时间" />
+
+                                                <Col sm={2}>
+                                                    <FormControl componentClass="select" onChange={ handleSelect }>
+                                                        <option value="After">公元</option>
+                                                        <option value="Before">公元前</option>
+                                                    </FormControl>
+                                                </Col>
+
+                                                <Col sm={2}>
+                                                    <InputGroup>
+                                                        <FormControl type="text" placeholder="2017"/>
+                                                        <InputGroup.Addon>年</InputGroup.Addon>
+                                                    </InputGroup>
+                                                </Col>
+
+                                                <Col sm={5}>
+                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空"/>
                                                 </Col>
                                             </FormGroup>
+
+                                            <FormGroup>
+                                                <Col sm={2}>
+                                                    <ControlLabel>关于时间的说明:</ControlLabel>
+                                                </Col>
+                                                <Col sm={9}>
+                                                    <p>年份处请填阿拉伯数字。 如时间精确到年,则年份后的时间可不填; 否则填入月日及时间,此处可只填写月份(如:02),也可
+                                                        只填写月日(如:02-01),还可填入月日及时间(如:02-01 12:53:36)。
+                                                    </p>
+                                                </Col>
+                                            </FormGroup>
+
                                         </div>
                                         :
                                         <div>
+                                            <FormGroup>
+                                                <Col sm={2}>
+                                                    <ControlLabel>事件开始时间:</ControlLabel>
+                                                </Col>
+
+                                                <Col sm={2}>
+                                                    <InputGroup>
+                                                        <FormControl type="text" placeholder="鲁隐公"/>
+                                                        <InputGroup.Addon>年号</InputGroup.Addon>
+                                                    </InputGroup>
+                                                </Col>
+                                                <Col sm={2}>
+                                                    <InputGroup>
+                                                        <FormControl type="text" placeholder="1"/>
+                                                        <InputGroup.Addon>年</InputGroup.Addon>
+                                                    </InputGroup>
+                                                </Col>
+                                                <Col sm={5}>
+                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空"/>
+                                                </Col>
+
+                                            </FormGroup>
+
+                                            <FormGroup>
+                                                <Col sm = {2}>
+                                                    <ControlLabel> 事件结束时间: </ControlLabel>
+                                                </Col>
+
+                                                <Col sm={2}>
+                                                    <InputGroup>
+                                                        <FormControl type="text" placeholder="鲁隐公"/>
+                                                        <InputGroup.Addon>年号</InputGroup.Addon>
+                                                    </InputGroup>
+                                                </Col>
+                                                <Col sm={2}>
+                                                    <InputGroup>
+                                                        <FormControl type="text" placeholder="3"/>
+                                                        <InputGroup.Addon>年</InputGroup.Addon>
+                                                    </InputGroup>
+                                                </Col>
+                                                <Col sm={5}>
+                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空"/>
+                                                </Col>
+
+                                            </FormGroup>
+                                            <FormGroup>
+                                                <Col sm={2}>
+                                                    <ControlLabel>关于时间的说明:</ControlLabel>
+                                                </Col>
+                                                <Col sm={9}>
+                                                    <p>年份处请填阿拉伯数字。 如时间精确到年,则年份后的时间可不填; 否则填入月日及时间,此处可只填写月份(如:02),也可
+                                                        只填写月日(如:02-01),还可填入月日及时间(如:02-01 12:53:36)。最后还可加备注(如:农历)
+                                                    </p>
+                                                </Col>
+                                            </FormGroup>
+
                                         </div>
                                     }
                                 </div>
