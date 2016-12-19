@@ -175,10 +175,6 @@ function handlePDBlur(e) {
     itemDes = e.target.value
 }
 
-function handleTmRadio(e) {
-    tmRadio = e.target.value;
-}
-
 function handleTmLdRadio(e) {
     tmLdRadio = e.target.value
 
