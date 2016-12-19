@@ -23,7 +23,7 @@ const initState = {
         projectId: -1,
         projectName: '',
         isDotTime: true,
-        tmld: 'M'
+        isGongYuan: true,
     },
     confirmModal: {
         show: false,
@@ -161,13 +161,23 @@ export default (state = initState, action) => {
 
     } else if(action.type === 'lists/CHANGE_TMRADIO') {
         let isDot;
-        console.log(action.payload);
+        // console.log(action.payload);
         if(action.payload === 'A'){
             isDot = true;
         }else{
             isDot = false;
         }
         return fromJS(state).setIn(['addItemModal','isDotTime'],isDot).toJS()
+
+    } else if(action.type === 'lists/CHANGE_YEARRADIO') {
+        let isGongYuan;
+        console.log(action.payload);
+        if(action.payload === 'A'){
+            isGongYuan = true;
+        }else{
+            isGongYuan = false;
+        }
+        return fromJS(state).setIn(['addItemModal','isGongYuan'],isGongYuan).toJS()
 
     } else {
         return state;

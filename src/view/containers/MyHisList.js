@@ -190,6 +190,7 @@ var MyHisList = function (_React$Component) {
                         popAlertAddProj: actioncreator.popAlertAddProj,
                         shutSelfCheckModal: actioncreator.shutSelfCheckModal,
                         changeTmRadio: actioncreator.changeTmRadio,
+                        changeYearRadio: actioncreator.changeYearRadio,
                         createProjItem: actioncreator.createProjItem
                     }
                 }),

@@ -8,9 +8,12 @@ import { Modal,Button,Form,FormGroup,Col,FormControl,ControlLabel,Radio,InputGro
 
 let itemName = "";
 let itemDes = "";
+//时间点还是时间段
 let tmRadio = 'A';
-let tmLdRadio = 'Y';
-let gongyuanflag = "After";
+//纪年方式
+let yearRadio = 'A';
+//公元前还是公元后
+let beforeOrAfterFlag = "After";
 class AddItemModal extends React.Component {
 
     shouldComponentUpdate(nextProps){
@@ -63,64 +66,86 @@ class AddItemModal extends React.Component {
                                 </Col>
                             </FormGroup>
 
-                            {/*<FormGroup>*/}
-                                {/*<Col sm={2}>*/}
-                                    {/*<ControlLabel>时间粒度选择</ControlLabel>*/}
-                                {/*</Col>*/}
-                                {/*<Col sm={6}>*/}
-                                    {/*<Radio name="tmld" value="Y" inline defaultChecked onChange={ handleTmLdRadio }>精确到年份</Radio>*/}
-                                    {/*<Radio name="tmld" value="M" inline onChange={ handleTmLdRadio }>精确到月份</Radio>*/}
-                                    {/*<Radio name="tmld" value="D" inline onChange={ handleTmLdRadio }>精确到天</Radio>*/}
-                                    {/*<Radio name="tmld" value="T" inline onChange={ handleTmLdRadio }>精确到时间</Radio>*/}
-                                {/*</Col>*/}
-                            {/*</FormGroup>*/}
+                            <FormGroup>
+                                <Col sm={2}>
+                                    <ControlLabel>纪年方式选择</ControlLabel>
+                                </Col>
+                                <Col sm={6}>
+                                    <Radio name="yeartype" value="A" inline defaultChecked onChange={ (e)=> actions.changeYearRadio(e.target.value) }>公元纪年</Radio>
+                                    <Radio name="yeartype" value="B" inline onChange={ (e)=> actions.changeYearRadio(e.target.value) }>年号纪年</Radio>
+                                </Col>
+                            </FormGroup>
                             
-                            {
-                                componentState.isDotTime ==true ?
-                                    <FormGroup>
-                                        <Col sm={2}>
-                                            <ControlLabel>事件时间</ControlLabel>
-                                        </Col>
-                                        <Col sm={2}>
-                                            <FormControl componentClass="select" onChange={ handleSelect }>
-                                                <option value="After">公元</option>
-                                                <option value="Before">公元前</option>
-                                            </FormControl>
-                                        </Col>
-
-                                        <Col sm={2}>
-                                            <InputGroup>
-                                                <FormControl type="text"/>
-                                                <InputGroup.Addon>年</InputGroup.Addon>
-                                            </InputGroup>
-                                        </Col>
-
-                                        <Col sm={4}>
-                                            <ControlLabel>例如: 2016 或 -221 其中负数表示公元前</ControlLabel>
-                                        </Col>
-                                    </FormGroup>
-                                    :
-                                    <div>
+                            {componentState.isDotTime ==true ?
+                                <div>
+                                    {componentState.isGongYuan == true ?
                                         <FormGroup>
                                             <Col sm={2}>
-                                                <ControlLabel>事件开始时间</ControlLabel>
+                                                <ControlLabel>事件时间</ControlLabel>
                                             </Col>
-                                            <Col sm={6}>
-                                                <FormControl type="text" placeholder="请填入事件开始的时间" onBlur={ handleTmBlur }  />
+                                            <Col sm={2}>
+                                                <FormControl componentClass="select" onChange={ handleSelect }>
+                                                    <option value="After">公元</option>
+                                                    <option value="Before">公元前</option>
+                                                </FormControl>
+                                            </Col>
+
+                                            <Col sm={2}>
+                                                <InputGroup>
+                                                    <FormControl type="text"/>
+                                                    <InputGroup.Addon>年</InputGroup.Addon>
+                                                </InputGroup>
+                                            </Col>
+
+                                            <Col sm={4}>
+                                                <ControlLabel>例如: 2016 或 -221 其中负数表示公元前</ControlLabel>
                                             </Col>
                                         </FormGroup>
+                                        :
                                         <FormGroup>
                                             <Col sm={2}>
-                                                <ControlLabel>事件结束时间</ControlLabel>
+                                                <ControlLabel>事件时间</ControlLabel>
                                             </Col>
-                                            <Col sm={6}>
-                                                <FormControl type="text" placeholder="请填入事件开始的时间" onBlur={ handleTmBlur }  />
+
+                                            <Col sm={2}>
+                                                <InputGroup>
+                                                    <FormControl type="text"/>
+                                                    <InputGroup.Addon>年</InputGroup.Addon>
+                                                </InputGroup>
+                                            </Col>
+
+                                            <Col sm={4}>
+                                                <ControlLabel>例如: 2016 或 -221 其中负数表示公元前</ControlLabel>
                                             </Col>
                                         </FormGroup>
-
-                                    </div>
-
-
+                                    }
+                                </div>
+                                :
+                                <div>
+                                    {componentState.isGongYuan == true ?
+                                        <div>
+                                            <FormGroup>
+                                                <Col sm={2}>
+                                                    <ControlLabel>事件开始时间</ControlLabel>
+                                                </Col>
+                                                <Col sm={6}>
+                                                    <FormControl type="text" placeholder="请填入事件开始的时间"/>
+                                                </Col>
+                                            </FormGroup>
+                                            <FormGroup>
+                                            <Col sm = {2}>
+                                                <ControlLabel> 事件结束时间 </ControlLabel>
+                                                </Col>
+                                                <Col sm={6}>
+                                                <FormControl type="text" placeholder="请填入事件开始的时间" />
+                                                </Col>
+                                            </FormGroup>
+                                        </div>
+                                        :
+                                        <div>
+                                        </div>
+                                    }
+                                </div>
                             }
 
 
@@ -163,13 +188,8 @@ function handlePDBlur(e) {
     itemDes = e.target.value;
 }
 
-function handleTmLdRadio(e) {
-    tmLdRadio = e.target.value;
-
-}
-
 function handleSelect(e) {
-    gongyuanflag = e.target.value;
+    beforeOrAfterFlag = e.target.value;
     // console.log(gongyuanflag);
 
 }

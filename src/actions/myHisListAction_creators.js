@@ -217,7 +217,12 @@ let actions = {
     changeTmRadio: param =>({
         type: 'lists/CHANGE_TMRADIO',
         payload: param
-    })
+    }),
+
+    changeYearRadio: param =>({
+        type: 'lists/CHANGE_YEARRADIO',
+        payload: param
+    }),
 
 };
 
