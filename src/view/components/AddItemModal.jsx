@@ -52,8 +52,8 @@ class AddItemModal extends React.Component {
                                     <ControlLabel>时间类型选择</ControlLabel>
                                 </Col>
                                 <Col sm={6}>
-                                    <Radio name="tm" value="A" inline defaultChecked onFocus={ handleTmRadio} onChange={()=> actions.changeTmRadio(tmRadio)}>时间点事件</Radio>
-                                    <Radio name="tm" value="B" inline onFocus={ handleTmRadio } onChange={ ()=> actions.changeTmRadio(tmRadio)}>时间段事件</Radio>
+                                    <Radio name="tm" value="A" inline defaultChecked onChange={(e)=> actions.changeTmRadio(e.target.value)}>时间点事件</Radio>
+                                    <Radio name="tm" value="B" inline onChange={ (e)=> actions.changeTmRadio(e.target.value)}>时间段事件</Radio>
                                 </Col>
                             </FormGroup>
 
