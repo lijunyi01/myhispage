@@ -61,8 +61,17 @@ class AddItemModal extends React.Component {
                                     <ControlLabel>时间类型选择:</ControlLabel>
                                 </Col>
                                 <Col sm={6}>
-                                    <Radio name="tm" value="A" inline defaultChecked onChange={(e)=> actions.changeTmRadio(e.target.value)}>时间点事件</Radio>
-                                    <Radio name="tm" value="B" inline onChange={ (e)=> actions.changeTmRadio(e.target.value)}>时间段事件</Radio>
+                                    {componentState.isDotTime ?
+                                        <div>
+                                            <Radio name="tm" value="A" inline defaultChecked onChange={(e)=> actions.changeTmRadio(e.target.value)}>时间点事件</Radio>
+                                            <Radio name="tm" value="B" inline onChange={ (e)=> actions.changeTmRadio(e.target.value)}>时间段事件</Radio>
+                                        </div>
+                                        :
+                                        <div>
+                                            <Radio name="tm" value="A" inline onChange={(e)=> actions.changeTmRadio(e.target.value)}>时间点事件</Radio>
+                                            <Radio name="tm" value="B" inline defaultChecked onChange={ (e)=> actions.changeTmRadio(e.target.value)}>时间段事件</Radio>
+                                        </div>
+                                    }
                                 </Col>
                             </FormGroup>
 
@@ -71,8 +80,17 @@ class AddItemModal extends React.Component {
                                     <ControlLabel>纪年方式选择:</ControlLabel>
                                 </Col>
                                 <Col sm={6}>
-                                    <Radio name="yeartype" value="A" inline defaultChecked onChange={ (e)=> actions.changeYearRadio(e.target.value) }>公元纪年</Radio>
-                                    <Radio name="yeartype" value="B" inline onChange={ (e)=> actions.changeYearRadio(e.target.value) }>年号纪年</Radio>
+                                    {componentState.isGongYuan ?
+                                        <div>
+                                            <Radio name="yeartype" value="A" inline defaultChecked onChange={ (e)=> actions.changeYearRadio(e.target.value) }>公元纪年</Radio>
+                                            <Radio name="yeartype" value="B" inline onChange={ (e)=> actions.changeYearRadio(e.target.value) }>年号纪年</Radio>
+                                        </div>
+                                        :
+                                        <div>
+                                            <Radio name="yeartype" value="A" inline onChange={ (e)=> actions.changeYearRadio(e.target.value) }>公元纪年</Radio>
+                                            <Radio name="yeartype" value="B" inline defaultChecked onChange={ (e)=> actions.changeYearRadio(e.target.value) }>年号纪年</Radio>
+                                        </div>
+                                    }
                                 </Col>
                             </FormGroup>
                             

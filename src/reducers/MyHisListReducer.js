@@ -96,8 +96,6 @@ export default (state = initState, action) => {
         return fromJS(state)
             .setIn(['addItemModal', 'show'], false)
             .setIn(['addItemModal', 'projectId'], -1)
-            .setIn(['addItemModal', 'isDotTime'],true)
-            .setIn(['addItemModal', 'isGongYuan'],true)
             .toJS();
 
     } else if(action.type === 'lists/CLICK_ADDPROJECTBUTTON') {
