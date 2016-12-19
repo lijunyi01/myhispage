@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { Form,FormGroup,ControlLabel,Col,Button,FormControl,Checkbox,Modal } from 'react-bootstrap';
 import actions from '../../actions/userSetAction_creators';
 import { bindActionCreators } from 'redux';
-import MyModal from '../components/MyModal';
+// import MyModal from '../components/MyModal';
 
 let projectName = "";
 let projectDes = "";

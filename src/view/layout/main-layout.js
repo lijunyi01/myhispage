@@ -4,7 +4,7 @@
 import React from 'react';
 import { Link,IndexLink } from 'react-router';
 import styles from '../styles/Main-Layout.css';
-import MyModal from '../components/MyModal';
+// import MyModal from '../components/MyModal';
 // import appleimage from '../images/apple.png';
 
 // Using "Stateless Functional Components"
