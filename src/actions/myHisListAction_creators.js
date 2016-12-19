@@ -130,6 +130,10 @@ let actions = {
         }
     },
 
+    createProjItem: () => (dispatch, getState) => {
+        console.log('hhh');
+    },
+
     beginCreateProj: () => ({
         type: 'lists/BEGIN_CREATEPROJ'
     }),

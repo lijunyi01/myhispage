@@ -189,7 +189,8 @@ var MyHisList = function (_React$Component) {
                         createItem: actioncreator.createItem,
                         popAlertAddProj: actioncreator.popAlertAddProj,
                         shutSelfCheckModal: actioncreator.shutSelfCheckModal,
-                        changeTmRadio: actioncreator.changeTmRadio
+                        changeTmRadio: actioncreator.changeTmRadio,
+                        createProjItem: actioncreator.createProjItem
                     }
                 }),
                 _react2.default.createElement(_ConfirmModal2.default, { componentState: containerState.confirmModal,

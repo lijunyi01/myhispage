@@ -10,6 +10,7 @@ let itemName = "";
 let itemDes = "";
 let tmRadio = 'A';
 let tmLdRadio = 'Y';
+let gongyuanflag = "After";
 class AddItemModal extends React.Component {
 
     shouldComponentUpdate(nextProps){
@@ -31,10 +32,13 @@ class AddItemModal extends React.Component {
                         <Form horizontal>
                             <FormGroup controlId="formHorizontalProjName">
                                 <Col sm={2}>
-                                    <ControlLabel>事件名称 <font color="red">(*)</font></ControlLabel>
+                                    <ControlLabel>事件名称</ControlLabel>
                                 </Col>
                                 <Col sm={6}>
                                     <FormControl type="text" placeholder="请填入事件名称" onBlur={ handlePNBlur }  />
+                                </Col>
+                                <Col sm={2}>
+                                    <ControlLabel><font color="red" size="5">*</font></ControlLabel>
                                 </Col>
                             </FormGroup>
 
@@ -43,9 +47,11 @@ class AddItemModal extends React.Component {
                                     <ControlLabel>事件描述</ControlLabel>
                                 </Col>
                                 <Col sm={6}>
-                                    <FormControl type="text" placeholder="请填入事件描述" onBlur={ handlePDBlur }/>
+                                    <FormControl type="text" componentClass="textarea" placeholder="请填入事件描述" onBlur={ handlePDBlur }/>
                                 </Col>
                             </FormGroup>
+
+                            {/*<hr/>*/}
 
                             <FormGroup>
                                 <Col sm={2}>
@@ -57,17 +63,17 @@ class AddItemModal extends React.Component {
                                 </Col>
                             </FormGroup>
 
-                            <FormGroup>
-                                <Col sm={2}>
-                                    <ControlLabel>时间粒度选择</ControlLabel>
-                                </Col>
-                                <Col sm={6}>
-                                    <Radio name="tmld" value="Y" inline defaultChecked onChange={ handleTmLdRadio }>精确到年份</Radio>
-                                    <Radio name="tmld" value="M" inline onChange={ handleTmLdRadio }>精确到月份</Radio>
-                                    <Radio name="tmld" value="D" inline onChange={ handleTmLdRadio }>精确到天</Radio>
-                                    <Radio name="tmld" value="T" inline onChange={ handleTmLdRadio }>精确到时间</Radio>
-                                </Col>
-                            </FormGroup>
+                            {/*<FormGroup>*/}
+                                {/*<Col sm={2}>*/}
+                                    {/*<ControlLabel>时间粒度选择</ControlLabel>*/}
+                                {/*</Col>*/}
+                                {/*<Col sm={6}>*/}
+                                    {/*<Radio name="tmld" value="Y" inline defaultChecked onChange={ handleTmLdRadio }>精确到年份</Radio>*/}
+                                    {/*<Radio name="tmld" value="M" inline onChange={ handleTmLdRadio }>精确到月份</Radio>*/}
+                                    {/*<Radio name="tmld" value="D" inline onChange={ handleTmLdRadio }>精确到天</Radio>*/}
+                                    {/*<Radio name="tmld" value="T" inline onChange={ handleTmLdRadio }>精确到时间</Radio>*/}
+                                {/*</Col>*/}
+                            {/*</FormGroup>*/}
                             
                             {
                                 componentState.isDotTime ==true ?
@@ -75,23 +81,20 @@ class AddItemModal extends React.Component {
                                         <Col sm={2}>
                                             <ControlLabel>事件时间</ControlLabel>
                                         </Col>
-                                        {
-                                            componentState.tmld == 'Y'?
-                                                <Col sm={2}>
-                                                    <InputGroup>
-                                                        <FormControl type="text"/>
-                                                        <InputGroup.Addon>年</InputGroup.Addon>
-                                                    </InputGroup>
-                                                </Col>
-                                                :
-                                                <Col sm={2}>
-                                                    <InputGroup>
-                                                        <FormControl type="text"/>
-                                                        <InputGroup.Addon>年/月</InputGroup.Addon>
-                                                    </InputGroup>
-                                                </Col>
+                                        <Col sm={2}>
+                                            <FormControl componentClass="select" onChange={ handleSelect }>
+                                                <option value="After">公元</option>
+                                                <option value="Before">公元前</option>
+                                            </FormControl>
+                                        </Col>
 
-                                        }
+                                        <Col sm={2}>
+                                            <InputGroup>
+                                                <FormControl type="text"/>
+                                                <InputGroup.Addon>年</InputGroup.Addon>
+                                            </InputGroup>
+                                        </Col>
+
                                         <Col sm={4}>
                                             <ControlLabel>例如: 2016 或 -221 其中负数表示公元前</ControlLabel>
                                         </Col>
@@ -128,18 +131,7 @@ class AddItemModal extends React.Component {
                                             提 交
                                         </Button>
                                         :
-                                        <Button bsStyle="danger" onClick={ ()=>{
-                                            if(itemName == ""){
-                                                actions.popAlert('事件名称不能为空')
-                                            }else {
-                                                actions.createProj(
-                                                    {
-                                                        projectName: projectName,
-                                                        projectDes: projectDes
-                                                    }
-                                                )
-                                            }
-                                        } } >
+                                        <Button bsStyle="danger" onClick={ actions.createProjItem } >
                                             提 交
                                         </Button>
                                     }
@@ -163,32 +155,23 @@ class AddItemModal extends React.Component {
 
 }
 
-function handleChange(e) {
-    console.log(e.target.value)
-}
-
 function handlePNBlur(e) {
     itemName = e.target.value;
 }
 
 function handlePDBlur(e) {
-    itemDes = e.target.value
-}
-
-function handleTmRadio(e) {
-    tmRadio = e.target.value;
+    itemDes = e.target.value;
 }
 
 function handleTmLdRadio(e) {
-    tmLdRadio = e.target.value
+    tmLdRadio = e.target.value;
 
 }
 
-function handleTmBlur(e) {
-    // tmLdRadio = e.target.value
+function handleSelect(e) {
+    gongyuanflag = e.target.value;
+    // console.log(gongyuanflag);
 
 }
-
-
 
 export default AddItemModal;

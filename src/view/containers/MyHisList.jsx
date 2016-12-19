@@ -97,7 +97,8 @@ class MyHisList extends React.Component {
                                      createItem: actioncreator.createItem,
                                      popAlertAddProj: actioncreator.popAlertAddProj,
                                      shutSelfCheckModal: actioncreator.shutSelfCheckModal,
-                                     changeTmRadio:actioncreator.changeTmRadio
+                                     changeTmRadio:actioncreator.changeTmRadio,
+                                     createProjItem: actioncreator.createProjItem
                                  }
                                  }
                 />
