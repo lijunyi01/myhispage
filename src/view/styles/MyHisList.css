@@ -1,50 +1,56 @@
-.myHisList {
-  width: 200px;
-  margin: 20px;
-  border-radius: 4px;
-  border: 1px solid #ddd; }
-  .myHisList > .title {
-    padding: 6px 0px;
-    text-align: center;
-    color: #069;
-    font-size: 21px; }
-  .myHisList > .stats {
-    width: 100%;
-    border-top: 1px dashed #ddd;
-    border-bottom: 1px dashed #ddd;
-    padding: 10px 0px; }
-    .myHisList > .stats .section {
-      display: inline-block;
-      width: 45%;
-      padding-left: 8px; }
-      .myHisList > .stats .section .head {
-        padding: 6px 0px;
-        font-size: 16px;
-        color: #069; }
-      .myHisList > .stats .section .content {
-        font-size: 20px;
-        font-weight: 200; }
-      .myHisList > .stats .section:first-of-type {
-        border-right: 1px solid #f0f0f0; }
-  .myHisList > .appleList {
-    padding: 10px 0px; }
-    .myHisList > .appleList .emptytip {
-      text-align: center;
-      font-size: 16px;
-      color: #ccc;
-      padding: 20px 0px; }
-  .myHisList > .btndiv {
-    text-align: center; }
-    .myHisList > .btndiv button {
-      color: #fff;
-      background-color: #096;
-      border: none;
-      font-size: 14px;
-      padding: 6px 40px;
-      border-radius: 6px;
-      margin: 20px auto; }
-
-.oneItem {
-  color: #c9302c; }
+.myHisListMain {
+  width: 100%;
+  height: 100%;
+  display: flex; }
+  .myHisListMain > .list {
+    width: 350px;
+    height: 100%; }
+    .myHisListMain > .list > .top {
+      width: 100%;
+      height: 100px;
+      border-bottom: 1px solid silver; }
+      .myHisListMain > .list > .top > .infoarea {
+        width: 100%;
+        height: 60%;
+        padding-left: 15px; }
+      .myHisListMain > .list > .top > .buttonarea {
+        width: 100%;
+        height: 40%;
+        background-color: #f7f7f7;
+        display: flex;
+        float: right; }
+        .myHisListMain > .list > .top > .buttonarea > .button1 {
+          width: 25%;
+          height: 100%;
+          padding-top: 5px; }
+    .myHisListMain > .list > .bottom {
+      width: 100%;
+      height: calc(100% - 100px);
+      overflow: scroll; }
+  .myHisListMain > .main {
+    width: calc(100% - 350px);
+    height: 100%;
+    border-left: 1px solid silver; }
+    .myHisListMain > .main > .top {
+      width: 100%;
+      height: 100px; }
+      .myHisListMain > .main > .top > .top2 {
+        width: 90%;
+        height: 100%;
+        border-bottom: 1px solid silver;
+        margin-left: 5%; }
+        .myHisListMain > .main > .top > .top2 > .info {
+          width: 100%;
+          height: 60%; }
+        .myHisListMain > .main > .top > .top2 > .toolbar {
+          width: 100%;
+          height: 30%; }
+    .myHisListMain > .main > .bottom {
+      width: 100%;
+      height: calc(100% - 100px); }
+      .myHisListMain > .main > .bottom > .bottom2 {
+        width: 90%;
+        height: 100%;
+        margin-left: 5%; }
 
 /*# sourceMappingURL=MyHisList.css.map */

@@ -16,9 +16,9 @@ var _MyHisList = require('../styles/MyHisList.css');
 
 var _MyHisList2 = _interopRequireDefault(_MyHisList);
 
-var _ProjectsList = require('../components/ProjectsList');
+var _ProjectsListItem = require('../components/ProjectsListItem');
 
-var _ProjectsList2 = _interopRequireDefault(_ProjectsList);
+var _ProjectsListItem2 = _interopRequireDefault(_ProjectsListItem);
 
 var _myHisListAction_creators = require('../../actions/myHisListAction_creators');
 
@@ -27,6 +27,22 @@ var _myHisListAction_creators2 = _interopRequireDefault(_myHisListAction_creator
 var _redux = require('redux');
 
 var _reactBootstrap = require('react-bootstrap');
+
+var _AddProjectModal = require('../components/AddProjectModal');
+
+var _AddProjectModal2 = _interopRequireDefault(_AddProjectModal);
+
+var _ConfirmModal = require('../components/ConfirmModal');
+
+var _ConfirmModal2 = _interopRequireDefault(_ConfirmModal);
+
+var _ResultModal = require('../components/ResultModal');
+
+var _ResultModal2 = _interopRequireDefault(_ResultModal);
+
+var _AddItemModal = require('../components/AddItemModal');
+
+var _AddItemModal2 = _interopRequireDefault(_AddItemModal);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -59,46 +75,131 @@ var MyHisList = function (_React$Component) {
                 containerState = _props.containerState,
                 actioncreator = _props.actioncreator;
 
-            if (containerState.projectsList.length == 0) {
+            if (containerState.projectsList.length == 0 && containerState.justLogin == true) {
                 actioncreator.getAllProjects();
             }
 
             return _react2.default.createElement(
-                _reactBootstrap.Row,
-                null,
+                'div',
+                { className: _MyHisList2.default.myHisListMain },
                 _react2.default.createElement(
-                    _reactBootstrap.Col,
-                    { md: 4 },
+                    'div',
+                    { className: _MyHisList2.default.list },
                     _react2.default.createElement(
-                        _reactBootstrap.Row,
-                        null,
+                        'div',
+                        { className: _MyHisList2.default.top },
                         _react2.default.createElement(
-                            'p',
-                            null,
-                            'This is a list'
+                            'div',
+                            { className: _MyHisList2.default.infoarea },
+                            _react2.default.createElement(
+                                'p',
+                                null,
+                                '我的笔记'
+                            )
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: _MyHisList2.default.buttonarea },
+                            _react2.default.createElement('div', { className: _MyHisList2.default.button1 }),
+                            _react2.default.createElement('div', { className: _MyHisList2.default.button1 }),
+                            _react2.default.createElement('div', { className: _MyHisList2.default.button1 }),
+                            _react2.default.createElement(
+                                'div',
+                                { className: _MyHisList2.default.button1 },
+                                _react2.default.createElement(
+                                    _reactBootstrap.Button,
+                                    { bsSize: 'sm', bsStyle: 'success', onClick: actioncreator.addProjectButtonClick },
+                                    '新建笔记'
+                                )
+                            )
                         )
                     ),
                     _react2.default.createElement(
-                        _reactBootstrap.ListGroup,
-                        null,
-                        containerState.projectsList.length == 0 ? _react2.default.createElement('div', { className: _MyHisList2.default.emptytip }) : containerState.projectsList.map(function (project) {
-                            return _react2.default.createElement(_ProjectsList2.default, { key: project.id, componentState: project, activeId: containerState.activeId, actions: { getProjectContent: actioncreator.getProjectContent } });
-                        })
+                        'div',
+                        { className: _MyHisList2.default.bottom },
+                        containerState.projectsList.length > 0 ? containerState.projectsList.map(function (project) {
+                            return _react2.default.createElement(_ProjectsListItem2.default, { key: project.id, componentState: project, activeId: containerState.activeId,
+                                actions: { getProjectContent: actioncreator.getProjectContent,
+                                    deleteProj: actioncreator.deleteProj,
+                                    showConfirm: actioncreator.showConfirm
+                                }
+                            });
+                        }) : containerState.justLogin ? _react2.default.createElement(
+                            'div',
+                            null,
+                            'loading...'
+                        ) : _react2.default.createElement(
+                            'div',
+                            null,
+                            '暂无项目,请创建'
+                        )
                     )
                 ),
                 _react2.default.createElement(
-                    _reactBootstrap.Col,
-                    { md: 4, smHidden: true, xsHidden: true },
+                    'div',
+                    { className: _MyHisList2.default.main },
                     _react2.default.createElement(
                         'div',
-                        { className: _MyHisList2.default.oneItem },
+                        { className: _MyHisList2.default.top },
                         _react2.default.createElement(
-                            'p',
-                            null,
-                            'asdfasdfsadfsadf'
+                            'div',
+                            { className: _MyHisList2.default.top2 },
+                            _react2.default.createElement('div', { className: _MyHisList2.default.info }),
+                            _react2.default.createElement(
+                                'div',
+                                { className: _MyHisList2.default.toolbar },
+                                containerState.activeId == -1 ? _react2.default.createElement(
+                                    _reactBootstrap.ButtonToolbar,
+                                    null,
+                                    _react2.default.createElement(
+                                        _reactBootstrap.Button,
+                                        { bsSize: 'sm', bsStyle: 'success', disabled: true },
+                                        '新增事件'
+                                    )
+                                ) : _react2.default.createElement(
+                                    _reactBootstrap.ButtonToolbar,
+                                    null,
+                                    _react2.default.createElement(
+                                        _reactBootstrap.Button,
+                                        { bsSize: 'sm', bsStyle: 'success',
+                                            onClick: function onClick() {
+                                                return actioncreator.addItemButtonClick(containerState.activeId);
+                                            } },
+                                        '新增事件'
+                                    )
+                                )
+                            )
                         )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: _MyHisList2.default.bottom },
+                        _react2.default.createElement('div', { className: _MyHisList2.default.bottom2 })
                     )
-                )
+                ),
+                _react2.default.createElement(_AddProjectModal2.default, { componentState: containerState.addProjectModal,
+                    actions: { shutAddProjectModal: actioncreator.shutAddProjectModal,
+                        createProj: actioncreator.createProj,
+                        popAlert: actioncreator.popAlert,
+                        shutSelfCheckModal: actioncreator.shutSelfCheckModal
+                    }
+                }),
+                _react2.default.createElement(_AddItemModal2.default, { componentState: containerState.addItemModal,
+                    actions: { shutAddItemModal: actioncreator.shutAddItemModal,
+                        createItem: actioncreator.createItem,
+                        popAlertAddProj: actioncreator.popAlertAddProj,
+                        shutSelfCheckModal: actioncreator.shutSelfCheckModal,
+                        changeTmRadio: actioncreator.changeTmRadio
+                    }
+                }),
+                _react2.default.createElement(_ConfirmModal2.default, { componentState: containerState.confirmModal,
+                    actions: {
+                        shutConfirmModal: actioncreator.shutConfirmModal,
+                        deleteProj: actioncreator.deleteProj
+                    }
+
+                }),
+                _react2.default.createElement(_ResultModal2.default, { componentState: containerState.resultModal, actions: { shutResultModal: actioncreator.shutResultModal } })
             );
         }
     }]);

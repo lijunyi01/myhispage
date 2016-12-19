@@ -22,29 +22,28 @@ var _MyHisList = require('./view/containers/MyHisList');
 
 var _MyHisList2 = _interopRequireDefault(_MyHisList);
 
-var _AddHisProj = require('./view/containers/AddHisProj');
+var _UserSet = require('./view/containers/UserSet');
 
-var _AddHisProj2 = _interopRequireDefault(_AddHisProj);
+var _UserSet2 = _interopRequireDefault(_UserSet);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // Layout
 exports.default = _react2.default.createElement(
     _reactRouter.Router,
-    { history: _reactRouter.browserHistory },
+    { history: _reactRouter.hashHistory },
     _react2.default.createElement(
         _reactRouter.Route,
         { component: _mainLayout2.default },
-        _react2.default.createElement(_reactRouter.Route, { path: '/', component: _Home2.default }),
         _react2.default.createElement(
             _reactRouter.Route,
-            { path: '/myHisList' },
+            { path: '/' },
             _react2.default.createElement(_reactRouter.IndexRoute, { component: _MyHisList2.default })
         ),
         _react2.default.createElement(
             _reactRouter.Route,
-            { path: '/addHisProj' },
-            _react2.default.createElement(_reactRouter.IndexRoute, { component: _AddHisProj2.default })
+            { path: '/userSet' },
+            _react2.default.createElement(_reactRouter.IndexRoute, { component: _UserSet2.default })
         )
     )
 );

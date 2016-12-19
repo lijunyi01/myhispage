@@ -43,17 +43,23 @@ var loggerMiddleware = (0, _reduxLogger2.default)();
 
 var store = (0, _redux.createStore)(_RootReducer2.default, (0, _redux.applyMiddleware)(_reduxThunk2.default, loggerMiddleware));
 
+var siteip = '222.46.16.173';
+var siteport = '8001';
+// let siteip = 'gfax.net';
+// let siteport = '8002';
+var umid = '1';
+var token = '6969da5b-1af1-4ade-8f99-7a174c9d1018';
+//实际通过登录页面传递参数(直接传或通过本地存储传)
+_mySocket2.default.init(siteip, siteport, umid, token);
+
+// store.dispatch({
+//     type: 'lists/SET_JUSTLOGIN',
+// });
+
 (0, _reactDom.render)(_react2.default.createElement(
     _reactRedux.Provider,
     { store: store },
     _router2.default
 ), document.getElementById('app'));
-
-var siteip = '222.46.16.173';
-var siteport = '8001';
-var umid = '1';
-var token = '6969da5b-1af1-4ade-8f99-7a174c9d1018';
-//实际通过登录页面传递参数(直接传或通过本地存储传)
-_mySocket2.default.init(siteip, siteport, umid, token);
 
 //# sourceMappingURL=index.js.map

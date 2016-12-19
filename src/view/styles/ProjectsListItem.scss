@@ -1,0 +1,233 @@
+.projectsListItem {
+  width: 100%;
+  height: 100px;
+  border: 1px solid #fff;
+  > .projectsListItem2 {
+    width: 90%;
+    height: 100%;
+    margin-left: 15px;
+    //margin: 10px auto;
+    //border-radius: 4px;
+    border-bottom: 1px solid #ddd;
+    //border: 1px solid #ddd;
+    display: flex;
+    cursor: pointer;
+
+    > .left {
+      width: 60%;
+      height: 100%;
+      > .name {
+        color: #15daff;
+        margin: 10px auto;
+        font-size: 18px;
+      }
+      >.des{
+        color: #080808;
+        margin: 10px auto;
+        font-size: 14px;
+      }
+    }
+    > .right {
+      width: 40%;
+      height: 100%;
+      >.up{
+        width:100%;
+        height: 20%;
+        margin-top: 5px;
+        >.buttons{
+          display: none;
+        }
+      }
+      > .down {
+        width: 100%;
+        height: 70%;
+        font-size: 15px;
+        text-align: right;
+        padding-top: 40px;
+        //margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+.projectsListItem:hover{
+  background-color: #4cae4c;
+  > .projectsListItem2 {
+    > .left {
+      > .name {
+        color: #fff;
+      }
+      >.des{
+        color: #fff;
+      }
+    }
+    > .right {
+      > .up {
+        >.buttons{
+          display: flex;
+          color: #fff;
+          float: right;
+          >.button1{
+            width: 24px;
+            height:24px;
+            background: url("../images/work_chat_white.png") no-repeat;
+          }
+          >.button1:hover{
+            background: url("../images/work_chat_solid_white.png") no-repeat;
+          }
+          >.button2{
+            width: 24px;
+            height:24px;
+            margin-left: 10px;
+            background: url("../images/delete_white.png") no-repeat;
+          }
+          >.button2:hover{
+            background: url("../images/delete_solid_white.png") no-repeat;
+          }
+
+          //>.button2group {
+          //  width: 20%;
+          //  height: 50px;
+          //  margin-left: 10px;
+          //  > .button2 {
+          //    width: 24px;
+          //    height: 24px;
+          //    margin-bottom: 3px;
+          //    background: url("../images/delete_white.png") no-repeat;
+          //  }
+          //  > .button2des{
+          //    display: none;
+          //    width: 70px;
+          //    height: 20px ;
+          //    font-size: small;
+          //    color: #f7f7f7;
+          //    //border: 1px solid salmon;
+          //    background-color: #122b40;
+          //    border-radius: 2px;
+          //    text-align: center;
+          //    line-height: 20px;
+          //  }
+          //}
+          //> .button2group:hover {
+          //  > .button2 {
+          //     background: url("../images/delete_solid_white.png") no-repeat;
+          //  }
+          //  > .button2des {
+          //     display: block;
+          //     position: absolute;
+          //     //z-index: 999;
+          //  }
+          //}
+
+        }
+      }
+      > .down {
+        color: #fff;
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+.projectsListItemActive {
+  width: calc(100% - 6px);
+  height: 100px;
+  border: 1px solid silver;
+  border-radius: 4px;
+  box-shadow: 0 0 3px 3px silver;
+  margin: 0 auto;
+  > .projectsListItem2 {
+    width: 90%;
+    height: 100%;
+    margin-left: 15px;
+    //margin: 10px auto;
+    //border-radius: 4px;
+    //border-bottom: 1px solid #ddd;
+    display: flex;
+    cursor: pointer;
+
+    > .left {
+      width: 60%;
+      height: 100%;
+      > .name {
+        color: #15daff;
+        margin: 10px auto;
+        font-size: 18px;
+      }
+      >.des{
+        color: #080808;
+        margin: 10px auto;
+        font-size: 14px;
+      }
+    }
+    > .right {
+      width: 40%;
+      height: 100%;
+      >.up{
+        width:100%;
+        height: 20%;
+        margin-top: 5px;
+        >.buttons{
+          display: none;
+        }
+      }
+      > .down {
+        width: 100%;
+        height: 70%;
+        font-size: 15px;
+        text-align: right;
+        padding-top: 40px;
+        //margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+.projectsListItemActive:hover{
+  background-color: #4cae4c;
+  > .projectsListItem2 {
+    > .left {
+      > .name {
+        color: #fff;
+      }
+      >.des{
+        color: #fff;
+      }
+    }
+    > .right {
+      > .up {
+        >.buttons{
+          display: flex;
+          color: #fff;
+          float: right;
+          >.button1{
+            width: 24px;
+            height:24px;
+            background: url("../images/work_chat_white.png") no-repeat;
+          }
+          >.button1:hover{
+            background: url("../images/work_chat_solid_white.png") no-repeat;
+          }
+          >.button2{
+            width: 24px;
+            height:24px;
+            margin-left: 10px;
+            background: url("../images/delete_white.png") no-repeat;
+          }
+          >.button2:hover{
+            background: url("../images/delete_solid_white.png") no-repeat;
+          }
+
+        }
+      }
+      > .down {
+        color: #fff;
+      }
+    }
+  }
+}

@@ -26,7 +26,7 @@ const mysocket = {
     },
     connect: function(){
         var socketUrl = this.httptype+this.siteip+':'+this.siteport+'/?umid='+this.umid+'&token='+this.token;
-        // console.log(socketUrl);
+        console.log(socketUrl);
         this.socket = io.connect(socketUrl);
 
         this.on();

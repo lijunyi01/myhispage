@@ -1,0 +1,71 @@
+.mainlayout{
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  display: flex;
+  >.aside{
+    width:70px;
+    height: 100%;
+    background-color: whitesmoke;
+    padding-top: 20px;
+    >.item1{
+      margin-left: 15px;
+      margin-bottom: 50px;
+      width: 40px;
+      height: 40px;
+      background-color: #c9302c;
+    }
+    >.item2{
+      margin-bottom: 25px;
+      width: 70px;
+      height: 40px;
+      >.active{
+        border-left: 2px solid saddlebrown;
+      }
+    }
+
+    > .itembottom{
+      width: 40px;
+      height: 40px;
+      margin-left: 15px;
+      margin-top: 10px;
+      position: fixed;
+      bottom: 10px;
+      //border-top: 1px solid red;
+      background: url("../images/menu_set.png") no-repeat;
+      border-radius: 50%;
+    }
+    //对应与Link,react-router中的Link其实是a标签
+    a{
+      display: block;
+      width: 70px;
+      height: 40px;
+      //padding-top: 15px;
+      //background-color: #1b6d85;
+      > .item_add {
+        margin-left: 15px;
+        width: 40px;
+        height: 40px;
+        background: url("../images/menu_add_1.png") no-repeat;
+      }
+      > .item_add:hover {
+        background: url("../images/menu_add_2.png") no-repeat;
+      }
+
+      > .item_bj {
+        margin-left: 15px;
+        width: 40px;
+        height: 40px;
+        background: url("../images/menu_bj_1.png") no-repeat;
+      }
+      > .item_bj:hover {
+        background: url("../images/menu_bj_2.png") no-repeat;
+      }
+    }
+  }
+  >.main{
+    width: calc(100% - 70px);
+    heigth: 100%;
+    //background-color: #2b542c;
+  }
+}
