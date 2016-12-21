@@ -1,19 +1,30 @@
 import React from 'react';
 // import PureRenderMixin from 'react-addons-pure-render-mixin';
-// import { render } from 'react-dom';
+import { render,findDOMNode } from 'react-dom';
 // import styles from '../styles/AppleItem.css';
 // import appleimage from '../images/apple.png';
 import { Modal,Button,Form,FormGroup,Col,FormControl,ControlLabel,Radio,InputGroup } from 'react-bootstrap';
 
 
-let itemName = "";
-let itemDes = "";
+let itemName = '';
+let itemDes = '';
 //时间点还是时间段
 let tmRadio = 'A';
 //纪年方式
 let yearRadio = 'A';
-//公元前还是公元后
-let beforeOrAfterFlag = "After";
+//公元前还是公元后(分开始时间和结束时间)
+let startBOAFlag = "After";
+let endBOAFlag = "After";
+
+let startYear = '';
+let startNH = '';
+let startYear_des = '';
+let startTime = '';
+let endYear = '';
+let endNH = '';
+let endYear_des = '';
+let endTime = '';
+
 class AddItemModal extends React.Component {
 
     shouldComponentUpdate(nextProps){
@@ -23,6 +34,18 @@ class AddItemModal extends React.Component {
     render() {
 
         let { componentState, actions } = this.props;
+
+        if(componentState.isDotTime == true){
+            tmRadio = 'A';
+        }else{
+            tmRadio = 'B';
+        }
+
+        if(componentState.isGongYuan == true){
+            yearRadio = 'A';
+        }else{
+            yearRadio = 'B';
+        }
 
         return (
             <div>
@@ -38,7 +61,7 @@ class AddItemModal extends React.Component {
                                     <ControlLabel>事件名称:</ControlLabel>
                                 </Col>
                                 <Col sm={6}>
-                                    <FormControl type="text" placeholder="请填入事件名称" onBlur={ handlePNBlur }  />
+                                    <FormControl type="text" placeholder="请填入事件名称" ref="itemName"/>
                                 </Col>
                                 <Col sm={2}>
                                     <ControlLabel><font color="red" size="5">*</font></ControlLabel>
@@ -50,7 +73,7 @@ class AddItemModal extends React.Component {
                                     <ControlLabel>事件描述:</ControlLabel>
                                 </Col>
                                 <Col sm={6}>
-                                    <FormControl type="text" componentClass="textarea" placeholder="请填入事件描述" onBlur={ handlePDBlur }/>
+                                    <FormControl type="text" componentClass="textarea" placeholder="请填入事件描述" ref="itemDes"/>
                                 </Col>
                             </FormGroup>
 
@@ -103,7 +126,7 @@ class AddItemModal extends React.Component {
                                                     <ControlLabel>事件时间:</ControlLabel>
                                                 </Col>
                                                 <Col sm={2}>
-                                                    <FormControl componentClass="select" onChange={ handleSelect }>
+                                                    <FormControl componentClass="select" ref="startBOAFlag">
                                                         <option value="After">公元</option>
                                                         <option value="Before">公元前</option>
                                                     </FormControl>
@@ -111,13 +134,13 @@ class AddItemModal extends React.Component {
 
                                                 <Col sm={2}>
                                                     <InputGroup>
-                                                        <FormControl type="text" placeholder="2016"/>
+                                                        <FormControl type="text" placeholder="2016" ref="startYear"/>
                                                         <InputGroup.Addon>年</InputGroup.Addon>
                                                     </InputGroup>
                                                 </Col>
 
                                                 <Col sm={5}>
-                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空"/>
+                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空" ref="startTime"/>
                                                 </Col>
                                             </FormGroup>
 
@@ -141,18 +164,18 @@ class AddItemModal extends React.Component {
 
                                                 <Col sm={2}>
                                                     <InputGroup>
-                                                        <FormControl type="text" placeholder="鲁隐公"/>
+                                                        <FormControl type="text" placeholder="鲁隐公" ref="startNH"/>
                                                         <InputGroup.Addon>年号</InputGroup.Addon>
                                                     </InputGroup>
                                                 </Col>
                                                 <Col sm={2}>
                                                     <InputGroup>
-                                                        <FormControl type="text" placeholder="1"/>
+                                                        <FormControl type="text" placeholder="1" ref="startYearDes"/>
                                                         <InputGroup.Addon>年</InputGroup.Addon>
                                                     </InputGroup>
                                                 </Col>
                                                 <Col sm={5}>
-                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空"/>
+                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空" ref="startTime"/>
                                                 </Col>
 
                                             </FormGroup>
@@ -179,7 +202,7 @@ class AddItemModal extends React.Component {
                                                 </Col>
 
                                                 <Col sm={2}>
-                                                    <FormControl componentClass="select" onChange={ handleSelect }>
+                                                    <FormControl componentClass="select" ref="startBOAFlag">
                                                         <option value="After">公元</option>
                                                         <option value="Before">公元前</option>
                                                     </FormControl>
@@ -187,13 +210,13 @@ class AddItemModal extends React.Component {
 
                                                 <Col sm={2}>
                                                     <InputGroup>
-                                                        <FormControl type="text" placeholder="2016"/>
+                                                        <FormControl type="text" placeholder="2016" ref="startYear"/>
                                                         <InputGroup.Addon>年</InputGroup.Addon>
                                                     </InputGroup>
                                                 </Col>
 
                                                 <Col sm={5}>
-                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空"/>
+                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空" ref="startTime"/>
                                                 </Col>
                                             </FormGroup>
 
@@ -203,7 +226,7 @@ class AddItemModal extends React.Component {
                                                 </Col>
 
                                                 <Col sm={2}>
-                                                    <FormControl componentClass="select" onChange={ handleSelect }>
+                                                    <FormControl componentClass="select" ref="endBOAFlag">
                                                         <option value="After">公元</option>
                                                         <option value="Before">公元前</option>
                                                     </FormControl>
@@ -211,13 +234,13 @@ class AddItemModal extends React.Component {
 
                                                 <Col sm={2}>
                                                     <InputGroup>
-                                                        <FormControl type="text" placeholder="2017"/>
+                                                        <FormControl type="text" placeholder="2017" ref="endYear"/>
                                                         <InputGroup.Addon>年</InputGroup.Addon>
                                                     </InputGroup>
                                                 </Col>
 
                                                 <Col sm={5}>
-                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空"/>
+                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空" ref="endTime"/>
                                                 </Col>
                                             </FormGroup>
 
@@ -242,18 +265,18 @@ class AddItemModal extends React.Component {
 
                                                 <Col sm={2}>
                                                     <InputGroup>
-                                                        <FormControl type="text" placeholder="鲁隐公"/>
+                                                        <FormControl type="text" placeholder="鲁隐公" ref="startNH"/>
                                                         <InputGroup.Addon>年号</InputGroup.Addon>
                                                     </InputGroup>
                                                 </Col>
                                                 <Col sm={2}>
                                                     <InputGroup>
-                                                        <FormControl type="text" placeholder="1"/>
+                                                        <FormControl type="text" placeholder="1" ref="startYearDes"/>
                                                         <InputGroup.Addon>年</InputGroup.Addon>
                                                     </InputGroup>
                                                 </Col>
                                                 <Col sm={5}>
-                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空"/>
+                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空" ref="startTime"/>
                                                 </Col>
 
                                             </FormGroup>
@@ -265,18 +288,18 @@ class AddItemModal extends React.Component {
 
                                                 <Col sm={2}>
                                                     <InputGroup>
-                                                        <FormControl type="text" placeholder="鲁隐公"/>
+                                                        <FormControl type="text" placeholder="鲁隐公" ref="endNH"/>
                                                         <InputGroup.Addon>年号</InputGroup.Addon>
                                                     </InputGroup>
                                                 </Col>
                                                 <Col sm={2}>
                                                     <InputGroup>
-                                                        <FormControl type="text" placeholder="3"/>
+                                                        <FormControl type="text" placeholder="3" ref="endYearDes"/>
                                                         <InputGroup.Addon>年</InputGroup.Addon>
                                                     </InputGroup>
                                                 </Col>
                                                 <Col sm={5}>
-                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空"/>
+                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空" ref="endTime"/>
                                                 </Col>
 
                                             </FormGroup>
@@ -304,7 +327,81 @@ class AddItemModal extends React.Component {
                                             提 交
                                         </Button>
                                         :
-                                        <Button bsStyle="danger" onClick={ actions.createProjItem } >
+                                        <Button bsStyle="danger" onClick={ ()=> {
+                                            let itemType = 0;
+                                            itemName = findDOMNode(this.refs.itemName).value;
+                                            itemDes = findDOMNode(this.refs.itemDes).value;
+                                            if(tmRadio == 'A') {
+                                                if(yearRadio == 'A') {
+                                                    startBOAFlag = findDOMNode(this.refs.startBOAFlag).value;
+                                                    if(startBOAFlag == 'After') {
+                                                        startYear = findDOMNode(this.refs.startYear).value;
+                                                    }else{
+                                                        startYear = '-'+findDOMNode(this.refs.startYear).value;
+                                                    }
+                                                    startTime = findDOMNode(this.refs.startTime).value;
+
+                                                    itemType = 1;
+                                                }else{
+                                                    startNH = findDOMNode(this.refs.startNH).value;
+                                                    startYear_des = startNH + ' ' + findDOMNode(this.refs.startYearDes).value;
+                                                    startTime = findDOMNode(this.refs.startTime).value;
+
+                                                    itemType = 2;
+                                                }
+                                            }else{
+                                                if(yearRadio == 'A') {
+                                                    startBOAFlag = findDOMNode(this.refs.startBOAFlag).value;
+                                                    if(startBOAFlag == 'After') {
+                                                        startYear = findDOMNode(this.refs.startYear).value;
+                                                    }else{
+                                                        startYear = '-'+findDOMNode(this.refs.startYear).value;
+                                                    }
+                                                    startTime = findDOMNode(this.refs.startTime).value;
+                                                    endBOAFlag = findDOMNode(this.refs.endBOAFlag).value;
+                                                    if(endBOAFlag == 'After') {
+                                                        endYear = findDOMNode(this.refs.endYear).value;
+                                                    }else{
+                                                        endYear = '-' + findDOMNode(this.refs.endYear).value;
+                                                    }
+                                                    endTime = findDOMNode(this.refs.endTime).value;
+
+                                                    itemType = 3;
+
+                                                }else{
+                                                    startNH = findDOMNode(this.refs.startNH).value;
+                                                    startYear_des = startNH + ' ' + findDOMNode(this.refs.startYearDes).value;
+                                                    startTime = findDOMNode(this.refs.startTime).value;
+                                                    endNH = findDOMNode(this.refs.endNH).value;
+                                                    endYear_des = endNH + ' ' + findDOMNode(this.refs.endYearDes).value;
+                                                    endTime = findDOMNode(this.refs.endTime).value;
+
+                                                    itemType = 4;
+                                                }
+                                            }
+                                            {/*console.log('startYear:'+ startYear);*/}
+                                            {/*console.log('startTime:'+ startTime);*/}
+                                            {/*console.log('endYear:'+ endYear);*/}
+                                            {/*console.log('endTime:'+ endTime);*/}
+                                            {/*console.log('startYear_Des:'+ startYear_des);*/}
+                                            {/*console.log('endYear_Des:'+ endYear_des);*/}
+                                            let checkResult = checkParam();
+                                            if( ! checkResult == '' ){
+                                                actions.popAlert(checkResult)
+                                            }else {
+                                                actions.createProjItem({
+                                                    type: itemType,
+                                                    itemName: itemName,
+                                                    itemDes: itemDes,
+                                                    startYear: startYear,
+                                                    startYearDes: startYear_des,
+                                                    startTime: startTime,
+                                                    endYear: endYear,
+                                                    endYearDes: endYear_des,
+                                                    endTime: endTime,
+                                                })
+                                            }
+                                        }}>
                                             提 交
                                         </Button>
                                     }
@@ -328,18 +425,101 @@ class AddItemModal extends React.Component {
 
 }
 
-function handlePNBlur(e) {
-    itemName = e.target.value;
-}
+// function handleINBlur(e) {
+//     itemName = e.target.value;
+// }
+//
+// function handleIDBlur(e) {
+//     itemDes = e.target.value;
+// }
+//
+// function handleStartSelect(e) {
+//     startBOAFlag = e.target.value;
+//     // console.log(gongyuanflag);
+//
+// }
+//
+// function handleEndSelect(e) {
+//     endBOAFlag = e.target.value;
+//     // console.log(gongyuanflag);
+//
+// }
+//
+// function handleStartYear(e) {
+//     if(startBOAFlag == 'After'){
+//         startYear = e.target.value;
+//     }else {
+//         startYear = '-' + e.target.value;
+//     }
+// }
+//
+// function handleEndYear(e) {
+//     if(endBOAFlag == 'After'){
+//         endYear = e.target.value;
+//     }else {
+//         endYear = '-' + e.target.value;
+//     }
+// }
+//
+// function handleStartTime(e) {
+//     startTime = e.target.value;
+// }
+//
+// function handleEndTime(e) {
+//     endTime = e.target.value;
+// }
+//
+// function handleStartNianHao(e) {
+//     startNH = e.target.value;
+// }
+//
+// function handleEndNianHao(e) {
+//     endNH = e.target.value;
+// }
+//
+// function handleStartYearDes(e) {
+//     startYear_des = startNH + ' ' + e.target.value;
+// }
+//
+// function handleEndYearDes(e) {
+//     endYear_des = endNH + ' ' + e.target.value;
+// }
 
-function handlePDBlur(e) {
-    itemDes = e.target.value;
-}
+function checkParam() {
 
-function handleSelect(e) {
-    beforeOrAfterFlag = e.target.value;
-    // console.log(gongyuanflag);
-
+    let ret = '';
+    if(itemName == ''){
+        ret = '事件名不能为空';
+    }else if(itemDes == ''){
+        ret = '事件描述不能为空';
+    }else{
+        if(tmRadio == 'A'){   //点时间
+            if(yearRadio == 'A'){   //公元纪年
+                if(startYear == ''){
+                    ret = '请输入事件年代';
+                }
+            }else {   //年号纪年
+                if(startNH == ''){
+                    ret = '请输入年号';
+                }else if(startNH == startYear_des){
+                    ret = '请填写年份';
+                }
+            }
+        }else{     //段时间
+            if(yearRadio == 'A'){   //公元纪年
+                if(startYear == '' || endYear == ''){
+                    ret = '请输入事件起止年代';
+                }
+            }else {   //年号纪年
+                if(startNH == '' || endNH ==''){
+                    ret = '请输入起止年号';
+                }else if(startNH + ' ' == startYear_des || endNH + ' ' == endYear_des){
+                    ret = '请填写起止年份';
+                }
+            }
+        }
+    }
+    return ret;
 }
 
 export default AddItemModal;

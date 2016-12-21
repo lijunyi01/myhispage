@@ -71,9 +71,7 @@ export default (state = initState, action) => {
         let idInPayload = action.payload.id;
         let contentInPayload = action.payload.content;
         let newProjectContents = fromJS(state).get('projectContents').set(idInPayload, contentInPayload).toJS();
-        // console.log(newProjectContents);
         return fromJS(state).set('projectContents', newProjectContents).toJS();
-        // return fromJS(state).get('projectContents').set(idInPayload,contentInPayload).toJS();
 
     } else if(action.type === 'lists/SHUT_ADDPROJECTMODAL') {
         return fromJS(state).setIn(['addProjectModal', 'show'], false).toJS();
@@ -172,12 +170,12 @@ export default (state = initState, action) => {
     } else if(action.type === 'lists/CHANGE_YEARRADIO') {
         let isGongYuan;
         console.log(action.payload);
-        if(action.payload === 'A'){
+        if (action.payload === 'A') {
             isGongYuan = true;
-        }else{
+        } else {
             isGongYuan = false;
         }
-        return fromJS(state).setIn(['addItemModal','isGongYuan'],isGongYuan).toJS()
+        return fromJS(state).setIn(['addItemModal', 'isGongYuan'], isGongYuan).toJS()
 
     } else {
         return state;

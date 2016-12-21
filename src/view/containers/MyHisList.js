@@ -187,7 +187,7 @@ var MyHisList = function (_React$Component) {
                 _react2.default.createElement(_AddItemModal2.default, { componentState: containerState.addItemModal,
                     actions: { shutAddItemModal: actioncreator.shutAddItemModal,
                         createItem: actioncreator.createItem,
-                        popAlertAddProj: actioncreator.popAlertAddProj,
+                        popAlert: actioncreator.popAlert,
                         shutSelfCheckModal: actioncreator.shutSelfCheckModal,
                         changeTmRadio: actioncreator.changeTmRadio,
                         changeYearRadio: actioncreator.changeYearRadio,

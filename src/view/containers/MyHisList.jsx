@@ -95,12 +95,12 @@ class MyHisList extends React.Component {
                 <AddItemModal componentState={containerState.addItemModal}
                                  actions={{shutAddItemModal: actioncreator.shutAddItemModal,
                                      createItem: actioncreator.createItem,
-                                     popAlertAddProj: actioncreator.popAlertAddProj,
+                                     popAlert: actioncreator.popAlert,
                                      shutSelfCheckModal: actioncreator.shutSelfCheckModal,
                                      changeTmRadio:actioncreator.changeTmRadio,
                                      changeYearRadio:actioncreator.changeYearRadio,
                                      createProjItem: actioncreator.createProjItem
-                                 }
+                                     }
                                  }
                 />
 
