@@ -390,6 +390,7 @@ class AddItemModal extends React.Component {
                                                 actions.popAlert(checkResult)
                                             }else {
                                                 actions.createProjItem({
+                                                    projectId: componentState.projectId,
                                                     type: itemType,
                                                     itemName: itemName,
                                                     itemDes: itemDes,

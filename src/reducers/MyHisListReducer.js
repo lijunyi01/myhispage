@@ -109,6 +109,9 @@ export default (state = initState, action) => {
     } else if(action.type === 'lists/BEGIN_CREATEPROJ') {
         return fromJS(state).setIn(['addProjectModal', 'isSubmitting'], true).toJS();
 
+    } else if(action.type === 'lists/BEGIN_ADDITEM') {
+        return fromJS(state).setIn(['addItemModal', 'isSubmitting'], true).toJS();
+
     } else if(action.type === 'lists/POPALERT') {
         return fromJS(state)
             .setIn(['resultModal', 'show'], true)
@@ -120,6 +123,11 @@ export default (state = initState, action) => {
             // .set('projectsList', List())
             .setIn(['addProjectModal', 'isSubmitting'], false)
             .setIn(['addProjectModal', 'show'], false)
+            .toJS();
+    } else if(action.type === 'lists/DONE_CREATEITEM') {
+        return fromJS(state)
+            .setIn(['addItemModal', 'isSubmitting'], false)
+            .setIn(['addItemModal', 'show'], false)
             .toJS();
 
     } else if(action.type === 'lists/DONE_CREATEPROJ_ERROR') {

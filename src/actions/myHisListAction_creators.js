@@ -130,8 +130,30 @@ let actions = {
         }
     },
 
-    createProjItem: () => (dispatch, getState) => {
-        console.log('hhh');
+    createProjItem: inParam => (dispatch, getState) => {
+        //如果正在提交，则结束这个thunk, 不执行
+        if(getState().myHisListState.addItemModal.isSubmitting)
+            return;
+
+        //通知开始提交
+        dispatch(actions.beginAddItem());
+
+        //发送create item请求
+        mySocket.emit(
+            'createItem',
+            inParam,
+            (data)=>{
+                console.log(data);
+                if(data.errorCode=='0'){
+                    console.log('create item success!');
+                    dispatch(actions.doneCreateItem());
+                    // dispatch(actions.getAllProjects());
+                }else{
+                    dispatch(actions.doneCreateItemError(data));
+                    // console.log('data error');
+                }
+            }
+        );
     },
 
     beginCreateProj: () => ({
@@ -145,6 +167,10 @@ let actions = {
     doneCreateProjError: (retMessage) => ({
         type: 'lists/DONE_CREATEPROJ_ERROR',
         payload: retMessage
+    }),
+
+    doneCreateItem: () => ({
+        type: 'lists/DONE_CREATEITEM',
     }),
 
     doneDeleteProj: () => ({
@@ -222,6 +248,10 @@ let actions = {
     changeYearRadio: param =>({
         type: 'lists/CHANGE_YEARRADIO',
         payload: param
+    }),
+
+    beginAddItem: ()=> ({
+        type: 'lists/BEGIN_ADDITEM',
     }),
 
 };
