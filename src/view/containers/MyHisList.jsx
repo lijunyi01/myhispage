@@ -10,7 +10,10 @@ import { Button,Col,ListGroup,ButtonToolbar } from 'react-bootstrap';
 import AddProjectModal from '../components/AddProjectModal';
 import ConfirmModal from '../components/ConfirmModal';
 import ResultModal from '../components/ResultModal';
-import AddItemModal from '../components/AddItemModal'
+import AddItemModal from '../components/AddItemModal';
+import MyCanvas from '../components/MyCanvas';
+import ItemInMain from '../components/ItemInMain';
+import ItemInMainR from '../components/ItemInMainR';
 
 
 class MyHisList extends React.Component {
@@ -26,6 +29,8 @@ class MyHisList extends React.Component {
         if (containerState.projectsList.length == 0 && containerState.justLogin == true) {
             actioncreator.getAllProjects();
         }
+
+        let ileft = 0;
 
         return (
             <div className={styles.myHisListMain}>
@@ -77,7 +82,27 @@ class MyHisList extends React.Component {
 
                     <div className={styles.bottom}>
                         <div className={styles.bottom2}>
-
+                            <div className={styles.itemsleft}>
+                                { (containerState.projectContents[containerState.activeId] == undefined || containerState.projectContents[containerState.activeId].length == 0)?
+                                    <div>空空如也</div>
+                                    :
+                                    containerState.projectContents[containerState.activeId].map(
+                                        (item,index)=> {return <ItemInMain key={item.itemId} componentState={item} index={index}/>}
+                                    )
+                                }
+                            </div>
+                            <div className={styles.timeline}>
+                                <MyCanvas componentState={containerState.projectContents[containerState.activeId]}/>
+                            </div>
+                            <div className={styles.itemsright}>
+                                {/*{ (containerState.projectContents[containerState.activeId] == undefined || containerState.projectContents[containerState.activeId].length == 0)?*/}
+                                    {/*<div>空空如也</div>*/}
+                                    {/*:*/}
+                                    {/*containerState.projectContents[containerState.activeId].map(*/}
+                                        {/*(item,index)=> {return <ItemInMainR key={item.itemId} componentState={item} index={index}/>}*/}
+                                    {/*)*/}
+                                {/*}*/}
+                            </div>
                         </div>
                     </div>
 

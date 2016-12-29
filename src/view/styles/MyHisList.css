@@ -51,6 +51,22 @@
       .myHisListMain > .main > .bottom > .bottom2 {
         width: 90%;
         height: 100%;
-        margin-left: 5%; }
+        margin-left: 5%;
+        overflow: scroll;
+        display: flex;
+        margin-top: 30px; }
+        .myHisListMain > .main > .bottom > .bottom2 > .itemsleft {
+          width: 40%;
+          height: 100%;
+          position: relative;
+          background-color: #c1e2b3; }
+        .myHisListMain > .main > .bottom > .bottom2 > .timeline {
+          width: 20%;
+          height: 100%;
+          text-align: center; }
+        .myHisListMain > .main > .bottom > .bottom2 > .itemsright {
+          width: 40%;
+          height: 100%;
+          background-color: #c1e2b3; }
 
 /*# sourceMappingURL=MyHisList.css.map */

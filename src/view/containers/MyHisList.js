@@ -44,6 +44,18 @@ var _AddItemModal = require('../components/AddItemModal');
 
 var _AddItemModal2 = _interopRequireDefault(_AddItemModal);
 
+var _MyCanvas = require('../components/MyCanvas');
+
+var _MyCanvas2 = _interopRequireDefault(_MyCanvas);
+
+var _ItemInMain = require('../components/ItemInMain');
+
+var _ItemInMain2 = _interopRequireDefault(_ItemInMain);
+
+var _ItemInMainR = require('../components/ItemInMainR');
+
+var _ItemInMainR2 = _interopRequireDefault(_ItemInMainR);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -78,6 +90,8 @@ var MyHisList = function (_React$Component) {
             if (containerState.projectsList.length == 0 && containerState.justLogin == true) {
                 actioncreator.getAllProjects();
             }
+
+            var ileft = 0;
 
             return _react2.default.createElement(
                 'div',
@@ -174,7 +188,27 @@ var MyHisList = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         { className: _MyHisList2.default.bottom },
-                        _react2.default.createElement('div', { className: _MyHisList2.default.bottom2 })
+                        _react2.default.createElement(
+                            'div',
+                            { className: _MyHisList2.default.bottom2 },
+                            _react2.default.createElement(
+                                'div',
+                                { className: _MyHisList2.default.itemsleft },
+                                containerState.projectContents[containerState.activeId] == undefined || containerState.projectContents[containerState.activeId].length == 0 ? _react2.default.createElement(
+                                    'div',
+                                    null,
+                                    '空空如也'
+                                ) : containerState.projectContents[containerState.activeId].map(function (item, index) {
+                                    return _react2.default.createElement(_ItemInMain2.default, { key: item.itemId, componentState: item, index: index });
+                                })
+                            ),
+                            _react2.default.createElement(
+                                'div',
+                                { className: _MyHisList2.default.timeline },
+                                _react2.default.createElement(_MyCanvas2.default, { componentState: containerState.projectContents[containerState.activeId] })
+                            ),
+                            _react2.default.createElement('div', { className: _MyHisList2.default.itemsright })
+                        )
                     )
                 ),
                 _react2.default.createElement(_AddProjectModal2.default, { componentState: containerState.addProjectModal,

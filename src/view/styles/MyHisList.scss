@@ -67,7 +67,26 @@
         width: 90%;
         height: 100%;
         margin-left: 5%;
-        //background-color: seashell;
+        overflow: scroll;
+        display: flex;
+        margin-top: 30px;
+        > .itemsleft{
+          width: 40%;
+          height: 100%;
+          position: relative;
+          background-color: #c1e2b3;
+        }
+        > .timeline {
+          width: 20%;
+          height: 100%;
+          text-align: center;
+          //background-color: #1b6d85;
+        }
+        > .itemsright{
+          width: 40%;
+          height: 100%;
+          background-color: #c1e2b3;
+        }
       }
     }
   }

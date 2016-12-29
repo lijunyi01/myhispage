@@ -21,10 +21,11 @@ let actions = {
             (data)=>{
                 console.log(data);
                 if(data.errorCode=='0') {
+                    dispatch(actions.doneGetAllProjects(data));
+                    dispatch(actions.getProjectContent(getState().myHisListState.activeId));
                     if (getState().myHisListState.justLogin == true) {
                         dispatch(actions.resetJustLogin());
                     }
-                    dispatch(actions.doneGetAllProjects(data));
                 }else{
                     console.log('data error');
                 }
