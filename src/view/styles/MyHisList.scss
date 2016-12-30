@@ -63,13 +63,13 @@
     > .bottom{
       width: 100%;
       height: calc(100% - 100px);
+      padding-top: 30px;
       > .bottom2 {
         width: 90%;
         height: 100%;
         margin-left: 5%;
         overflow: scroll;
         display: flex;
-        margin-top: 30px;
         > .itemsleft{
           width: 40%;
           height: 100%;
@@ -78,7 +78,7 @@
         }
         > .timeline {
           width: 20%;
-          height: 100%;
+          height: auto;
           text-align: center;
           //background-color: #1b6d85;
         }

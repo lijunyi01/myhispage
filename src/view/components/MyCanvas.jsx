@@ -1,149 +1,82 @@
 import React from 'react';
 // import PureRenderMixin from 'react-addons-pure-render-mixin';
-import { findDOMNode } from 'react-dom';
-import styles from '../styles/ProjectsListItem.css';
-// import appleimage from '../images/apple.png';
-import { OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
+// import { findDOMNode } from 'react-dom';
+
+let earlyYear =0 ;
+let lastYear = 0;
 
 class MyCanvas extends React.Component {
 
     shouldComponentUpdate(nextProps){
         return (nextProps.componentState != this.props.componentState);
-        // let ret = false;
-        // if(nextProps.componentState != this.props.componentState){
-        //     ret = true;
-        //     this.updateCanvas1(nextProps.componentState);
-        // }else{
-        //     ret = false;
-        // }
-        // return ret;
     }
 
     componentDidMount() {
-        // console.log("did mount");
-        this.updateCanvas();
-    }
-
-    updateCanvas() {
-
-        // let { componentState, actions } = this.props;
-
-        // console.log("comstate:");
-
-        // let data = this.refs.canvas.getAttribute("data");
-
-        // console.log("data:"+this.componentState);
-
-        // const ctx = this.refs.canvas.getContext('2d');
-        // ctx.fillStyle = "rgba(255,0,0,0.2)";
-        // ctx.fillRect(30,0, 40, 800);
-        //
-        // ctx.beginPath() ;
-        // ctx.lineWidth = 2 ;
-        // ctx.strokeStyle = "rgba(255,0,0,0.2)";
-        // ctx.moveTo(30,800);
-        // ctx.lineTo(20,800);
-        // ctx.lineTo(50,820);
-        // ctx.lineTo(80,800);
-        // ctx.lineTo(70,800);
-        // ctx.stroke();
-        // ctx.fill();
     }
 
     componentDidUpdate(){
-        // console.log("componentDidUpdate");
-        let { componentState } = this.props;
-        console.log(componentState);
-        const ctx = this.refs.canvas.getContext('2d');
-        ctx.clearRect(0,0,100,900);
-        ctx.fillStyle = "rgba(255,0,0,0.2)";
-        ctx.fillRect(30,0, 40, 800);
 
-        ctx.beginPath() ;
-        ctx.lineWidth = 2 ;
-        ctx.strokeStyle = "rgba(255,0,0,0.2)";
-        ctx.moveTo(30,800);
-        ctx.lineTo(20,800);
-        ctx.lineTo(50,820);
-        ctx.lineTo(80,800);
-        ctx.lineTo(70,800);
-        ctx.stroke();
-        ctx.fill();
+        let { componentState } = this.props;
+
+        // console.log(componentState);
+        if(lastYear !=0) {
+            // console.log("linelength:"+ lineLength);
+            const ctx = this.refs.canvas.getContext('2d');
+            let canvasWidth = this.refs.canvas.getAttribute('width');
+            let canvasHeight = this.refs.canvas.getAttribute('height');
+            let lineLength = canvasHeight -50;
+
+            ctx.clearRect(0, 0, canvasWidth,canvasHeight);
+            ctx.fillStyle = "rgba(255,0,0,0.2)";
+            ctx.fillRect(30, 0, 40, lineLength);
+
+            ctx.beginPath();
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "rgba(255,0,0,0.2)";
+            ctx.moveTo(30, lineLength);
+            ctx.lineTo(20, lineLength);
+            ctx.lineTo(50, lineLength+20);
+            ctx.lineTo(80, lineLength);
+            ctx.lineTo(70, lineLength);
+            ctx.stroke();
+            ctx.fill();
+        }
     }
 
-    // updateCanvas1(data) {
-    //
-    //     // let { componentState, actions } = this.props;
-    //
-    //     // console.log("comstate:");
-    //
-    //     // let data = this.refs.canvas.getAttribute("data");
-    //
-    //     console.log("data:"+data);
-    //
-    //     const ctx = this.refs.canvas.getContext('2d');
-    //     ctx.clearRect(0,0,100,900);
-    //     ctx.fillStyle = "rgba(255,0,0,0.2)";
-    //     ctx.fillRect(30,0, 40, 800);
-    //
-    //     ctx.beginPath() ;
-    //     ctx.lineWidth = 2 ;
-    //     ctx.strokeStyle = "rgba(255,0,0,0.2)";
-    //     ctx.moveTo(30,800);
-    //     ctx.lineTo(20,800);
-    //     ctx.lineTo(50,820);
-    //     ctx.lineTo(80,800);
-    //     ctx.lineTo(70,800);
-    //     ctx.stroke();
-    //     ctx.fill();
-    // }
 
     render() {
 
-        let { componentState, actions } = this.props;
+        let { componentState } = this.props;
 
-        console.log("render");
+        earlyYear = 0;
+        lastYear = 0;
+        if(componentState != undefined) {
+            for (let i = 0; i < componentState.length; i++) {
+                if (earlyYear == 0) {
+                    earlyYear = componentState[i].startYear;
+                } else {
+                    if (componentState[i].startYear < earlyYear) {
+                        earlyYear = componentState[i].startYear;
+                    }
+                }
 
-        // console.log(componentState);
+                if (lastYear == 0) {
+                    lastYear = componentState[i].endYear;
+                } else {
+                    if (componentState[i].endYear > lastYear) {
+                        lastYear = componentState[i].endYear;
+                    }
+                }
+            }
+        }
 
-        // console.log("comstate2:"+componentState);
+        let canvasHeigth = (lastYear - earlyYear)*5 <50 ? 100 : (lastYear - earlyYear)*5+ 50;
 
         return (
-            <canvas ref="canvas" width={100} height={900} data={componentState}>
-                {/*{updateCanvas1()}*/}
-            </canvas>
+            <canvas ref="canvas" width={100} height={canvasHeigth}/>
         );
 
     }
 }
-
-
-// function updateCanvas1() {
-//
-//     // let { componentState, actions } = this.props;
-//
-//     console.log("comstate:");
-//
-//     //let data = refs.canvas.getAttribute("data");
-//     let data = findDOMNode(refs.canvas).getAttribute('data');
-//
-//     console.log("data:"+data);
-//
-//     const ctx = findDOMNode(refs.canvas).getContext('2d');
-//     ctx.fillStyle = "rgba(255,0,0,0.2)";
-//     ctx.fillRect(30,0, 40, 800);
-//
-//     ctx.beginPath() ;
-//     ctx.lineWidth = 2 ;
-//     ctx.strokeStyle = "rgba(255,0,0,0.2)";
-//     ctx.moveTo(30,800);
-//     ctx.lineTo(20,800);
-//     ctx.lineTo(50,820);
-//     ctx.lineTo(80,800);
-//     ctx.lineTo(70,800);
-//     ctx.stroke();
-//     ctx.fill();
-// }
-
 
 export default MyCanvas;

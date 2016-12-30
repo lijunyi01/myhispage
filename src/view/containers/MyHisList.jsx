@@ -95,13 +95,7 @@ class MyHisList extends React.Component {
                                 <MyCanvas componentState={containerState.projectContents[containerState.activeId]}/>
                             </div>
                             <div className={styles.itemsright}>
-                                {/*{ (containerState.projectContents[containerState.activeId] == undefined || containerState.projectContents[containerState.activeId].length == 0)?*/}
-                                    {/*<div>空空如也</div>*/}
-                                    {/*:*/}
-                                    {/*containerState.projectContents[containerState.activeId].map(*/}
-                                        {/*(item,index)=> {return <ItemInMainR key={item.itemId} componentState={item} index={index}/>}*/}
-                                    {/*)*/}
-                                {/*}*/}
+
                             </div>
                         </div>
                     </div>
