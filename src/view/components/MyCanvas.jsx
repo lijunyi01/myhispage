@@ -8,7 +8,7 @@ let lastYear = 0;
 class MyCanvas extends React.Component {
 
     shouldComponentUpdate(nextProps){
-        return (nextProps.componentState != this.props.componentState);
+        return ((nextProps.componentState != this.props.componentState) || nextProps.canvasWidth != this.props.canvasWidth);
     }
 
     componentDidMount() {
@@ -120,8 +120,10 @@ class MyCanvas extends React.Component {
                 if(componentState[i].itemType<=2){    //点时间
                     if(i%2 ==0){    //偶数项,左边
                         ctx.arc(10, (componentState[i].startYear - timeLineBeginYear) * pxPerYear, 5, 0, Math.PI * 2, true);
+                        ctx.fillText(Math.abs(componentState[i].startYear), 8, (componentState[i].startYear - timeLineBeginYear) * pxPerYear + 15);
                     }else{    //奇数项,右边
                         ctx.arc(90, (componentState[i].startYear - timeLineBeginYear) * pxPerYear, 5, 0, Math.PI * 2, true);
+                        ctx.fillText(Math.abs(componentState[i].startYear), 86, (componentState[i].startYear - timeLineBeginYear) * pxPerYear + 15);
                     }
                 }else{    //段时间
                     if(i%2 ==0){    //偶数项,左边
@@ -144,12 +146,13 @@ class MyCanvas extends React.Component {
 
     render() {
 
-        let { componentState } = this.props;
+        let { componentState,canvasWidth } = this.props;
 
         earlyYear = 0;
         lastYear = 0;
         console.log("canvas render");
-        console.log(componentState);
+        // console.log(componentState);
+        console.log("canvas width:" + canvasWidth);
         if(componentState != undefined) {
             for (let i = 0; i < componentState.length; i++) {
                 if (earlyYear == 0) {
@@ -178,7 +181,7 @@ class MyCanvas extends React.Component {
         let canvasHeigth = yearLength*pxPerYear <50 ? 300 : (lastYear-timeLineBeginYear+yearInterval)*pxPerYear+ 50;
 
         return (
-            <canvas ref="canvas" width={100} height={canvasHeigth}/>
+            <canvas ref="canvas" width={canvasWidth} height={canvasHeigth}/>
         );
 
     }

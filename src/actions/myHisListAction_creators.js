@@ -157,6 +157,10 @@ let actions = {
         );
     },
 
+    setCanvasWidth: width =>(dispatch,getState) =>{
+       dispatch(actions.setCanvasWidth2(width));
+    },
+
     beginCreateProj: () => ({
         type: 'lists/BEGIN_CREATEPROJ'
     }),
@@ -258,6 +262,11 @@ let actions = {
     clearProjectContent: projectId => ({
         type: 'lists/CLEAR_PROJECTCONTENT',
         payload: projectId
+    }),
+
+    setCanvasWidth2: width => ({
+        type: 'lists/SET_CANVASWIDTH',
+        payload: width
     })
 
 };

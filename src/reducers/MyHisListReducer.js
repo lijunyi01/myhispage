@@ -11,6 +11,7 @@ import { fromJS,Map,List } from 'immutable';
 const initState = {
     projectsList: [],
     activeId: -1,
+    canvasWidthforActiveId: 0,
     justLogin: true,
     projectContents: {},
     addProjectModal: {
@@ -185,10 +186,13 @@ export default (state = initState, action) => {
         }
         return fromJS(state).setIn(['addItemModal', 'isGongYuan'], isGongYuan).toJS();
 
-    } else if(action.type === 'lists/CLEAR_PROJECTCONTENT'){
+    } else if(action.type === 'lists/CLEAR_PROJECTCONTENT') {
         let sindex = action.payload + '';
         // console.log("sindex:" + sindex);
-        return fromJS(state).deleteIn(['projectContents',sindex]).toJS();
+        return fromJS(state).deleteIn(['projectContents', sindex]).toJS();
+
+    } else if(action.type === 'lists/SET_CANVASWIDTH'){
+        return fromJS(state).set('canvasWidthforActiveId',action.payload).toJS();
 
     } else {
         return state;

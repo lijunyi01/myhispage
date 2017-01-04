@@ -12,6 +12,8 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = require('react-redux');
 
+var _reactDom = require('react-dom');
+
 var _MyHisList = require('../styles/MyHisList.css');
 
 var _MyHisList2 = _interopRequireDefault(_MyHisList);
@@ -64,7 +66,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 // import PureRenderMixin from 'react-addons-pure-render-mixin';
-// import { render } from 'react-dom';
 
 var MyHisList = function (_React$Component) {
     _inherits(MyHisList, _React$Component);
@@ -81,11 +82,34 @@ var MyHisList = function (_React$Component) {
             return nextProps.containerState != this.props.containerState;
         }
     }, {
-        key: 'render',
-        value: function render() {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            console.log("MyHisList did mount");
+        }
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate() {
             var _props = this.props,
                 containerState = _props.containerState,
                 actioncreator = _props.actioncreator;
+
+            console.log("MyHisList did update");
+            var divdom = (0, _reactDom.findDOMNode)(this.refs.canvasdiv2);
+            if (divdom != undefined) {
+                var specs = divdom.getBoundingClientRect();
+                var canvasWidth = specs.width;
+                console.log("width:" + canvasWidth);
+                if (canvasWidth != containerState.canvasWidthforActiveId) {
+                    actioncreator.setCanvasWidth(canvasWidth);
+                }
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _props2 = this.props,
+                containerState = _props2.containerState,
+                actioncreator = _props2.actioncreator;
 
             if (containerState.projectsList.length == 0 && containerState.justLogin == true) {
                 actioncreator.getAllProjects();
@@ -197,16 +221,16 @@ var MyHisList = function (_React$Component) {
                             { className: _MyHisList2.default.bottom2 },
                             hasHighLevelItem(containerState.projectContents[containerState.activeId]) ? _react2.default.createElement(
                                 'div',
-                                { className: _MyHisList2.default.hashighlevel },
+                                { className: _MyHisList2.default.timebackground },
                                 _react2.default.createElement(
                                     'div',
-                                    { className: _MyHisList2.default.timeline },
+                                    { id: 'canvasdiv1', className: _MyHisList2.default.timeline },
                                     _react2.default.createElement(_MyCanvas2.default, { componentState: containerState.projectContents[containerState.activeId] })
                                 ),
                                 _react2.default.createElement('div', { className: _MyHisList2.default.itemsright })
                             ) : _react2.default.createElement(
                                 'div',
-                                { className: _MyHisList2.default.nohighlevel },
+                                { className: _MyHisList2.default.notimebackground },
                                 _react2.default.createElement(
                                     'div',
                                     { className: _MyHisList2.default.itemsleft },
@@ -217,8 +241,8 @@ var MyHisList = function (_React$Component) {
                                 ),
                                 _react2.default.createElement(
                                     'div',
-                                    { className: _MyHisList2.default.timeline },
-                                    _react2.default.createElement(_MyCanvas2.default, { componentState: containerState.projectContents[containerState.activeId] })
+                                    { ref: 'canvasdiv2', className: _MyHisList2.default.timeline },
+                                    _react2.default.createElement(_MyCanvas2.default, { componentState: containerState.projectContents[containerState.activeId], canvasWidth: containerState.canvasWidthforActiveId })
                                 ),
                                 _react2.default.createElement('div', { className: _MyHisList2.default.itemsright })
                             )

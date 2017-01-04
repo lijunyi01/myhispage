@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 // import PureRenderMixin from 'react-addons-pure-render-mixin';
-// import { render } from 'react-dom';
+import { render,findDOMNode } from 'react-dom';
 import styles from '../styles/MyHisList.css';
 import ProjectsListItem from '../components/ProjectsListItem';
 import actions from '../../actions/myHisListAction_creators';
@@ -21,6 +21,28 @@ class MyHisList extends React.Component {
     shouldComponentUpdate(nextProps){
         return nextProps.containerState != this.props.containerState;
     }
+
+    componentDidMount(){
+        console.log("MyHisList did mount");
+    }
+
+
+    componentDidUpdate() {
+        let {containerState, actioncreator} = this.props;
+
+        console.log("MyHisList did update");
+        let divdom = findDOMNode(this.refs.canvasdiv2);
+        if(divdom != undefined) {
+            let specs = divdom.getBoundingClientRect();
+            let canvasWidth = specs.width;
+            console.log("width:" + canvasWidth);
+            if (canvasWidth != containerState.canvasWidthforActiveId) {
+                actioncreator.setCanvasWidth(canvasWidth);
+            }
+        }
+
+    }
+
 
     render() {
 
@@ -86,8 +108,8 @@ class MyHisList extends React.Component {
                             :
                             <div className={styles.bottom2}>
                                 {   hasHighLevelItem(containerState.projectContents[containerState.activeId])?
-                                    <div className={styles.hashighlevel}>
-                                        <div className={styles.timeline}>
+                                    <div className={styles.timebackground}>
+                                        <div id='canvasdiv1' className={styles.timeline}>
                                             <MyCanvas componentState={containerState.projectContents[containerState.activeId]}/>
                                         </div>
                                         <div className={styles.itemsright}>
@@ -95,7 +117,7 @@ class MyHisList extends React.Component {
                                         </div>
                                     </div>
                                     :
-                                    <div className={styles.nohighlevel}>
+                                    <div className={styles.notimebackground}>
                                         <div className={styles.itemsleft}>
                                             {
                                                 containerState.projectContents[containerState.activeId].map(
@@ -106,8 +128,8 @@ class MyHisList extends React.Component {
                                                 )
                                             }
                                         </div>
-                                        <div className={styles.timeline}>
-                                            <MyCanvas componentState={containerState.projectContents[containerState.activeId]}/>
+                                        <div ref="canvasdiv2" className={styles.timeline}>
+                                            <MyCanvas componentState={containerState.projectContents[containerState.activeId]} canvasWidth={containerState.canvasWidthforActiveId}/>
                                         </div>
                                         <div className={styles.itemsright}>
 
@@ -171,8 +193,8 @@ function buildActionDispatcher(dispatch) {
 
 function hasHighLevelItem(list) {
     let ret = false;
-    for(let i=0;i<list.length;i++){
-        if(list[i].itemLevel >0){
+    for (let i = 0; i < list.length; i++) {
+        if (list[i].itemLevel > 0) {
             ret = true;
             break;
         }
