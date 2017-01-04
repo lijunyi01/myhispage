@@ -19,7 +19,7 @@ let actions = {
             'getAllProjects',
             {},
             (data)=>{
-                console.log(data);
+                // console.log(data);
                 if(data.errorCode=='0') {
                     dispatch(actions.doneGetAllProjects(data));
                     dispatch(actions.getProjectContent(getState().myHisListState.activeId));
@@ -79,10 +79,9 @@ let actions = {
             inParam,
             // {projectName:'n1',projectDes:'d1'},
             (data)=>{
-                console.log(data);
+                // console.log(data);
                 if(data.errorCode=='0'){
                     dispatch(actions.doneCreateProj());
-                    dispatch(actions.getAllProjects());
                 }else{
                     dispatch(actions.doneCreateProjError(data));
                     // console.log('data error');
@@ -146,9 +145,10 @@ let actions = {
             (data)=>{
                 console.log(data);
                 if(data.errorCode=='0'){
-                    console.log('create item success!');
+                    dispatch(actions.clearProjectContent(inParam.projectId));
+                    dispatch(actions.getProjectContent(inParam.projectId));
                     dispatch(actions.doneCreateItem());
-                    // dispatch(actions.getAllProjects());
+                    // console.log("pid:"+inParam.projectId);
                 }else{
                     dispatch(actions.doneCreateItemError(data));
                     // console.log('data error');
@@ -254,6 +254,11 @@ let actions = {
     beginAddItem: ()=> ({
         type: 'lists/BEGIN_ADDITEM',
     }),
+
+    clearProjectContent: projectId => ({
+        type: 'lists/CLEAR_PROJECTCONTENT',
+        payload: projectId
+    })
 
 };
 

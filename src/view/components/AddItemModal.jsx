@@ -329,6 +329,7 @@ class AddItemModal extends React.Component {
                                         :
                                         <Button bsStyle="danger" onClick={ ()=> {
                                             let itemType = 0;
+                                            let itemLevel = 0;
                                             itemName = findDOMNode(this.refs.itemName).value;
                                             itemDes = findDOMNode(this.refs.itemDes).value;
                                             if(tmRadio == 'A') {
@@ -379,12 +380,7 @@ class AddItemModal extends React.Component {
                                                     itemType = 4;
                                                 }
                                             }
-                                            {/*console.log('startYear:'+ startYear);*/}
-                                            {/*console.log('startTime:'+ startTime);*/}
-                                            {/*console.log('endYear:'+ endYear);*/}
-                                            {/*console.log('endTime:'+ endTime);*/}
-                                            {/*console.log('startYear_Des:'+ startYear_des);*/}
-                                            {/*console.log('endYear_Des:'+ endYear_des);*/}
+
                                             let checkResult = checkParam();
                                             if( ! checkResult == '' ){
                                                 actions.popAlert(checkResult)
@@ -392,6 +388,7 @@ class AddItemModal extends React.Component {
                                                 actions.createProjItem({
                                                     projectId: componentState.projectId,
                                                     type: itemType,
+                                                    itemLevel: itemLevel,
                                                     itemName: itemName,
                                                     itemDes: itemDes,
                                                     startYear: startYear,

@@ -81,23 +81,41 @@ class MyHisList extends React.Component {
                     </div>
 
                     <div className={styles.bottom}>
-                        <div className={styles.bottom2}>
-                            <div className={styles.itemsleft}>
-                                { (containerState.projectContents[containerState.activeId] == undefined || containerState.projectContents[containerState.activeId].length == 0)?
-                                    <div>空空如也</div>
+                        {   (containerState.projectContents[containerState.activeId] == undefined || containerState.projectContents[containerState.activeId].length == 0) ?
+                            <div className={styles.bottom2empty}>空空如也</div>
+                            :
+                            <div className={styles.bottom2}>
+                                {   hasHighLevelItem(containerState.projectContents[containerState.activeId])?
+                                    <div className={styles.hashighlevel}>
+                                        <div className={styles.timeline}>
+                                            <MyCanvas componentState={containerState.projectContents[containerState.activeId]}/>
+                                        </div>
+                                        <div className={styles.itemsright}>
+
+                                        </div>
+                                    </div>
                                     :
-                                    containerState.projectContents[containerState.activeId].map(
-                                        (item,index)=> {return <ItemInMain key={item.itemId} componentState={item} index={index}/>}
-                                    )
+                                    <div className={styles.nohighlevel}>
+                                        <div className={styles.itemsleft}>
+                                            {
+                                                containerState.projectContents[containerState.activeId].map(
+                                                    (item, index)=> {
+                                                        return <ItemInMain key={item.itemId} componentState={item}
+                                                                           index={index}/>
+                                                    }
+                                                )
+                                            }
+                                        </div>
+                                        <div className={styles.timeline}>
+                                            <MyCanvas componentState={containerState.projectContents[containerState.activeId]}/>
+                                        </div>
+                                        <div className={styles.itemsright}>
+
+                                        </div>
+                                    </div>
                                 }
                             </div>
-                            <div className={styles.timeline}>
-                                <MyCanvas componentState={containerState.projectContents[containerState.activeId]}/>
-                            </div>
-                            <div className={styles.itemsright}>
-
-                            </div>
-                        </div>
+                        }
                     </div>
 
                 </div>
@@ -149,6 +167,17 @@ function buildActionDispatcher(dispatch) {
     return {
         actioncreator: bindActionCreators(actions, dispatch)
     };
+}
+
+function hasHighLevelItem(list) {
+    let ret = false;
+    for(let i=0;i<list.length;i++){
+        if(list[i].itemLevel >0){
+            ret = true;
+            break;
+        }
+    }
+    return ret;
 }
 
 

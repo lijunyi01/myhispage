@@ -173,7 +173,7 @@ export default (state = initState, action) => {
         }else{
             isDot = false;
         }
-        return fromJS(state).setIn(['addItemModal','isDotTime'],isDot).toJS()
+        return fromJS(state).setIn(['addItemModal','isDotTime'],isDot).toJS();
 
     } else if(action.type === 'lists/CHANGE_YEARRADIO') {
         let isGongYuan;
@@ -183,7 +183,12 @@ export default (state = initState, action) => {
         } else {
             isGongYuan = false;
         }
-        return fromJS(state).setIn(['addItemModal', 'isGongYuan'], isGongYuan).toJS()
+        return fromJS(state).setIn(['addItemModal', 'isGongYuan'], isGongYuan).toJS();
+
+    } else if(action.type === 'lists/CLEAR_PROJECTCONTENT'){
+        let sindex = action.payload + '';
+        // console.log("sindex:" + sindex);
+        return fromJS(state).deleteIn(['projectContents',sindex]).toJS();
 
     } else {
         return state;

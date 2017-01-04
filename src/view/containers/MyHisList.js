@@ -188,26 +188,40 @@ var MyHisList = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         { className: _MyHisList2.default.bottom },
-                        _react2.default.createElement(
+                        containerState.projectContents[containerState.activeId] == undefined || containerState.projectContents[containerState.activeId].length == 0 ? _react2.default.createElement(
+                            'div',
+                            { className: _MyHisList2.default.bottom2empty },
+                            '空空如也'
+                        ) : _react2.default.createElement(
                             'div',
                             { className: _MyHisList2.default.bottom2 },
-                            _react2.default.createElement(
+                            hasHighLevelItem(containerState.projectContents[containerState.activeId]) ? _react2.default.createElement(
                                 'div',
-                                { className: _MyHisList2.default.itemsleft },
-                                containerState.projectContents[containerState.activeId] == undefined || containerState.projectContents[containerState.activeId].length == 0 ? _react2.default.createElement(
+                                { className: _MyHisList2.default.hashighlevel },
+                                _react2.default.createElement(
                                     'div',
-                                    null,
-                                    '空空如也'
-                                ) : containerState.projectContents[containerState.activeId].map(function (item, index) {
-                                    return _react2.default.createElement(_ItemInMain2.default, { key: item.itemId, componentState: item, index: index });
-                                })
-                            ),
-                            _react2.default.createElement(
+                                    { className: _MyHisList2.default.timeline },
+                                    _react2.default.createElement(_MyCanvas2.default, { componentState: containerState.projectContents[containerState.activeId] })
+                                ),
+                                _react2.default.createElement('div', { className: _MyHisList2.default.itemsright })
+                            ) : _react2.default.createElement(
                                 'div',
-                                { className: _MyHisList2.default.timeline },
-                                _react2.default.createElement(_MyCanvas2.default, { componentState: containerState.projectContents[containerState.activeId] })
-                            ),
-                            _react2.default.createElement('div', { className: _MyHisList2.default.itemsright })
+                                { className: _MyHisList2.default.nohighlevel },
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: _MyHisList2.default.itemsleft },
+                                    containerState.projectContents[containerState.activeId].map(function (item, index) {
+                                        return _react2.default.createElement(_ItemInMain2.default, { key: item.itemId, componentState: item,
+                                            index: index });
+                                    })
+                                ),
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: _MyHisList2.default.timeline },
+                                    _react2.default.createElement(_MyCanvas2.default, { componentState: containerState.projectContents[containerState.activeId] })
+                                ),
+                                _react2.default.createElement('div', { className: _MyHisList2.default.itemsright })
+                            )
                         )
                     )
                 ),
@@ -253,6 +267,17 @@ function buildActionDispatcher(dispatch) {
     return {
         actioncreator: (0, _redux.bindActionCreators)(_myHisListAction_creators2.default, dispatch)
     };
+}
+
+function hasHighLevelItem(list) {
+    var ret = false;
+    for (var i = 0; i < list.length; i++) {
+        if (list[i].itemLevel > 0) {
+            ret = true;
+            break;
+        }
+    }
+    return ret;
 }
 
 exports.default = (0, _reactRedux.connect)(selectState, buildActionDispatcher)(MyHisList);

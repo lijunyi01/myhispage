@@ -12,6 +12,8 @@ class MyCanvas extends React.Component {
     }
 
     componentDidMount() {
+        console.log("didmount");
+        this.componentDidUpdate();
     }
 
     componentDidUpdate(){
@@ -19,6 +21,7 @@ class MyCanvas extends React.Component {
         let { componentState } = this.props;
 
         // console.log(componentState);
+        console.log("lastyear:"+lastYear);
         if(lastYear !=0) {
             // console.log("linelength:"+ lineLength);
             const ctx = this.refs.canvas.getContext('2d');
@@ -30,13 +33,13 @@ class MyCanvas extends React.Component {
             let pxPerYear = getPxPerYear(yearLength);
             let yearInterval = getYearInterval(yearLength);
             let timeLineBeginYear = getTimeLineBeginYear(earlyYear,yearInterval);
-            console.log(timeLineBeginYear);
-            console.log(earlyYear);
+            // console.log(timeLineBeginYear);
+            // console.log(earlyYear);
 
             //清画布
             ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-            //画主时间箭头
 
+            //画主时间箭头
             if(timeLineBeginYear <0 && lastYear>0) {
                 //跨公元元年
                 ctx.fillStyle = "rgba(0,255,0,0.2)";
@@ -92,7 +95,7 @@ class MyCanvas extends React.Component {
             ctx.font = "10px Courier New";
             //设置字体填充颜色和圆点填充颜色
             ctx.fillStyle = "rgba(255,0,0,0.5)";
-            for (let i = 0; i <= yearLength; i=i+yearInterval) {
+            for (let i = 0; i <= yearLength + yearInterval; i=i+yearInterval) {
                 if((timeLineBeginYear + i)<0) {
                     ctx.fillText((timeLineBeginYear + i) * -1, 35, i * pxPerYear + 15);
                     ctx.fillText('B.C.', 35, i * pxPerYear + 25);
@@ -109,6 +112,31 @@ class MyCanvas extends React.Component {
                 }
             }
             ctx.fill();
+            // ctx.closePath();
+
+            //画时间段或时间点
+            ctx.beginPath();
+            ctx.fillStyle = "rgba(0,0,255,0.5)";
+            for (let i = 0; i < componentState.length; i++) {
+                // ctx.beginPath();
+                if(componentState[i].itemType<=2){    //点时间
+                    if(i%2 ==0){    //偶数项,左边
+                        ctx.arc(10, (componentState[i].startYear - timeLineBeginYear) * pxPerYear, 5, 0, Math.PI * 2, true);
+                    }else{    //奇数项,右边
+                        ctx.arc(90, (componentState[i].startYear - timeLineBeginYear) * pxPerYear, 5, 0, Math.PI * 2, true);
+                    }
+                }else{    //段时间
+                    if(i%2 ==0){    //偶数项,左边
+                        ctx.fillRect(5, (componentState[i].startYear - timeLineBeginYear) * pxPerYear, 10, (componentState[i].endYear - componentState[i].startYear) * pxPerYear);
+                    }else{    //奇数项,右边
+                        ctx.fillRect(85, (componentState[i].startYear - timeLineBeginYear) * pxPerYear, 10, (componentState[i].endYear - componentState[i].startYear) * pxPerYear);
+                    }
+
+                }
+                ctx.closePath();
+            }
+            ctx.fill();
+
 
 
         }
@@ -121,6 +149,8 @@ class MyCanvas extends React.Component {
 
         earlyYear = 0;
         lastYear = 0;
+        console.log("canvas render");
+        console.log(componentState);
         if(componentState != undefined) {
             for (let i = 0; i < componentState.length; i++) {
                 if (earlyYear == 0) {
@@ -143,8 +173,10 @@ class MyCanvas extends React.Component {
 
         let yearLength = lastYear - earlyYear;
         let pxPerYear = getPxPerYear(yearLength);
+        let yearInterval = getYearInterval(yearLength);
+        let timeLineBeginYear = getTimeLineBeginYear(earlyYear,yearInterval);
 
-        let canvasHeigth = yearLength*pxPerYear <50 ? 100 : yearLength*pxPerYear+ 50;
+        let canvasHeigth = yearLength*pxPerYear <50 ? 300 : (lastYear-timeLineBeginYear+yearInterval)*pxPerYear+ 50;
 
         return (
             <canvas ref="canvas" width={100} height={canvasHeigth}/>
@@ -155,9 +187,7 @@ class MyCanvas extends React.Component {
 
 function getPxPerYear(yearLength) {
     let ret;
-    if(yearLength <10){
-        ret = 50;
-    }else if(yearLength <50){
+    if(yearLength <50){
         ret = 30;
     }else if(yearLength <100){
         ret = 20;
@@ -175,9 +205,7 @@ function getPxPerYear(yearLength) {
 
 function getYearInterval(yearLength) {
     let ret;
-    if(yearLength <10){
-        ret = 1;
-    }else if(yearLength <50){
+    if(yearLength <50){
         ret = 5;
     }else if(yearLength <100){
         ret = 10;
@@ -198,7 +226,11 @@ function getTimeLineBeginYear(earlyYear,yearInterval) {
     if(earlyYear < 0){
         ret = ((parseInt(earlyYear/yearInterval))-1)*yearInterval;
     }else{
-        ret = (parseInt(earlyYear/yearInterval))*yearInterval;
+        if(earlyYear == (parseInt(earlyYear/yearInterval))*yearInterval){    //earlyYear 在箭头起点,则将箭头起点提前
+            ret = earlyYear - yearInterval;
+        }else {
+            ret = (parseInt(earlyYear / yearInterval)) * yearInterval;
+        }
     }
     return ret;
 }
