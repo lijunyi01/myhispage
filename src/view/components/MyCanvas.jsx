@@ -90,12 +90,12 @@ class MyCanvas extends React.Component {
             }
 
             //画整年份点以及年份数字
-            ctx.beginPath();
             //设置字体样式
             ctx.font = "10px Courier New";
             //设置字体填充颜色和圆点填充颜色
             ctx.fillStyle = "rgba(255,0,0,0.5)";
             for (let i = 0; i <= yearLength + yearInterval; i=i+yearInterval) {
+                ctx.beginPath();
                 if((timeLineBeginYear + i)<0) {
                     ctx.fillText((timeLineBeginYear + i) * -1, 35, i * pxPerYear + 15);
                     ctx.fillText('B.C.', 35, i * pxPerYear + 25);
@@ -110,15 +110,13 @@ class MyCanvas extends React.Component {
                 if (i > 0) {
                     ctx.arc(50, i * pxPerYear, 5, 0, Math.PI * 2, true);
                 }
+                ctx.fill();
             }
-            ctx.fill();
-            // ctx.closePath();
 
             //画时间段或时间点
-            ctx.beginPath();
             ctx.fillStyle = "rgba(0,0,255,0.5)";
             for (let i = 0; i < componentState.length; i++) {
-                // ctx.beginPath();
+                ctx.beginPath();
                 if(componentState[i].itemType<=2){    //点时间
                     if(i%2 ==0){    //偶数项,左边
                         ctx.arc(10, (componentState[i].startYear - timeLineBeginYear) * pxPerYear, 5, 0, Math.PI * 2, true);
@@ -133,9 +131,10 @@ class MyCanvas extends React.Component {
                     }
 
                 }
-                ctx.closePath();
+                ctx.fill();
+                // ctx.stroke();
             }
-            ctx.fill();
+
 
 
 
