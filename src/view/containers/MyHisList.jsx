@@ -23,14 +23,30 @@ class MyHisList extends React.Component {
     }
 
     componentDidMount(){
-        console.log("MyHisList did mount");
+        //延时调用
+        // setTimeout(()=>{
+        //     console.log("MyHisList did mount");
+        // },5000);
+
+        // setInterval(()=>{
+        //     console.log("MyHisList did mount");
+        // },5000);
+
+        window.addEventListener('resize',()=>{console.log('window resize');this.setCanvasWidth()},false);
+
     }
 
 
     componentDidUpdate() {
+
+        this.setCanvasWidth();
+
+    }
+
+    setCanvasWidth() {
         let {containerState, actioncreator} = this.props;
 
-        console.log("MyHisList did update");
+        console.log("set canvas width");
         let divdom = findDOMNode(this.refs.canvasdiv2);
         if(divdom != undefined) {
             let specs = divdom.getBoundingClientRect();

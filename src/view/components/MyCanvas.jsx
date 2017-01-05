@@ -40,54 +40,35 @@ class MyCanvas extends React.Component {
             ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
             //画主时间箭头
+            let canvasXCenterPos = parseInt(canvasWidth/2);
             if(timeLineBeginYear <0 && lastYear>0) {
                 //跨公元元年
                 ctx.fillStyle = "rgba(0,255,0,0.2)";
-                ctx.fillRect(30, 0, 40, pxPerYear * (timeLineBeginYear * -1));
+                ctx.fillRect(canvasXCenterPos-20, 0, 40, pxPerYear * (timeLineBeginYear * -1));
                 ctx.fillStyle = "rgba(255,0,0,0.2)";
-                ctx.fillRect(30,pxPerYear * (timeLineBeginYear * -1), 40,lineLength - pxPerYear * (timeLineBeginYear * -1));
+                ctx.fillRect(canvasXCenterPos-20,pxPerYear * (timeLineBeginYear * -1), 40,lineLength - pxPerYear * (timeLineBeginYear * -1));
 
-                ctx.beginPath();
-                ctx.lineWidth = 2;
-                ctx.strokeStyle = "rgba(255,0,0,0.2)";
-                ctx.moveTo(30, lineLength);
-                ctx.lineTo(20, lineLength);
-                ctx.lineTo(50, lineLength + 20);
-                ctx.lineTo(80, lineLength);
-                ctx.lineTo(70, lineLength);
-                ctx.stroke();
-                ctx.fill();
             }else if(timeLineBeginYear <0 && lastYear<=0){
                 //都在公元前
                 ctx.fillStyle = "rgba(0,255,0,0.2)";
-                ctx.fillRect(30, 0, 40, lineLength);
+                ctx.fillRect(canvasXCenterPos-20, 0, 40, lineLength);
 
-                ctx.beginPath();
-                ctx.lineWidth = 2;
-                ctx.strokeStyle = "rgba(0,255,0,0.2)";
-                ctx.moveTo(30, lineLength);
-                ctx.lineTo(20, lineLength);
-                ctx.lineTo(50, lineLength + 20);
-                ctx.lineTo(80, lineLength);
-                ctx.lineTo(70, lineLength);
-                ctx.stroke();
-                ctx.fill();
             }else{
                 //都在公元后
                 ctx.fillStyle = "rgba(255,0,0,0.2)";
-                ctx.fillRect(30, 0, 40, lineLength);
+                ctx.fillRect(canvasXCenterPos-20, 0, 40, lineLength);
 
-                ctx.beginPath();
-                ctx.lineWidth = 2;
-                ctx.strokeStyle = "rgba(255,0,0,0.2)";
-                ctx.moveTo(30, lineLength);
-                ctx.lineTo(20, lineLength);
-                ctx.lineTo(50, lineLength + 20);
-                ctx.lineTo(80, lineLength);
-                ctx.lineTo(70, lineLength);
-                ctx.stroke();
-                ctx.fill();
             }
+            ctx.beginPath();
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "rgba(255,0,0,0.2)";
+            ctx.moveTo(canvasXCenterPos-20, lineLength);
+            ctx.lineTo(canvasXCenterPos-30, lineLength);
+            ctx.lineTo(canvasXCenterPos, lineLength + 20);
+            ctx.lineTo(canvasXCenterPos+30, lineLength);
+            ctx.lineTo(canvasXCenterPos+20, lineLength);
+            ctx.stroke();
+            ctx.fill();
 
             //画整年份点以及年份数字
             //设置字体样式
@@ -97,39 +78,46 @@ class MyCanvas extends React.Component {
             for (let i = 0; i <= yearLength + yearInterval; i=i+yearInterval) {
                 ctx.beginPath();
                 if((timeLineBeginYear + i)<0) {
-                    ctx.fillText((timeLineBeginYear + i) * -1, 35, i * pxPerYear + 15);
-                    ctx.fillText('B.C.', 35, i * pxPerYear + 25);
+                    ctx.fillText((timeLineBeginYear + i) * -1, canvasXCenterPos-15, i * pxPerYear + 15);
+                    ctx.fillText('B.C.', canvasXCenterPos-15, i * pxPerYear + 25);
                 }else if((timeLineBeginYear + i)==0){
-                    ctx.fillText('1', 35, i*pxPerYear+15);
-                    ctx.fillText('A.D.', 35, i*pxPerYear+25);
+                    ctx.fillText('1', canvasXCenterPos-15, i*pxPerYear+15);
+                    ctx.fillText('A.D.', canvasXCenterPos-15, i*pxPerYear+25);
                 }else{
-                    ctx.fillText((timeLineBeginYear + i), 35, i*pxPerYear+15);
-                    ctx.fillText('A.D.', 35, i*pxPerYear+25);
+                    ctx.fillText((timeLineBeginYear + i), canvasXCenterPos-15, i*pxPerYear+15);
+                    ctx.fillText('A.D.', canvasXCenterPos-15, i*pxPerYear+25);
                 }
 
                 if (i > 0) {
-                    ctx.arc(50, i * pxPerYear, 5, 0, Math.PI * 2, true);
+                    ctx.arc(canvasXCenterPos, i * pxPerYear, 5, 0, Math.PI * 2, true);
                 }
                 ctx.fill();
             }
 
             //画时间段或时间点
             ctx.fillStyle = "rgba(0,0,255,0.5)";
+            ctx.strokeStyle = "rgba(0,255,0,0.5)";
             for (let i = 0; i < componentState.length; i++) {
                 ctx.beginPath();
                 if(componentState[i].itemType<=2){    //点时间
                     if(i%2 ==0){    //偶数项,左边
-                        ctx.arc(10, (componentState[i].startYear - timeLineBeginYear) * pxPerYear, 5, 0, Math.PI * 2, true);
-                        ctx.fillText(Math.abs(componentState[i].startYear), 8, (componentState[i].startYear - timeLineBeginYear) * pxPerYear + 15);
+                        ctx.arc(canvasXCenterPos-40, (componentState[i].startYear - timeLineBeginYear) * pxPerYear, 5, 0, Math.PI * 2, true);
+                        ctx.moveTo(canvasXCenterPos-40,(componentState[i].startYear - timeLineBeginYear) * pxPerYear);
+                        ctx.lineTo(canvasXCenterPos-parseInt(canvasWidth/2),(componentState[i].startYear - timeLineBeginYear) * pxPerYear);
+                        ctx.stroke();
+                        ctx.fillText(Math.abs(componentState[i].startYear), canvasXCenterPos-60, (componentState[i].startYear - timeLineBeginYear) * pxPerYear + 15);
                     }else{    //奇数项,右边
-                        ctx.arc(90, (componentState[i].startYear - timeLineBeginYear) * pxPerYear, 5, 0, Math.PI * 2, true);
-                        ctx.fillText(Math.abs(componentState[i].startYear), 86, (componentState[i].startYear - timeLineBeginYear) * pxPerYear + 15);
+                        ctx.arc(canvasXCenterPos+40, (componentState[i].startYear - timeLineBeginYear) * pxPerYear, 5, 0, Math.PI * 2, true);
+                        ctx.moveTo(canvasXCenterPos+40,(componentState[i].startYear - timeLineBeginYear) * pxPerYear);
+                        ctx.lineTo(canvasXCenterPos+parseInt(canvasWidth/2),(componentState[i].startYear - timeLineBeginYear) * pxPerYear);
+                        ctx.stroke();
+                        ctx.fillText(Math.abs(componentState[i].startYear), canvasXCenterPos+36, (componentState[i].startYear - timeLineBeginYear) * pxPerYear + 15);
                     }
                 }else{    //段时间
                     if(i%2 ==0){    //偶数项,左边
-                        ctx.fillRect(5, (componentState[i].startYear - timeLineBeginYear) * pxPerYear, 10, (componentState[i].endYear - componentState[i].startYear) * pxPerYear);
+                        ctx.fillRect(canvasXCenterPos-45, (componentState[i].startYear - timeLineBeginYear) * pxPerYear, 10, (componentState[i].endYear - componentState[i].startYear) * pxPerYear);
                     }else{    //奇数项,右边
-                        ctx.fillRect(85, (componentState[i].startYear - timeLineBeginYear) * pxPerYear, 10, (componentState[i].endYear - componentState[i].startYear) * pxPerYear);
+                        ctx.fillRect(canvasXCenterPos+35, (componentState[i].startYear - timeLineBeginYear) * pxPerYear, 10, (componentState[i].endYear - componentState[i].startYear) * pxPerYear);
                     }
 
                 }
@@ -150,9 +138,9 @@ class MyCanvas extends React.Component {
 
         earlyYear = 0;
         lastYear = 0;
-        console.log("canvas render");
+        // console.log("canvas render");
         // console.log(componentState);
-        console.log("canvas width:" + canvasWidth);
+        console.log("canvas render canvas width:" + canvasWidth);
         if(componentState != undefined) {
             for (let i = 0; i < componentState.length; i++) {
                 if (earlyYear == 0) {

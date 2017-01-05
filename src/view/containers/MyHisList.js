@@ -84,16 +84,35 @@ var MyHisList = function (_React$Component) {
     }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
-            console.log("MyHisList did mount");
+            var _this2 = this;
+
+            //延时调用
+            // setTimeout(()=>{
+            //     console.log("MyHisList did mount");
+            // },5000);
+
+            // setInterval(()=>{
+            //     console.log("MyHisList did mount");
+            // },5000);
+
+            window.addEventListener('resize', function () {
+                console.log('window resize');_this2.setCanvasWidth();
+            }, false);
         }
     }, {
         key: 'componentDidUpdate',
         value: function componentDidUpdate() {
+
+            this.setCanvasWidth();
+        }
+    }, {
+        key: 'setCanvasWidth',
+        value: function setCanvasWidth() {
             var _props = this.props,
                 containerState = _props.containerState,
                 actioncreator = _props.actioncreator;
 
-            console.log("MyHisList did update");
+            console.log("set canvas width");
             var divdom = (0, _reactDom.findDOMNode)(this.refs.canvasdiv2);
             if (divdom != undefined) {
                 var specs = divdom.getBoundingClientRect();

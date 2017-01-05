@@ -29,12 +29,7 @@ class ProjectsListItem extends React.Component {
                     <div className={styles.right}>
                         <div className={styles.up}>
                             <div className={styles.buttons}>
-                                {/*<div className={styles.button1} title="修改笔记"></div>*/}
-                                {/*<div className={styles.button2} title="删除笔记"></div>*/}
-                                {/*<div className={styles.button2group}>*/}
-                                    {/*<div className={styles.button2}></div>*/}
-                                    {/*<div className={styles.button2des}>删除笔记</div>*/}
-                                {/*</div>*/}
+
                                 <OverlayTrigger placement="bottom" overlay={tooltip1}>
                                     <div className={styles.button1}></div>
                                 </OverlayTrigger>
