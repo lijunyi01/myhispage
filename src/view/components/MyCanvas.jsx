@@ -18,7 +18,7 @@ class MyCanvas extends React.Component {
 
     componentDidUpdate(){
 
-        let { componentState } = this.props;
+        let { componentState,pxPerYear,timeLineBeginYear,lastYear,earlyYear,yearInterval } = this.props;
 
         // console.log(componentState);
         console.log("lastyear:"+lastYear);
@@ -30,11 +30,6 @@ class MyCanvas extends React.Component {
             let lineLength = canvasHeight - 50;
 
             let yearLength = lastYear - earlyYear;
-            let pxPerYear = getPxPerYear(yearLength);
-            let yearInterval = getYearInterval(yearLength);
-            let timeLineBeginYear = getTimeLineBeginYear(earlyYear,yearInterval);
-            // console.log(timeLineBeginYear);
-            // console.log(earlyYear);
 
             //清画布
             ctx.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -100,18 +95,24 @@ class MyCanvas extends React.Component {
             for (let i = 0; i < componentState.length; i++) {
                 ctx.beginPath();
                 if(componentState[i].itemType<=2){    //点时间
+                    let showYear;
+                    if(componentState[i].startYear<0){
+                        showYear = Math.abs(componentState[i].startYear) +' B.C.';
+                    }else{
+                        showYear = componentState[i].startYear + ' A.D.';
+                    }
                     if(i%2 ==0){    //偶数项,左边
                         ctx.arc(canvasXCenterPos-40, (componentState[i].startYear - timeLineBeginYear) * pxPerYear, 5, 0, Math.PI * 2, true);
                         ctx.moveTo(canvasXCenterPos-40,(componentState[i].startYear - timeLineBeginYear) * pxPerYear);
                         ctx.lineTo(canvasXCenterPos-parseInt(canvasWidth/2),(componentState[i].startYear - timeLineBeginYear) * pxPerYear);
                         ctx.stroke();
-                        ctx.fillText(Math.abs(componentState[i].startYear), canvasXCenterPos-60, (componentState[i].startYear - timeLineBeginYear) * pxPerYear + 15);
+                        ctx.fillText(showYear, canvasXCenterPos-100, (componentState[i].startYear - timeLineBeginYear) * pxPerYear - 10);
                     }else{    //奇数项,右边
                         ctx.arc(canvasXCenterPos+40, (componentState[i].startYear - timeLineBeginYear) * pxPerYear, 5, 0, Math.PI * 2, true);
                         ctx.moveTo(canvasXCenterPos+40,(componentState[i].startYear - timeLineBeginYear) * pxPerYear);
                         ctx.lineTo(canvasXCenterPos+parseInt(canvasWidth/2),(componentState[i].startYear - timeLineBeginYear) * pxPerYear);
                         ctx.stroke();
-                        ctx.fillText(Math.abs(componentState[i].startYear), canvasXCenterPos+36, (componentState[i].startYear - timeLineBeginYear) * pxPerYear + 15);
+                        ctx.fillText(showYear,canvasXCenterPos+60, (componentState[i].startYear - timeLineBeginYear) * pxPerYear - 10);
                     }
                 }else{    //段时间
                     if(i%2 ==0){    //偶数项,左边
@@ -134,37 +135,9 @@ class MyCanvas extends React.Component {
 
     render() {
 
-        let { componentState,canvasWidth } = this.props;
-
-        earlyYear = 0;
-        lastYear = 0;
-        // console.log("canvas render");
-        // console.log(componentState);
-        console.log("canvas render canvas width:" + canvasWidth);
-        if(componentState != undefined) {
-            for (let i = 0; i < componentState.length; i++) {
-                if (earlyYear == 0) {
-                    earlyYear = componentState[i].startYear;
-                } else {
-                    if (componentState[i].startYear < earlyYear) {
-                        earlyYear = componentState[i].startYear;
-                    }
-                }
-
-                if (lastYear == 0) {
-                    lastYear = componentState[i].endYear;
-                } else {
-                    if (componentState[i].endYear > lastYear) {
-                        lastYear = componentState[i].endYear;
-                    }
-                }
-            }
-        }
+        let { componentState,canvasWidth,pxPerYear,timeLineBeginYear,lastYear,earlyYear,yearInterval } = this.props;
 
         let yearLength = lastYear - earlyYear;
-        let pxPerYear = getPxPerYear(yearLength);
-        let yearInterval = getYearInterval(yearLength);
-        let timeLineBeginYear = getTimeLineBeginYear(earlyYear,yearInterval);
 
         let canvasHeigth = yearLength*pxPerYear <50 ? 300 : (lastYear-timeLineBeginYear+yearInterval)*pxPerYear+ 50;
 
@@ -173,56 +146,6 @@ class MyCanvas extends React.Component {
         );
 
     }
-}
-
-function getPxPerYear(yearLength) {
-    let ret;
-    if(yearLength <50){
-        ret = 30;
-    }else if(yearLength <100){
-        ret = 20;
-    }else if(yearLength <500){
-        ret = 10;
-    }else if(yearLength <1000){
-        ret = 5;
-    }else if(yearLength <5000){
-        ret = 1;
-    }else{
-        ret = 5000/yearLength;
-    }
-    return ret;
-}
-
-function getYearInterval(yearLength) {
-    let ret;
-    if(yearLength <50){
-        ret = 5;
-    }else if(yearLength <100){
-        ret = 10;
-    }else if(yearLength <500){
-        ret = 25;
-    }else if(yearLength <1000){
-        ret = 50;
-    }else if(yearLength <5000){
-        ret = 100;
-    }else{
-        ret = 200;
-    }
-    return ret;
-}
-
-function getTimeLineBeginYear(earlyYear,yearInterval) {
-    let ret = 0;
-    if(earlyYear < 0){
-        ret = ((parseInt(earlyYear/yearInterval))-1)*yearInterval;
-    }else{
-        if(earlyYear == (parseInt(earlyYear/yearInterval))*yearInterval){    //earlyYear 在箭头起点,则将箭头起点提前
-            ret = earlyYear - yearInterval;
-        }else {
-            ret = (parseInt(earlyYear / yearInterval)) * yearInterval;
-        }
-    }
-    return ret;
 }
 
 export default MyCanvas;

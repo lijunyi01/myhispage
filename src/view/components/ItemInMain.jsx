@@ -13,12 +13,15 @@ class ItemInMain extends React.Component {
 
     render() {
 
-        let { componentState,index, actions } = this.props;
+        let { componentState,index,leftPos,topPos,actions } = this.props;
 
         if(index%2 != 0) return null;
+
+        // let topPos = (componentState.startYear - timeLineBeginYear) * pxPerYear -20;
         
         return (
-            <div className={styles.ItemInMain} style={{zIndex:index,top:index*16}}>
+            // {/*<div className={styles.ItemInMain} style={{zIndex:index,top:topPos,left:leftPos}}>*/}
+            <div className={styles.ItemInMain} style={{top:topPos,left:leftPos}}>
                 <div className={styles.itemName}>{componentState.itemName}</div>
                 <div className={styles.itemDes}>{componentState.itemContent}</div>
                 {/*<p>id:{componentState.itemId}</p>*/}
@@ -28,14 +31,6 @@ class ItemInMain extends React.Component {
 
     }
 }
-
-// const tooltip1 = (
-//     <Tooltip id="tooltip1"><strong>修改笔记</strong></Tooltip>
-// );
-//
-// const tooltip2 = (
-//     <Tooltip id="tooltip2"><strong>删除笔记</strong></Tooltip>
-// );
 
 
 export default ItemInMain;

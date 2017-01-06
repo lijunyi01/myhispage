@@ -16,6 +16,9 @@ import ItemInMain from '../components/ItemInMain';
 import ItemInMainR from '../components/ItemInMainR';
 
 
+
+let itemInMainParam = {};
+
 class MyHisList extends React.Component {
 
     shouldComponentUpdate(nextProps){
@@ -59,6 +62,44 @@ class MyHisList extends React.Component {
 
     }
 
+    getLeftPos(projectId,index,topPos,timeLineBeginYear,pxPerYear){
+
+        let { containerState } = this.props;
+
+        let itemList = containerState.projectContents[projectId];
+
+        // console.log("projectid:" + projectId);
+        // console.log("index:"+index);
+        let leftPos = 0;
+        if(index>=2){
+            if(topPos - itemInMainParam[index-2].topPos == 0){
+                leftPos = itemInMainParam[index-2].leftPos +20 ;
+
+            } else if(Math.abs(topPos - itemInMainParam[index-2].topPos)<80){
+                if(itemInMainParam[index-2].leftPos==0) {
+                    leftPos = 10;
+                }
+            }
+
+        }
+        return leftPos;
+    }
+
+    getTopPos(projectId,index,timeLineBeginYear,pxPerYear){
+
+        let { containerState } = this.props;
+        let topPos = 0;
+
+        let itemList = containerState.projectContents[projectId];
+
+        if(itemList[index].itemType < 3) {    //点事件
+            topPos = (itemList[index].startYear - timeLineBeginYear) * pxPerYear - 20;
+        }else{
+
+        }
+
+        return topPos;
+    }
 
     render() {
 
@@ -68,7 +109,35 @@ class MyHisList extends React.Component {
             actioncreator.getAllProjects();
         }
 
-        let ileft = 0;
+        itemInMainParam = {};
+
+        let lastYear = 0;
+        let earlyYear = 0;
+        let projectItemList = containerState.projectContents[containerState.activeId];
+        if( projectItemList != undefined) {
+            for (let i = 0; i < projectItemList.length; i++) {
+                if (earlyYear == 0) {
+                    earlyYear = projectItemList[i].startYear;
+                } else {
+                    if (projectItemList[i].startYear < earlyYear) {
+                        earlyYear = projectItemList[i].startYear;
+                    }
+                }
+
+                if (lastYear == 0) {
+                    lastYear = projectItemList[i].endYear;
+                } else {
+                    if (projectItemList[i].endYear > lastYear) {
+                        lastYear = projectItemList[i].endYear;
+                    }
+                }
+            }
+        }
+
+        let yearLength = lastYear - earlyYear;
+        let pxPerYear = getPxPerYear(yearLength);
+        let yearInterval = getYearInterval(yearLength);
+        let timeLineBeginYear = getTimeLineBeginYear(earlyYear,yearInterval);
 
         return (
             <div className={styles.myHisListMain}>
@@ -138,14 +207,20 @@ class MyHisList extends React.Component {
                                             {
                                                 containerState.projectContents[containerState.activeId].map(
                                                     (item, index)=> {
-                                                        return <ItemInMain key={item.itemId} componentState={item}
-                                                                           index={index}/>
+                                                        let topPos=0;
+                                                        topPos = this.getTopPos(containerState.activeId,index,timeLineBeginYear,pxPerYear);
+                                                        let leftPos=0;
+                                                        leftPos = this.getLeftPos(containerState.activeId,index,topPos,timeLineBeginYear,pxPerYear);
+                                                        itemInMainParam[index] = {'topPos':topPos,'leftPos':leftPos};
+                                                        console.log(itemInMainParam);
+                                                        return <ItemInMain key={item.itemId} componentState={item} index={index} leftPos={leftPos} topPos={topPos}/>
                                                     }
                                                 )
                                             }
                                         </div>
                                         <div ref="canvasdiv2" className={styles.timeline}>
-                                            <MyCanvas componentState={containerState.projectContents[containerState.activeId]} canvasWidth={containerState.canvasWidthforActiveId}/>
+                                            <MyCanvas componentState={containerState.projectContents[containerState.activeId]} canvasWidth={containerState.canvasWidthforActiveId}
+                                                      pxPerYear={pxPerYear} timeLineBeginYear={timeLineBeginYear} lastYear={lastYear} earlyYear={earlyYear} yearInterval={yearInterval}/>
                                         </div>
                                         <div className={styles.itemsright}>
 
@@ -213,6 +288,56 @@ function hasHighLevelItem(list) {
         if (list[i].itemLevel > 0) {
             ret = true;
             break;
+        }
+    }
+    return ret;
+}
+
+function getPxPerYear(yearLength) {
+    let ret;
+    if(yearLength <50){
+        ret = 30;
+    }else if(yearLength <100){
+        ret = 20;
+    }else if(yearLength <500){
+        ret = 10;
+    }else if(yearLength <1000){
+        ret = 5;
+    }else if(yearLength <5000){
+        ret = 1;
+    }else{
+        ret = 5000/yearLength;
+    }
+    return ret;
+}
+
+function getYearInterval(yearLength) {
+    let ret;
+    if(yearLength <50){
+        ret = 5;
+    }else if(yearLength <100){
+        ret = 10;
+    }else if(yearLength <500){
+        ret = 25;
+    }else if(yearLength <1000){
+        ret = 50;
+    }else if(yearLength <5000){
+        ret = 100;
+    }else{
+        ret = 200;
+    }
+    return ret;
+}
+
+function getTimeLineBeginYear(earlyYear,yearInterval) {
+    let ret = 0;
+    if(earlyYear < 0){
+        ret = ((parseInt(earlyYear/yearInterval))-1)*yearInterval;
+    }else{
+        if(earlyYear == (parseInt(earlyYear/yearInterval))*yearInterval){    //earlyYear 在箭头起点,则将箭头起点提前
+            ret = earlyYear - yearInterval;
+        }else {
+            ret = (parseInt(earlyYear / yearInterval)) * yearInterval;
         }
     }
     return ret;
