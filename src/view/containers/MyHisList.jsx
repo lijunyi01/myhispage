@@ -89,8 +89,8 @@ class MyHisList extends React.Component {
                     leftPos = itemInMainParam[index - 2].leftPos + 15;
 
                 } else if (Math.abs(topPos - itemInMainParam[index - 2].topPos) < 80) {
-                    if (itemInMainParam[index - 2].leftPos == containerState.canvasWidthforActiveId/0.3*0.65) {
-                        leftPos = containerState.canvasWidthforActiveId/0.3*0.65 -10;
+                    if (itemInMainParam[index - 2].leftPos == leftPos) {
+                        leftPos = leftPos -10;
                     }
                 }
 
