@@ -13,7 +13,6 @@ import ResultModal from '../components/ResultModal';
 import AddItemModal from '../components/AddItemModal';
 import MyCanvas from '../components/MyCanvas';
 import ItemInMain from '../components/ItemInMain';
-import ItemInMainR from '../components/ItemInMainR';
 
 
 
@@ -68,19 +67,34 @@ class MyHisList extends React.Component {
 
         let itemList = containerState.projectContents[projectId];
 
-        // console.log("projectid:" + projectId);
-        // console.log("index:"+index);
-        let leftPos = 0;
-        if(index>=2){
-            if(topPos - itemInMainParam[index-2].topPos == 0){
-                leftPos = itemInMainParam[index-2].leftPos +20 ;
+        let leftPos;
 
-            } else if(Math.abs(topPos - itemInMainParam[index-2].topPos)<80){
-                if(itemInMainParam[index-2].leftPos==0) {
-                    leftPos = 10;
+        if(index%2 ==0) {
+            leftPos =40;
+            if (index >= 2) {
+                if (topPos - itemInMainParam[index - 2].topPos == 0) {
+                    leftPos = itemInMainParam[index - 2].leftPos - 15;
+
+                } else if (Math.abs(topPos - itemInMainParam[index - 2].topPos) < 80) {
+                    if (itemInMainParam[index - 2].leftPos == 40) {
+                        leftPos = 50;
+                    }
                 }
-            }
 
+            }
+        }else{
+            leftPos = containerState.canvasWidthforActiveId/0.3*0.65;
+            if (index >= 2) {
+                if (topPos - itemInMainParam[index - 2].topPos == 0) {
+                    leftPos = itemInMainParam[index - 2].leftPos + 15;
+
+                } else if (Math.abs(topPos - itemInMainParam[index - 2].topPos) < 80) {
+                    if (itemInMainParam[index - 2].leftPos == containerState.canvasWidthforActiveId/0.3*0.65) {
+                        leftPos = containerState.canvasWidthforActiveId/0.3*0.65 -10;
+                    }
+                }
+
+            }
         }
         return leftPos;
     }
@@ -88,12 +102,13 @@ class MyHisList extends React.Component {
     getTopPos(projectId,index,timeLineBeginYear,pxPerYear){
 
         let { containerState } = this.props;
-        let topPos = 0;
+        let marginTop = 30;
+        let topPos = marginTop;
 
         let itemList = containerState.projectContents[projectId];
 
         if(itemList[index].itemType < 3) {    //点事件
-            topPos = (itemList[index].startYear - timeLineBeginYear) * pxPerYear - 20;
+            topPos = (itemList[index].startYear - timeLineBeginYear) * pxPerYear - 40 + marginTop;
         }else{
 
         }
@@ -203,28 +218,40 @@ class MyHisList extends React.Component {
                                     </div>
                                     :
                                     <div className={styles.notimebackground}>
-                                        <div className={styles.itemsleft}>
-                                            {
-                                                containerState.projectContents[containerState.activeId].map(
-                                                    (item, index)=> {
-                                                        let topPos=0;
-                                                        topPos = this.getTopPos(containerState.activeId,index,timeLineBeginYear,pxPerYear);
-                                                        let leftPos=0;
-                                                        leftPos = this.getLeftPos(containerState.activeId,index,topPos,timeLineBeginYear,pxPerYear);
-                                                        itemInMainParam[index] = {'topPos':topPos,'leftPos':leftPos};
-                                                        console.log(itemInMainParam);
-                                                        return <ItemInMain key={item.itemId} componentState={item} index={index} leftPos={leftPos} topPos={topPos}/>
-                                                    }
-                                                )
-                                            }
-                                        </div>
+                                        {/*<div className={styles.itemsleft}>*/}
+                                            {/*{*/}
+                                                {/*containerState.projectContents[containerState.activeId].map(*/}
+                                                    {/*(item, index)=> {*/}
+                                                        {/*let topPos=0;*/}
+                                                        {/*topPos = this.getTopPos(containerState.activeId,index,timeLineBeginYear,pxPerYear);*/}
+                                                        {/*let leftPos=0;*/}
+                                                        {/*leftPos = this.getLeftPos(containerState.activeId,index,topPos,timeLineBeginYear,pxPerYear);*/}
+                                                        {/*itemInMainParam[index] = {'topPos':topPos,'leftPos':leftPos};*/}
+                                                        {/*console.log(itemInMainParam);*/}
+                                                        {/*return <ItemInMain key={item.itemId} componentState={item} index={index} leftPos={leftPos} topPos={topPos}/>*/}
+                                                    {/*}*/}
+                                                {/*)*/}
+                                            {/*}*/}
+                                        {/*</div>*/}
+                                        {
+                                            containerState.projectContents[containerState.activeId].map(
+                                                (item, index)=> {
+                                                    let topPos=0;
+                                                    topPos = this.getTopPos(containerState.activeId,index,timeLineBeginYear,pxPerYear);
+                                                    let leftPos=0;
+                                                    leftPos = this.getLeftPos(containerState.activeId,index,topPos,timeLineBeginYear,pxPerYear);
+                                                    itemInMainParam[index] = {'topPos':topPos,'leftPos':leftPos};
+                                                    return <ItemInMain key={item.itemId} componentState={item} index={index} leftPos={leftPos} topPos={topPos}/>
+                                                }
+                                            )
+                                        }
                                         <div ref="canvasdiv2" className={styles.timeline}>
                                             <MyCanvas componentState={containerState.projectContents[containerState.activeId]} canvasWidth={containerState.canvasWidthforActiveId}
                                                       pxPerYear={pxPerYear} timeLineBeginYear={timeLineBeginYear} lastYear={lastYear} earlyYear={earlyYear} yearInterval={yearInterval}/>
                                         </div>
-                                        <div className={styles.itemsright}>
+                                        {/*<div className={styles.itemsright}>*/}
 
-                                        </div>
+                                        {/*</div>*/}
                                     </div>
                                 }
                             </div>

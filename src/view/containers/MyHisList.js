@@ -54,10 +54,6 @@ var _ItemInMain = require('../components/ItemInMain');
 
 var _ItemInMain2 = _interopRequireDefault(_ItemInMain);
 
-var _ItemInMainR = require('../components/ItemInMainR');
-
-var _ItemInMainR2 = _interopRequireDefault(_ItemInMainR);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -132,15 +128,28 @@ var MyHisList = function (_React$Component) {
 
             var itemList = containerState.projectContents[projectId];
 
-            // console.log("projectid:" + projectId);
-            // console.log("index:"+index);
-            var leftPos = 0;
-            if (index >= 2) {
-                if (topPos - itemInMainParam[index - 2].topPos == 0) {
-                    leftPos = itemInMainParam[index - 2].leftPos + 20;
-                } else if (Math.abs(topPos - itemInMainParam[index - 2].topPos) < 80) {
-                    if (itemInMainParam[index - 2].leftPos == 0) {
-                        leftPos = 10;
+            var leftPos = undefined;
+
+            if (index % 2 == 0) {
+                leftPos = 40;
+                if (index >= 2) {
+                    if (topPos - itemInMainParam[index - 2].topPos == 0) {
+                        leftPos = itemInMainParam[index - 2].leftPos - 15;
+                    } else if (Math.abs(topPos - itemInMainParam[index - 2].topPos) < 80) {
+                        if (itemInMainParam[index - 2].leftPos == 40) {
+                            leftPos = 50;
+                        }
+                    }
+                }
+            } else {
+                leftPos = containerState.canvasWidthforActiveId / 0.3 * 0.65;
+                if (index >= 2) {
+                    if (topPos - itemInMainParam[index - 2].topPos == 0) {
+                        leftPos = itemInMainParam[index - 2].leftPos + 15;
+                    } else if (Math.abs(topPos - itemInMainParam[index - 2].topPos) < 80) {
+                        if (itemInMainParam[index - 2].leftPos == containerState.canvasWidthforActiveId / 0.3 * 0.65) {
+                            leftPos = containerState.canvasWidthforActiveId / 0.3 * 0.65 - 10;
+                        }
                     }
                 }
             }
@@ -151,13 +160,14 @@ var MyHisList = function (_React$Component) {
         value: function getTopPos(projectId, index, timeLineBeginYear, pxPerYear) {
             var containerState = this.props.containerState;
 
-            var topPos = 0;
+            var marginTop = 30;
+            var topPos = marginTop;
 
             var itemList = containerState.projectContents[projectId];
 
             if (itemList[index].itemType < 3) {
                 //点事件
-                topPos = (itemList[index].startYear - timeLineBeginYear) * pxPerYear - 20;
+                topPos = (itemList[index].startYear - timeLineBeginYear) * pxPerYear - 40 + marginTop;
             } else {}
 
             return topPos;
@@ -319,26 +329,20 @@ var MyHisList = function (_React$Component) {
                             ) : _react2.default.createElement(
                                 'div',
                                 { className: _MyHisList2.default.notimebackground },
-                                _react2.default.createElement(
-                                    'div',
-                                    { className: _MyHisList2.default.itemsleft },
-                                    containerState.projectContents[containerState.activeId].map(function (item, index) {
-                                        var topPos = 0;
-                                        topPos = _this3.getTopPos(containerState.activeId, index, timeLineBeginYear, pxPerYear);
-                                        var leftPos = 0;
-                                        leftPos = _this3.getLeftPos(containerState.activeId, index, topPos, timeLineBeginYear, pxPerYear);
-                                        itemInMainParam[index] = { 'topPos': topPos, 'leftPos': leftPos };
-                                        console.log(itemInMainParam);
-                                        return _react2.default.createElement(_ItemInMain2.default, { key: item.itemId, componentState: item, index: index, leftPos: leftPos, topPos: topPos });
-                                    })
-                                ),
+                                containerState.projectContents[containerState.activeId].map(function (item, index) {
+                                    var topPos = 0;
+                                    topPos = _this3.getTopPos(containerState.activeId, index, timeLineBeginYear, pxPerYear);
+                                    var leftPos = 0;
+                                    leftPos = _this3.getLeftPos(containerState.activeId, index, topPos, timeLineBeginYear, pxPerYear);
+                                    itemInMainParam[index] = { 'topPos': topPos, 'leftPos': leftPos };
+                                    return _react2.default.createElement(_ItemInMain2.default, { key: item.itemId, componentState: item, index: index, leftPos: leftPos, topPos: topPos });
+                                }),
                                 _react2.default.createElement(
                                     'div',
                                     { ref: 'canvasdiv2', className: _MyHisList2.default.timeline },
                                     _react2.default.createElement(_MyCanvas2.default, { componentState: containerState.projectContents[containerState.activeId], canvasWidth: containerState.canvasWidthforActiveId,
                                         pxPerYear: pxPerYear, timeLineBeginYear: timeLineBeginYear, lastYear: lastYear, earlyYear: earlyYear, yearInterval: yearInterval })
-                                ),
-                                _react2.default.createElement('div', { className: _MyHisList2.default.itemsright })
+                                )
                             )
                         )
                     )

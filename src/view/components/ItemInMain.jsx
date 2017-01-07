@@ -15,7 +15,7 @@ class ItemInMain extends React.Component {
 
         let { componentState,index,leftPos,topPos,actions } = this.props;
 
-        if(index%2 != 0) return null;
+        // if(index%2 != 0) return null;
 
         // let topPos = (componentState.startYear - timeLineBeginYear) * pxPerYear -20;
         
