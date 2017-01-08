@@ -168,7 +168,12 @@ var MyHisList = function (_React$Component) {
             if (itemList[index].itemType < 3) {
                 //点事件
                 topPos = (itemList[index].startYear - timeLineBeginYear) * pxPerYear - 40 + marginTop;
-            } else {}
+            } else {
+                //段事件
+                var rectTopY = (itemList[index].startYear - timeLineBeginYear) * pxPerYear + marginTop;
+                var rectHeight = (itemList[index].endYear - itemList[index].startYear) * pxPerYear;
+                topPos = rectTopY + rectHeight / 2 - 40;
+            }
 
             return topPos;
         }
@@ -335,7 +340,7 @@ var MyHisList = function (_React$Component) {
                                     var leftPos = 0;
                                     leftPos = _this3.getLeftPos(containerState.activeId, index, topPos, timeLineBeginYear, pxPerYear);
                                     itemInMainParam[index] = { 'topPos': topPos, 'leftPos': leftPos };
-                                    return _react2.default.createElement(_ItemInMain2.default, { key: item.itemId, componentState: item, index: index, leftPos: leftPos, topPos: topPos });
+                                    return _react2.default.createElement(_ItemInMain2.default, { key: item.itemId, componentState: item, leftPos: leftPos, topPos: topPos });
                                 }),
                                 _react2.default.createElement(
                                     'div',

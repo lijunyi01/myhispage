@@ -13,11 +13,7 @@ class ItemInMain extends React.Component {
 
     render() {
 
-        let { componentState,index,leftPos,topPos,actions } = this.props;
-
-        // if(index%2 != 0) return null;
-
-        // let topPos = (componentState.startYear - timeLineBeginYear) * pxPerYear -20;
+        let { componentState,leftPos,topPos,actions } = this.props;
         
         return (
             // {/*<div className={styles.ItemInMain} style={{zIndex:index,top:topPos,left:leftPos}}>*/}

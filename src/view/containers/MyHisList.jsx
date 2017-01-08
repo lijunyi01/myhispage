@@ -109,8 +109,10 @@ class MyHisList extends React.Component {
 
         if(itemList[index].itemType < 3) {    //点事件
             topPos = (itemList[index].startYear - timeLineBeginYear) * pxPerYear - 40 + marginTop;
-        }else{
-
+        }else{       //段事件
+            let rectTopY = (itemList[index].startYear - timeLineBeginYear) * pxPerYear + marginTop;
+            let rectHeight = (itemList[index].endYear - itemList[index].startYear) * pxPerYear;
+            topPos = rectTopY + rectHeight/2 -40;
         }
 
         return topPos;
@@ -218,21 +220,7 @@ class MyHisList extends React.Component {
                                     </div>
                                     :
                                     <div className={styles.notimebackground}>
-                                        {/*<div className={styles.itemsleft}>*/}
-                                            {/*{*/}
-                                                {/*containerState.projectContents[containerState.activeId].map(*/}
-                                                    {/*(item, index)=> {*/}
-                                                        {/*let topPos=0;*/}
-                                                        {/*topPos = this.getTopPos(containerState.activeId,index,timeLineBeginYear,pxPerYear);*/}
-                                                        {/*let leftPos=0;*/}
-                                                        {/*leftPos = this.getLeftPos(containerState.activeId,index,topPos,timeLineBeginYear,pxPerYear);*/}
-                                                        {/*itemInMainParam[index] = {'topPos':topPos,'leftPos':leftPos};*/}
-                                                        {/*console.log(itemInMainParam);*/}
-                                                        {/*return <ItemInMain key={item.itemId} componentState={item} index={index} leftPos={leftPos} topPos={topPos}/>*/}
-                                                    {/*}*/}
-                                                {/*)*/}
-                                            {/*}*/}
-                                        {/*</div>*/}
+
                                         {
                                             containerState.projectContents[containerState.activeId].map(
                                                 (item, index)=> {
@@ -241,7 +229,7 @@ class MyHisList extends React.Component {
                                                     let leftPos=0;
                                                     leftPos = this.getLeftPos(containerState.activeId,index,topPos,timeLineBeginYear,pxPerYear);
                                                     itemInMainParam[index] = {'topPos':topPos,'leftPos':leftPos};
-                                                    return <ItemInMain key={item.itemId} componentState={item} index={index} leftPos={leftPos} topPos={topPos}/>
+                                                    return <ItemInMain key={item.itemId} componentState={item} leftPos={leftPos} topPos={topPos}/>
                                                 }
                                             )
                                         }
@@ -249,9 +237,7 @@ class MyHisList extends React.Component {
                                             <MyCanvas componentState={containerState.projectContents[containerState.activeId]} canvasWidth={containerState.canvasWidthforActiveId}
                                                       pxPerYear={pxPerYear} timeLineBeginYear={timeLineBeginYear} lastYear={lastYear} earlyYear={earlyYear} yearInterval={yearInterval}/>
                                         </div>
-                                        {/*<div className={styles.itemsright}>*/}
 
-                                        {/*</div>*/}
                                     </div>
                                 }
                             </div>

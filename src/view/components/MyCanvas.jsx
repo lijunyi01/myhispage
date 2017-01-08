@@ -117,14 +117,23 @@ class MyCanvas extends React.Component {
                     }
                 }else{    //段时间
                     if(i%2 ==0){    //偶数项,左边
-                        ctx.fillRect(canvasXCenterPos-45, (componentState[i].startYear - timeLineBeginYear) * pxPerYear +marginTop, 10, (componentState[i].endYear - componentState[i].startYear) * pxPerYear);
+                        let rectTopY = (componentState[i].startYear - timeLineBeginYear) * pxPerYear +marginTop;
+                        let rectHeight = (componentState[i].endYear - componentState[i].startYear) * pxPerYear;
+                        ctx.fillRect(canvasXCenterPos-30, rectTopY, 10, rectHeight );
+                        ctx.moveTo(canvasXCenterPos-30,rectTopY + rectHeight/2);
+                        ctx.lineTo(canvasXCenterPos-parseInt(canvasWidth/2),rectTopY + rectHeight/2);
+                        ctx.stroke();
                     }else{    //奇数项,右边
-                        ctx.fillRect(canvasXCenterPos+35, (componentState[i].startYear - timeLineBeginYear) * pxPerYear + marginTop, 10, (componentState[i].endYear - componentState[i].startYear) * pxPerYear);
+                        let rectTopY = (componentState[i].startYear - timeLineBeginYear) * pxPerYear + marginTop;
+                        let rectHeight = (componentState[i].endYear - componentState[i].startYear) * pxPerYear;
+                        ctx.fillRect(canvasXCenterPos+20, rectTopY, 10, rectHeight);
+                        ctx.moveTo(canvasXCenterPos+30,rectTopY + rectHeight/2);
+                        ctx.lineTo(canvasXCenterPos+parseInt(canvasWidth/2),rectTopY + rectHeight/2);
+                        ctx.stroke();
                     }
 
                 }
                 ctx.fill();
-                // ctx.stroke();
             }
 
 
