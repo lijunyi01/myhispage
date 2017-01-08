@@ -33,3 +33,39 @@
   background-color: #c1e2b3;
   height: 160px;
 }
+
+.ItemInMainD {
+  width: calc(35% - 40px);
+  //width: 35%;
+  height: 80px;
+  border: 5px solid #c1e2b3;
+  position: absolute;
+  z-index: auto;
+  background-color: #c7ddef;
+  > .itemName{
+    width: 100%;
+    height: 40%;
+    border-bottom: 1px solid #adadad;
+    //background-color: #adadad;
+    text-align: center;
+  }
+  > .itemDes{
+    width: 100%;
+    height: 60%;
+    //border-bottom: 1px solid #adadad;
+    text-align: center;
+    //background-color: #c1e2b3;
+  }
+  //> .itemTime{
+  //  width: 100%;
+  //  height: 20%;
+  //  text-align: center;
+  //  //background-color: #a6e1ec;
+  //}
+}
+
+.ItemInMainD:hover{
+  z-index: 1000;
+  background-color: #c1e2b3;
+  height: 160px;
+}

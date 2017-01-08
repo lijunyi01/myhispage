@@ -16,12 +16,18 @@ class ItemInMain extends React.Component {
         let { componentState,leftPos,topPos,actions } = this.props;
         
         return (
-            // {/*<div className={styles.ItemInMain} style={{zIndex:index,top:topPos,left:leftPos}}>*/}
-            <div className={styles.ItemInMain} style={{top:topPos,left:leftPos}}>
-                <div className={styles.itemName}>{componentState.itemName}</div>
-                <div className={styles.itemDes}>{componentState.itemContent}</div>
-                {/*<p>id:{componentState.itemId}</p>*/}
-                {/*<p>index:{index}</p>*/}
+            <div>
+            {   componentState.itemType < 3?
+                <div className={styles.ItemInMain} style={{top: topPos, left: leftPos}}>
+                    <div className={styles.itemName}>{componentState.itemName}</div>
+                    <div className={styles.itemDes}>{componentState.itemContent}</div>
+                </div>
+                :
+                <div className={styles.ItemInMainD} style={{top: topPos, left: leftPos}}>
+                    <div className={styles.itemName}>{componentState.itemName}</div>
+                    <div className={styles.itemDes}>{componentState.itemContent}</div>
+                </div>
+            }
             </div>
         );
 

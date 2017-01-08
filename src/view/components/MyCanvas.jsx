@@ -91,11 +91,13 @@ class MyCanvas extends React.Component {
             }
 
             //画时间段或时间点
-            ctx.fillStyle = "rgba(0,0,255,0.5)";
-            ctx.strokeStyle = "rgba(0,255,0,0.5)";
+            // ctx.fillStyle = "rgba(0,0,255,0.5)";
+            // ctx.strokeStyle = "rgba(0,255,0,0.5)";
             for (let i = 0; i < componentState.length; i++) {
                 ctx.beginPath();
                 if(componentState[i].itemType<=2){    //点时间
+                    ctx.fillStyle = "rgba(0,0,255,0.5)";
+                    ctx.strokeStyle = "rgba(0,255,0,0.5)";
                     let showYear;
                     if(componentState[i].startYear<0){
                         showYear = Math.abs(componentState[i].startYear) +' B.C.';
@@ -115,25 +117,33 @@ class MyCanvas extends React.Component {
                         ctx.stroke();
                         ctx.fillText(showYear,canvasXCenterPos+60, (componentState[i].startYear - timeLineBeginYear) * pxPerYear - 10 + marginTop);
                     }
+                    ctx.fill();
                 }else{    //段时间
                     if(i%2 ==0){    //偶数项,左边
+                        ctx.fillStyle = "rgba(0,0,255,0.5)";
                         let rectTopY = (componentState[i].startYear - timeLineBeginYear) * pxPerYear +marginTop;
                         let rectHeight = (componentState[i].endYear - componentState[i].startYear) * pxPerYear;
                         ctx.fillRect(canvasXCenterPos-30, rectTopY, 10, rectHeight );
-                        ctx.moveTo(canvasXCenterPos-30,rectTopY + rectHeight/2);
-                        ctx.lineTo(canvasXCenterPos-parseInt(canvasWidth/2),rectTopY + rectHeight/2);
-                        ctx.stroke();
+                        ctx.fill();
+                        
+                        ctx.fillStyle = "rgba(0,0,255,0.1)";
+                        let connectRectWidth = canvasXCenterPos-30 - (canvasXCenterPos-parseInt(canvasWidth/2));
+                        ctx.fillRect(canvasXCenterPos-parseInt(canvasWidth/2), rectTopY + rectHeight/2-10, connectRectWidth, 20 );
+                        ctx.fill();
                     }else{    //奇数项,右边
+                        ctx.fillStyle = "rgba(0,0,255,0.5)";
                         let rectTopY = (componentState[i].startYear - timeLineBeginYear) * pxPerYear + marginTop;
                         let rectHeight = (componentState[i].endYear - componentState[i].startYear) * pxPerYear;
                         ctx.fillRect(canvasXCenterPos+20, rectTopY, 10, rectHeight);
-                        ctx.moveTo(canvasXCenterPos+30,rectTopY + rectHeight/2);
-                        ctx.lineTo(canvasXCenterPos+parseInt(canvasWidth/2),rectTopY + rectHeight/2);
-                        ctx.stroke();
+                        ctx.fill();
+
+                        ctx.fillStyle = "rgba(0,0,255,0.1)";
+                        let connectRectWidth = canvasXCenterPos+parseInt(canvasWidth/2)-(canvasXCenterPos+30);
+                        ctx.fillRect(canvasXCenterPos+30, rectTopY + rectHeight/2-10, connectRectWidth, 20 );
+                        ctx.fill();
                     }
 
                 }
-                ctx.fill();
             }
 
 
