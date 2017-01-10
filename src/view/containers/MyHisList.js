@@ -133,9 +133,9 @@ var MyHisList = function (_React$Component) {
             if (index % 2 == 0) {
                 leftPos = 40;
                 if (index >= 2) {
-                    if (topPos - itemInMainParam[index - 2].topPos == 0) {
+                    if (topPos == itemInMainParam[index - 2].topPos) {
                         leftPos = itemInMainParam[index - 2].leftPos - 15;
-                    } else if (Math.abs(topPos - itemInMainParam[index - 2].topPos) < 80) {
+                    } else if (Math.abs(topPos - itemInMainParam[index - 2].topPos) < 90) {
                         if (itemInMainParam[index - 2].leftPos == 40) {
                             leftPos = 50;
                         }
@@ -144,9 +144,9 @@ var MyHisList = function (_React$Component) {
             } else {
                 leftPos = containerState.canvasWidthforActiveId / 0.3 * 0.65;
                 if (index >= 2) {
-                    if (topPos - itemInMainParam[index - 2].topPos == 0) {
+                    if (topPos == itemInMainParam[index - 2].topPos) {
                         leftPos = itemInMainParam[index - 2].leftPos + 15;
-                    } else if (Math.abs(topPos - itemInMainParam[index - 2].topPos) < 80) {
+                    } else if (Math.abs(topPos - itemInMainParam[index - 2].topPos) < 90) {
                         if (itemInMainParam[index - 2].leftPos == leftPos) {
                             leftPos = leftPos - 10;
                         }

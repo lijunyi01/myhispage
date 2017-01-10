@@ -5,6 +5,9 @@ import React from 'react';
 let earlyYear =0 ;
 let lastYear = 0;
 
+//段时间事件矩形图的左右偏移参数,形如: {1:0,4:-10,5:10}
+let itemParam = {};
+
 class MyCanvas extends React.Component {
 
     shouldComponentUpdate(nextProps){
@@ -91,13 +94,11 @@ class MyCanvas extends React.Component {
             }
 
             //画时间段或时间点
-            // ctx.fillStyle = "rgba(0,0,255,0.5)";
-            // ctx.strokeStyle = "rgba(0,255,0,0.5)";
             for (let i = 0; i < componentState.length; i++) {
                 ctx.beginPath();
                 if(componentState[i].itemType<=2){    //点时间
-                    ctx.fillStyle = "rgba(0,0,255,0.5)";
-                    ctx.strokeStyle = "rgba(0,255,0,0.5)";
+                    ctx.fillStyle = "rgba(255,160,122,0.8)";
+                    ctx.strokeStyle = "rgba(255,160,122,0.8)";
                     let showYear;
                     if(componentState[i].startYear<0){
                         showYear = Math.abs(componentState[i].startYear) +' B.C.';
@@ -111,35 +112,61 @@ class MyCanvas extends React.Component {
                         ctx.stroke();
                         ctx.fillText(showYear, canvasXCenterPos-100, (componentState[i].startYear - timeLineBeginYear) * pxPerYear - 10 + marginTop);
                     }else{    //奇数项,右边
-                        ctx.arc(canvasXCenterPos+40, (componentState[i].startYear - timeLineBeginYear) * pxPerYear + marginTop, 5, 0, Math.PI * 2, true);
-                        ctx.moveTo(canvasXCenterPos+40,(componentState[i].startYear - timeLineBeginYear) * pxPerYear+marginTop);
+                        ctx.arc(canvasXCenterPos+42, (componentState[i].startYear - timeLineBeginYear) * pxPerYear + marginTop, 5, 0, Math.PI * 2, true);
+                        ctx.moveTo(canvasXCenterPos+42,(componentState[i].startYear - timeLineBeginYear) * pxPerYear+marginTop);
                         ctx.lineTo(canvasXCenterPos+parseInt(canvasWidth/2),(componentState[i].startYear - timeLineBeginYear) * pxPerYear+marginTop);
                         ctx.stroke();
                         ctx.fillText(showYear,canvasXCenterPos+60, (componentState[i].startYear - timeLineBeginYear) * pxPerYear - 10 + marginTop);
                     }
                     ctx.fill();
                 }else{    //段时间
+                    let marginLR = this.getMarginLR(i);
                     if(i%2 ==0){    //偶数项,左边
-                        ctx.fillStyle = "rgba(0,0,255,0.5)";
+                        if(marginLR ==0) {
+                            ctx.fillStyle = "rgba(0,0,255,0.2)";
+                            ctx.strokeStyle = "rgba(0,0,255,1)";
+                        }else{
+                            ctx.fillStyle = "rgba(0,0,50,0.2)";
+                            ctx.strokeStyle = "rgba(0,0,50,1)";
+                        }
                         let rectTopY = (componentState[i].startYear - timeLineBeginYear) * pxPerYear +marginTop;
                         let rectHeight = (componentState[i].endYear - componentState[i].startYear) * pxPerYear;
-                        ctx.fillRect(canvasXCenterPos-30, rectTopY, 10, rectHeight );
+                        ctx.fillRect(canvasXCenterPos-30 + marginLR, rectTopY, 10, rectHeight );
                         ctx.fill();
-                        
+                        // ctx.lineWidth = 5;
+                        // ctx.moveTo(canvasXCenterPos-30+ marginLR,rectTopY);
+                        // ctx.lineTo(canvasXCenterPos-30+ marginLR+10,rectTopY);
+                        // ctx.stroke();
+                        ctx.beginPath();
+                        // ctx.fillStyle = "rgba(255,255,255,0.2)";
+                        ctx.strokeStyle = "rgba(0,0,50,1)";
+                        ctx.strokeRect(canvasXCenterPos-30 + marginLR+1, rectTopY, 8, 5);
+                        // ctx.fill();
+
+                        ctx.beginPath();
                         ctx.fillStyle = "rgba(0,0,255,0.1)";
-                        let connectRectWidth = canvasXCenterPos-30 - (canvasXCenterPos-parseInt(canvasWidth/2));
-                        ctx.fillRect(canvasXCenterPos-parseInt(canvasWidth/2), rectTopY + rectHeight/2-10, connectRectWidth, 20 );
+                        ctx.moveTo(canvasXCenterPos-parseInt(canvasWidth/2),rectTopY + rectHeight/2-10);
+                        ctx.lineTo(canvasXCenterPos-20 -10 +marginLR , rectTopY + rectHeight/2);
+                        ctx.lineTo(canvasXCenterPos-parseInt(canvasWidth/2),rectTopY + rectHeight/2+10);
+                        ctx.closePath();
                         ctx.fill();
                     }else{    //奇数项,右边
-                        ctx.fillStyle = "rgba(0,0,255,0.5)";
+
+                        if(marginLR ==0) {
+                            ctx.fillStyle = "rgba(0,0,255,0.2)";
+                        }else{
+                            ctx.fillStyle = "rgba(0,0,50,0.2)";
+                        }
                         let rectTopY = (componentState[i].startYear - timeLineBeginYear) * pxPerYear + marginTop;
                         let rectHeight = (componentState[i].endYear - componentState[i].startYear) * pxPerYear;
-                        ctx.fillRect(canvasXCenterPos+20, rectTopY, 10, rectHeight);
+                        ctx.fillRect(canvasXCenterPos+20 +marginLR, rectTopY, 10, rectHeight);
                         ctx.fill();
 
                         ctx.fillStyle = "rgba(0,0,255,0.1)";
-                        let connectRectWidth = canvasXCenterPos+parseInt(canvasWidth/2)-(canvasXCenterPos+30);
-                        ctx.fillRect(canvasXCenterPos+30, rectTopY + rectHeight/2-10, connectRectWidth, 20 );
+                        ctx.moveTo(canvasXCenterPos+parseInt(canvasWidth/2),rectTopY + rectHeight/2-10);
+                        ctx.lineTo(canvasXCenterPos+20+10+marginLR ,rectTopY + rectHeight/2);
+                        ctx.lineTo(canvasXCenterPos+parseInt(canvasWidth/2),rectTopY + rectHeight/2+10);
+                        ctx.closePath();
                         ctx.fill();
                     }
 
@@ -152,10 +179,62 @@ class MyCanvas extends React.Component {
         }
     }
 
+    //段时间事件矩形图的左右偏移参数
+    getMarginLR(index){
+        let { componentState } = this.props;
+        let  ret = 0;
+
+        let hisLR = [];    //结束时间与当前事件开始时间冲突的事件的各偏移参数
+        for(let l=index; l>=0; l=l-2){
+            if(itemParam[l-2] != undefined){   //说明key:l-2 对应的是段事件
+                if(componentState[index].startYear <= componentState[l-2].endYear){
+                    hisLR.push(itemParam[l-2]);
+                }
+            }
+        }
+
+        if(hisLR.length >0){
+            if(index%2 ==0){   //偶数项,在左边的
+                for(let k=0;k>-41;k=k-10){
+                    let inFlag = false;
+                    for(let t=0;t< hisLR.length; t++){
+                        if(k == hisLR[t]){
+                            inFlag = true;
+                            break;
+                        }
+                    }
+                    if(inFlag == false){
+                        ret = k;
+                        break;
+                    }
+                }
+            }else {    //奇数项,在右边的
+                for(let k=0;k<41;k=k+10){
+                    let inFlag = false;
+                    for(let t=0;t< hisLR.length; t++){
+                        if(k == hisLR[t]){
+                            inFlag = true;
+                            break;
+                        }
+                    }
+                    if(inFlag == false){
+                        ret = k;
+                        break;
+                    }
+                }
+
+            }
+        }
+        itemParam[index] = ret;
+        return ret;
+    }
+
 
     render() {
 
         let { componentState,canvasWidth,pxPerYear,timeLineBeginYear,lastYear,earlyYear,yearInterval } = this.props;
+
+        itemParam = {};
 
         let yearLength = lastYear - earlyYear;
 
