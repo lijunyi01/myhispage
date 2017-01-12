@@ -3,7 +3,7 @@ import React from 'react';
 import { render,findDOMNode } from 'react-dom';
 // import styles from '../styles/AppleItem.css';
 // import appleimage from '../images/apple.png';
-import { Modal,Button,Form,FormGroup,Col,FormControl,ControlLabel,Radio,InputGroup } from 'react-bootstrap';
+import { Modal,Button,Form,FormGroup,Col,FormControl,ControlLabel,Radio,InputGroup,Checkbox } from 'react-bootstrap';
 
 
 let itemName = '';
@@ -30,6 +30,11 @@ class AddItemModal extends React.Component {
     shouldComponentUpdate(nextProps){
         return nextProps.componentState != this.props.componentState;
     }
+
+    // showState(){
+    //     // console.log(this.refs.startYearCheckbox1);
+    //     console.log(this.refs.itemName);
+    // }
 
     render() {
 
@@ -77,24 +82,16 @@ class AddItemModal extends React.Component {
                                 </Col>
                             </FormGroup>
 
-                            {/*<hr/>*/}
 
                             <FormGroup>
                                 <Col sm={2}>
                                     <ControlLabel>时间类型选择:</ControlLabel>
                                 </Col>
                                 <Col sm={6}>
-                                    {componentState.isDotTime ?
-                                        <div>
-                                            <Radio name="tm" value="A" inline defaultChecked onChange={(e)=> actions.changeTmRadio(e.target.value)}>时间点事件</Radio>
-                                            <Radio name="tm" value="B" inline onChange={ (e)=> actions.changeTmRadio(e.target.value)}>时间段事件</Radio>
-                                        </div>
-                                        :
-                                        <div>
-                                            <Radio name="tm" value="A" inline onChange={(e)=> actions.changeTmRadio(e.target.value)}>时间点事件</Radio>
-                                            <Radio name="tm" value="B" inline defaultChecked onChange={ (e)=> actions.changeTmRadio(e.target.value)}>时间段事件</Radio>
-                                        </div>
-                                    }
+                                    <div>
+                                        <Radio name="tm" value="A" inline checked={componentState.isDotTime} onChange={(e)=> actions.changeTmRadio(e.target.value)}>时间点事件</Radio>
+                                        <Radio name="tm" value="B" inline checked={!componentState.isDotTime} onChange={ (e)=> actions.changeTmRadio(e.target.value)}>时间段事件</Radio>
+                                    </div>
                                 </Col>
                             </FormGroup>
 
@@ -103,17 +100,10 @@ class AddItemModal extends React.Component {
                                     <ControlLabel>纪年方式选择:</ControlLabel>
                                 </Col>
                                 <Col sm={6}>
-                                    {componentState.isGongYuan ?
-                                        <div>
-                                            <Radio name="yeartype" value="A" inline defaultChecked onChange={ (e)=> actions.changeYearRadio(e.target.value) }>公元纪年</Radio>
-                                            <Radio name="yeartype" value="B" inline onChange={ (e)=> actions.changeYearRadio(e.target.value) }>年号纪年</Radio>
-                                        </div>
-                                        :
-                                        <div>
-                                            <Radio name="yeartype" value="A" inline onChange={ (e)=> actions.changeYearRadio(e.target.value) }>公元纪年</Radio>
-                                            <Radio name="yeartype" value="B" inline defaultChecked onChange={ (e)=> actions.changeYearRadio(e.target.value) }>年号纪年</Radio>
-                                        </div>
-                                    }
+                                    <div>
+                                        <Radio name="yeartype" value="A" inline checked={componentState.isGongYuan} onChange={ (e)=> actions.changeYearRadio(e.target.value) }>公元纪年</Radio>
+                                        <Radio name="yeartype" value="B" inline checked={!componentState.isGongYuan} onChange={ (e)=> actions.changeYearRadio(e.target.value) }>年号纪年</Radio>
+                                    </div>
                                 </Col>
                             </FormGroup>
                             
@@ -140,6 +130,13 @@ class AddItemModal extends React.Component {
                                                 </Col>
 
                                                 <Col sm={5}>
+                                                    <Checkbox inputRef={ ref => {this.startYearCheckbox = ref;}}>
+                                                        这不是确切的年份 (确切年份不详或无法确定年份)
+                                                    </Checkbox>
+                                                </Col>
+                                            </FormGroup>
+                                            <FormGroup>
+                                                <Col sm={6} smOffset={2}>
                                                     <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空" ref="startTime"/>
                                                 </Col>
                                             </FormGroup>
@@ -175,10 +172,18 @@ class AddItemModal extends React.Component {
                                                     </InputGroup>
                                                 </Col>
                                                 <Col sm={5}>
-                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空" ref="startTime"/>
+                                                    <Checkbox inputRef={ ref => {this.startYearCheckbox = ref;}}>
+                                                        这不是确切的年份 (确切年份不详或无法确定年份)
+                                                    </Checkbox>
                                                 </Col>
 
                                             </FormGroup>
+                                            <FormGroup>
+                                                <Col sm={6} smOffset={2}>
+                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空" ref="startTime"/>
+                                                </Col>
+                                            </FormGroup>
+
                                             <FormGroup>
                                                 <Col sm={2}>
                                                     <ControlLabel>关于时间的说明:</ControlLabel>
@@ -216,6 +221,13 @@ class AddItemModal extends React.Component {
                                                 </Col>
 
                                                 <Col sm={5}>
+                                                    <Checkbox inputRef={ ref => {this.startYearCheckbox = ref;}}>
+                                                        这不是确切的年份 (确切年份不详或无法确定年份)
+                                                    </Checkbox>
+                                                </Col>
+                                            </FormGroup>
+                                            <FormGroup>
+                                                <Col sm={6} smOffset={2}>
                                                     <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空" ref="startTime"/>
                                                 </Col>
                                             </FormGroup>
@@ -240,6 +252,13 @@ class AddItemModal extends React.Component {
                                                 </Col>
 
                                                 <Col sm={5}>
+                                                    <Checkbox inputRef={ ref => {this.endYearCheckbox = ref;}}>
+                                                        这不是确切的年份 (确切年份不详或无法确定年份)
+                                                    </Checkbox>
+                                                </Col>
+                                            </FormGroup>
+                                            <FormGroup>
+                                                <Col sm={6} smOffset={2}>
                                                     <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空" ref="endTime"/>
                                                 </Col>
                                             </FormGroup>
@@ -276,9 +295,16 @@ class AddItemModal extends React.Component {
                                                     </InputGroup>
                                                 </Col>
                                                 <Col sm={5}>
-                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空" ref="startTime"/>
+                                                    <Checkbox inputRef={ ref => {this.startYearCheckbox = ref;}}>
+                                                        这不是确切的年份 (确切年份不详或无法确定年份)
+                                                    </Checkbox>
                                                 </Col>
 
+                                            </FormGroup>
+                                            <FormGroup>
+                                                <Col sm={6} smOffset={2}>
+                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空" ref="startTime"/>
+                                                </Col>
                                             </FormGroup>
 
                                             <FormGroup>
@@ -299,10 +325,18 @@ class AddItemModal extends React.Component {
                                                     </InputGroup>
                                                 </Col>
                                                 <Col sm={5}>
-                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空" ref="endTime"/>
+                                                    <Checkbox inputRef={ ref => {this.endYearCheckbox = ref;}}>
+                                                        这不是确切的年份 (确切年份不详或无法确定年份)
+                                                    </Checkbox>
                                                 </Col>
 
                                             </FormGroup>
+                                            <FormGroup>
+                                                <Col sm={6} smOffset={2}>
+                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空" ref="endTime"/>
+                                                </Col>
+                                            </FormGroup>
+
                                             <FormGroup>
                                                 <Col sm={2}>
                                                     <ControlLabel>关于时间的说明:</ControlLabel>
@@ -329,7 +363,9 @@ class AddItemModal extends React.Component {
                                         :
                                         <Button bsStyle="danger" onClick={ ()=> {
                                             let itemType = 0;
-                                            let itemLevel = 0;
+                                            //起止年份不精确的标志
+                                            let startYearNDFlag = false;
+                                            let endYearNDFlag = false;
                                             itemName = findDOMNode(this.refs.itemName).value;
                                             itemDes = findDOMNode(this.refs.itemDes).value;
                                             if(tmRadio == 'A') {
@@ -350,6 +386,7 @@ class AddItemModal extends React.Component {
 
                                                     itemType = 2;
                                                 }
+                                                startYearNDFlag = this.startYearCheckbox.checked;
                                             }else{
                                                 if(yearRadio == 'A') {
                                                     startBOAFlag = findDOMNode(this.refs.startBOAFlag).value;
@@ -379,25 +416,39 @@ class AddItemModal extends React.Component {
 
                                                     itemType = 4;
                                                 }
+                                                startYearNDFlag = this.startYearCheckbox.checked;
+                                                endYearNDFlag = this.endYearCheckbox.checked;
                                             }
 
                                             let checkResult = checkParam();
                                             if( ! checkResult == '' ){
                                                 actions.popAlert(checkResult)
                                             }else {
+                                                {/*console.log("start flag:"+ startYearNDFlag);*/}
+                                                {/*console.log("end flag:"+ endYearNDFlag);*/}
+                                                let istartNDFlag = 0;
+                                                let iendNDFlag =0;
+                                                if(startYearNDFlag){
+                                                    istartNDFlag = 1;
+                                                }
+                                                if(endYearNDFlag){
+                                                    iendNDFlag = 1;
+                                                }
+
                                                 actions.createProjItem({
                                                     projectId: componentState.projectId,
                                                     type: itemType,
-                                                    itemLevel: itemLevel,
                                                     itemName: itemName,
                                                     itemDes: itemDes,
                                                     startYear: startYear,
+                                                    startYearNDFlag:istartNDFlag,
                                                     startYearDes: startYear_des,
                                                     startTime: startTime,
                                                     endYear: endYear,
+                                                    endYearNDFlag:iendNDFlag,
                                                     endYearDes: endYear_des,
                                                     endTime: endTime,
-                                                })
+                                                });
                                             }
                                         }}>
                                             提 交
@@ -423,65 +474,16 @@ class AddItemModal extends React.Component {
 
 }
 
-// function handleINBlur(e) {
-//     itemName = e.target.value;
-// }
-//
-// function handleIDBlur(e) {
-//     itemDes = e.target.value;
-// }
-//
-// function handleStartSelect(e) {
-//     startBOAFlag = e.target.value;
-//     // console.log(gongyuanflag);
-//
-// }
-//
-// function handleEndSelect(e) {
-//     endBOAFlag = e.target.value;
-//     // console.log(gongyuanflag);
-//
-// }
-//
-// function handleStartYear(e) {
-//     if(startBOAFlag == 'After'){
-//         startYear = e.target.value;
-//     }else {
-//         startYear = '-' + e.target.value;
-//     }
-// }
-//
-// function handleEndYear(e) {
-//     if(endBOAFlag == 'After'){
-//         endYear = e.target.value;
-//     }else {
-//         endYear = '-' + e.target.value;
-//     }
-// }
-//
-// function handleStartTime(e) {
-//     startTime = e.target.value;
-// }
-//
-// function handleEndTime(e) {
-//     endTime = e.target.value;
-// }
-//
-// function handleStartNianHao(e) {
-//     startNH = e.target.value;
-// }
-//
-// function handleEndNianHao(e) {
-//     endNH = e.target.value;
-// }
-//
-// function handleStartYearDes(e) {
-//     startYear_des = startNH + ' ' + e.target.value;
-// }
-//
-// function handleEndYearDes(e) {
-//     endYear_des = endNH + ' ' + e.target.value;
-// }
+function handleStartYearNDFlag(e) {
+    if(e.target.checked){
+        startYearNDFlag = true;
+        console.log(startYearNDFlag);
+    }else{
+        console.log('222');
+        startYearNDFlag = false;
+    }
+}
+
 
 function checkParam() {
 

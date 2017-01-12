@@ -81,6 +81,7 @@ let actions = {
             (data)=>{
                 // console.log(data);
                 if(data.errorCode=='0'){
+                    dispatch(actions.getAllProjects());
                     dispatch(actions.doneCreateProj());
                 }else{
                     dispatch(actions.doneCreateProjError(data));
@@ -171,6 +172,11 @@ let actions = {
 
     doneCreateProjError: (retMessage) => ({
         type: 'lists/DONE_CREATEPROJ_ERROR',
+        payload: retMessage
+    }),
+
+    doneCreateItemError: (retMessage) =>({
+        type: 'lists/DONE_CREATEITEM_ERROR',
         payload: retMessage
     }),
 

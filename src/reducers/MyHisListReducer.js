@@ -157,6 +157,13 @@ export default (state = initState, action) => {
             .setIn(['resultModal', 'content'], action.payload.errorMessage)
             .toJS();
 
+    } else if(action.type === 'lists/DONE_CREATEITEM_ERROR') {
+        return fromJS(state)
+            .setIn(['addItemModal', 'isSubmitting'], false)
+            .setIn(['resultModal', 'show'], true)
+            .setIn(['resultModal', 'content'], action.payload.errorMessage)
+            .toJS();
+
     } else if(action.type === 'lists/SHOW_CONFIRM') {
         console.log(action.payload);
         return fromJS(state)

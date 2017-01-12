@@ -42,25 +42,25 @@ class MyCanvas extends React.Component {
             let canvasXCenterPos = parseInt(canvasWidth/2);
             if(timeLineBeginYear <0 && lastYear>0) {
                 //跨公元元年
-                ctx.fillStyle = "rgba(0,255,0,0.2)";
+                ctx.fillStyle = "rgba(169,169,169,0.2)";
                 ctx.fillRect(canvasXCenterPos-20, marginTop, 40, pxPerYear * (timeLineBeginYear * -1));
-                ctx.fillStyle = "rgba(255,0,0,0.2)";
+                ctx.fillStyle = "rgba(0,255,0,0.2)";
                 ctx.fillRect(canvasXCenterPos-20,pxPerYear * (timeLineBeginYear * -1)+ marginTop, 40,lineLength - pxPerYear * (timeLineBeginYear * -1));
 
             }else if(timeLineBeginYear <0 && lastYear<=0){
                 //都在公元前
-                ctx.fillStyle = "rgba(0,255,0,0.2)";
+                ctx.fillStyle = "rgba(169,169,169,0.2)";
                 ctx.fillRect(canvasXCenterPos-20, marginTop, 40, lineLength);
 
             }else{
                 //都在公元后
-                ctx.fillStyle = "rgba(255,0,0,0.2)";
+                ctx.fillStyle = "rgba(0,255,0,0.2)";
                 ctx.fillRect(canvasXCenterPos-20, marginTop, 40, lineLength);
 
             }
             ctx.beginPath();
             ctx.lineWidth = 2;
-            ctx.strokeStyle = "rgba(255,0,0,0.2)";
+            ctx.strokeStyle = "rgba(95,158,160,0.3)";
             ctx.moveTo(canvasXCenterPos-20, lineLength + marginTop);
             ctx.lineTo(canvasXCenterPos-30, lineLength + marginTop);
             ctx.lineTo(canvasXCenterPos, lineLength + 20 + marginTop);
