@@ -3,7 +3,7 @@ import React from 'react';
 // import { render } from 'react-dom';
 import styles from '../styles/ItemInMain.css';
 // import appleimage from '../images/apple.png';
-// import { OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
+import { OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 
 class ItemInMain extends React.Component {
 
@@ -26,6 +26,21 @@ class ItemInMain extends React.Component {
                 <div className={styles.ItemInMainD} style={{top: topPos, left: leftPos}}>
                     <div className={styles.itemName}>{componentState.itemName}</div>
                     <div className={styles.itemDes}>{componentState.itemContent}</div>
+                    <div className={styles.itemTime}>
+                        <div className={styles.startYear}>{componentState.startYear}</div>
+                        <div className={styles.endYear}>{componentState.endYear}</div>
+                    </div>
+                    <div className={styles.itemButtons}>
+                        <OverlayTrigger placement="bottom" overlay={tooltip1}>
+                            <div className={styles.button1} onClick={
+                                (event) => {
+                                    event.stopPropagation();
+                                    {/*actions.showConfirm({title:confirmModalTitle,content:confirmModalContent,id:componentState.id})*/}
+                                }
+                            }>
+                            </div>
+                        </OverlayTrigger>
+                    </div>
                 </div>
             }
             </div>
@@ -33,6 +48,10 @@ class ItemInMain extends React.Component {
 
     }
 }
+
+const tooltip1 = (
+    <Tooltip id="tooltip1"><strong>删除</strong></Tooltip>
+);
 
 
 export default ItemInMain;

@@ -97,8 +97,10 @@ class MyCanvas extends React.Component {
             for (let i = 0; i < componentState.length; i++) {
                 ctx.beginPath();
                 if(componentState[i].itemType<=2){    //点时间
+
                     ctx.fillStyle = "rgba(255,160,122,0.8)";
                     ctx.strokeStyle = "rgba(255,160,122,0.8)";
+
                     let showYear;
                     if(componentState[i].startYear<0){
                         showYear = Math.abs(componentState[i].startYear) +' B.C.';
@@ -118,56 +120,79 @@ class MyCanvas extends React.Component {
                         ctx.stroke();
                         ctx.fillText(showYear,canvasXCenterPos+60, (componentState[i].startYear - timeLineBeginYear) * pxPerYear - 10 + marginTop);
                     }
-                    ctx.fill();
+                    if(componentState[i].startYearNDFlag == 0) {  //如果是确切年份才用实心圈,否则用空心圈
+                        ctx.fill();
+                    }
                 }else{    //段时间
+                    //矩形条柱左右偏移量
                     let marginLR = this.getMarginLR(i);
+                    if(marginLR ==0) {
+                        ctx.fillStyle = "rgba(0,0,255,0.2)";
+                        ctx.strokeStyle = "rgba(0,0,255,1)";
+                    }else if(Math.abs(marginLR)==10){
+                        ctx.fillStyle = "rgba(0,255,50,0.2)";
+                        ctx.strokeStyle = "rgba(0,255,50,1)";
+                    }else{
+                        ctx.fillStyle = "rgba(0,0,50,0.2)";
+                        ctx.strokeStyle = "rgba(0,0,50,1)";
+                    }
+
+                    let rectTopY = (componentState[i].startYear - timeLineBeginYear) * pxPerYear +marginTop;
+                    let rectHeight = (componentState[i].endYear - componentState[i].startYear) * pxPerYear;
+
                     if(i%2 ==0){    //偶数项,左边
-                        if(marginLR ==0) {
-                            ctx.fillStyle = "rgba(0,0,255,0.2)";
-                            ctx.strokeStyle = "rgba(0,0,255,1)";
-                        }else{
-                            ctx.fillStyle = "rgba(0,0,50,0.2)";
-                            ctx.strokeStyle = "rgba(0,0,50,1)";
-                        }
-                        let rectTopY = (componentState[i].startYear - timeLineBeginYear) * pxPerYear +marginTop;
-                        let rectHeight = (componentState[i].endYear - componentState[i].startYear) * pxPerYear;
+                        //画矩形
                         ctx.fillRect(canvasXCenterPos-30 + marginLR, rectTopY, 10, rectHeight );
                         ctx.fill();
-                        // ctx.lineWidth = 5;
-                        // ctx.moveTo(canvasXCenterPos-30+ marginLR,rectTopY);
-                        // ctx.lineTo(canvasXCenterPos-30+ marginLR+10,rectTopY);
-                        // ctx.stroke();
-                        ctx.beginPath();
-                        // ctx.fillStyle = "rgba(255,255,255,0.2)";
-                        ctx.strokeStyle = "rgba(0,0,50,1)";
-                        ctx.strokeRect(canvasXCenterPos-30 + marginLR+1, rectTopY, 8, 5);
-                        // ctx.fill();
 
-                        ctx.beginPath();
-                        ctx.fillStyle = "rgba(0,0,255,0.1)";
+                        //画三角形
                         ctx.moveTo(canvasXCenterPos-parseInt(canvasWidth/2),rectTopY + rectHeight/2-10);
                         ctx.lineTo(canvasXCenterPos-20 -10 +marginLR , rectTopY + rectHeight/2);
                         ctx.lineTo(canvasXCenterPos-parseInt(canvasWidth/2),rectTopY + rectHeight/2+10);
                         ctx.closePath();
                         ctx.fill();
+
+                        //写起止年份
+                        ctx.fillStyle = "rgba(0,0,0,1)";
+                        ctx.fillText(componentState[i].startYear, canvasXCenterPos-parseInt(canvasWidth/2)+15, rectTopY + rectHeight/2 -15);
+                        ctx.fillText(componentState[i].endYear, canvasXCenterPos-parseInt(canvasWidth/2)+15, rectTopY + rectHeight/2 +20);
+
+                        //如果起止年份有不确切的,在相应的矩形端加矩形标记
+                        if(componentState[i].startYearNDFlag == 1){
+                            ctx.strokeStyle = "rgba(0,0,50,1)";
+                            ctx.strokeRect(canvasXCenterPos-30 + marginLR+1, rectTopY, 8, 5);
+                        }
+                        if(componentState[i].endYearNDFlag == 1){
+                            ctx.strokeStyle = "rgba(0,0,50,1)";
+                            ctx.strokeRect(canvasXCenterPos-30 + marginLR+1, rectTopY+rectHeight-5, 8, 5);
+                        }
                     }else{    //奇数项,右边
 
-                        if(marginLR ==0) {
-                            ctx.fillStyle = "rgba(0,0,255,0.2)";
-                        }else{
-                            ctx.fillStyle = "rgba(0,0,50,0.2)";
-                        }
-                        let rectTopY = (componentState[i].startYear - timeLineBeginYear) * pxPerYear + marginTop;
-                        let rectHeight = (componentState[i].endYear - componentState[i].startYear) * pxPerYear;
+                        //画矩形
                         ctx.fillRect(canvasXCenterPos+20 +marginLR, rectTopY, 10, rectHeight);
                         ctx.fill();
 
-                        ctx.fillStyle = "rgba(0,0,255,0.1)";
+                        //画三角形
                         ctx.moveTo(canvasXCenterPos+parseInt(canvasWidth/2),rectTopY + rectHeight/2-10);
                         ctx.lineTo(canvasXCenterPos+20+10+marginLR ,rectTopY + rectHeight/2);
                         ctx.lineTo(canvasXCenterPos+parseInt(canvasWidth/2),rectTopY + rectHeight/2+10);
                         ctx.closePath();
                         ctx.fill();
+
+                        //写起止年份
+                        ctx.fillStyle = "rgba(0,0,0,1)";
+                        ctx.fillText(componentState[i].startYear, canvasXCenterPos+parseInt(canvasWidth/2)-45, rectTopY + rectHeight/2 -15);
+                        ctx.fillText(componentState[i].endYear, canvasXCenterPos+parseInt(canvasWidth/2)-45, rectTopY + rectHeight/2 +20);
+
+                        //如果起止年份有不确切的,在相应的矩形端加矩形标记
+                        if(componentState[i].startYearNDFlag == 1){
+                            ctx.strokeStyle = "rgba(0,0,50,1)";
+                            ctx.strokeRect(canvasXCenterPos+20 + marginLR+1, rectTopY, 8, 5);
+                        }
+                        if(componentState[i].endYearNDFlag == 1){
+                            ctx.strokeStyle = "rgba(0,0,50,1)";
+                            ctx.strokeRect(canvasXCenterPos+20 + marginLR+1, rectTopY+rectHeight-5, 8, 5);
+                        }
                     }
 
                 }

@@ -42,6 +42,7 @@
   position: absolute;
   z-index: auto;
   background-color: #FFFAFA;
+  cursor: pointer;
   > .itemName{
     width: 100%;
     height: 40%;
@@ -56,16 +57,58 @@
     text-align: center;
     //background-color: #c1e2b3;
   }
-  //> .itemTime{
-  //  width: 100%;
-  //  height: 20%;
-  //  text-align: center;
-  //  //background-color: #a6e1ec;
-  //}
+  > .itemTime {
+    width: 100%;
+    height: 0%;
+    display: none;
+  }
+  > .itemButtons{
+    width: 100%;
+    height: 0%;
+    display: none;
+  }
 }
 
 .ItemInMainD:hover{
   z-index: 1000;
-  background-color: #c1e2b3;
+  color: #fff;
+  background-color: #4cae4c;
   height: 160px;
+  > .itemName{
+    height: 40px;
+  }
+  > .itemDes{
+    height: calc(100% - 90px);
+    border-bottom: 1px solid #adadad;
+  }
+  > .itemTime{
+    width: 100%;
+    height: 25px;
+    display: flex;
+    border-bottom: 1px solid #adadad;
+    > .startYear{
+      width: 50%;
+      border-right: 1px solid #adadad;
+    }
+    > .endYear{
+      width: 50%;
+    }
+  }
+  > .itemButtons {
+    width: 100%;
+    height: 25px;
+    display: flex;
+    //color: #fff;
+    //float: right;
+    //text-align: center;
+    > .button1 {
+      width: 24px;
+      height: 24px;
+      margin: 0 auto;
+      background: url("../images/delete_white.png") no-repeat;
+    }
+    > .button1:hover {
+      background: url("../images/delete_solid_white.png") no-repeat;
+    }
+  }
 }
