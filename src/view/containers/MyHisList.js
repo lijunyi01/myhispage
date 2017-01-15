@@ -340,6 +340,7 @@ var MyHisList = function (_React$Component) {
                                     var leftPos = 0;
                                     leftPos = _this3.getLeftPos(containerState.activeId, index, topPos, timeLineBeginYear, pxPerYear);
                                     itemInMainParam[index] = { 'topPos': topPos, 'leftPos': leftPos };
+
                                     return _react2.default.createElement(_ItemInMain2.default, { key: item.itemId, componentState: item, leftPos: leftPos, topPos: topPos });
                                 }),
                                 _react2.default.createElement(

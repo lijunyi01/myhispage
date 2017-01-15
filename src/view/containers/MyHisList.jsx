@@ -229,6 +229,7 @@ class MyHisList extends React.Component {
                                                     let leftPos=0;
                                                     leftPos = this.getLeftPos(containerState.activeId,index,topPos,timeLineBeginYear,pxPerYear);
                                                     itemInMainParam[index] = {'topPos':topPos,'leftPos':leftPos};
+
                                                     return <ItemInMain key={item.itemId} componentState={item} leftPos={leftPos} topPos={topPos}/>
                                                 }
                                             )

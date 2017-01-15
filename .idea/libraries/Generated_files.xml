@@ -17,6 +17,7 @@
         <item url="file://$PROJECT_DIR$/src/view/components/ProjectsListItem.js" />
         <item url="file://$PROJECT_DIR$/src/view/components/MyCanvas.js" />
         <item url="file://$PROJECT_DIR$/src/view/components/ResultModal.js" />
+        <item url="file://$PROJECT_DIR$/src/view/components/ItemTip.js" />
         <item url="file://$PROJECT_DIR$/src/view/components/ItemInMain.js" />
         <item url="file://$PROJECT_DIR$/src/view/components/ProjectItem.js" />
       </sourceFilesUrls>
@@ -37,6 +38,7 @@
       <root url="file://$PROJECT_DIR$/src/view/components/ProjectsListItem.js" />
       <root url="file://$PROJECT_DIR$/src/view/components/MyCanvas.js" />
       <root url="file://$PROJECT_DIR$/src/view/components/ResultModal.js" />
+      <root url="file://$PROJECT_DIR$/src/view/components/ItemTip.js" />
       <root url="file://$PROJECT_DIR$/src/view/components/ItemInMain.js" />
       <root url="file://$PROJECT_DIR$/src/view/components/ProjectItem.js" />
     </CLASSES>

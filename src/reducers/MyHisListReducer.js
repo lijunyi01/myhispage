@@ -13,6 +13,7 @@ const initState = {
     activeId: -1,
     canvasWidthforActiveId: 0,
     justLogin: true,
+    // showTipsInItem: false,
     projectContents: {},
     addProjectModal: {
         show: false,

@@ -1,0 +1,13 @@
+.itemTip {
+  width: 100%;
+  height: auto;
+  display: flex;
+  //background: #c1e2b3;
+  border-bottom: 1px solid #adadad;
+  > .left{
+    width: 10%;
+  }
+  > .right{
+    width: 90%;
+  }
+}

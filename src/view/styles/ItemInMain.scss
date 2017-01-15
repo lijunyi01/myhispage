@@ -12,12 +12,14 @@
     border-bottom: 1px solid #adadad;
     //background-color: #adadad;
     text-align: center;
+    overflow: hidden;
   }
   > .itemDes{
     width: 100%;
     height: 60%;
     //border-bottom: 1px solid #adadad;
     text-align: center;
+    overflow: hidden;
     //background-color: #c1e2b3;
   }
   //> .itemTime{
@@ -37,25 +39,42 @@
 .ItemInMainD {
   width: calc(35% - 40px);
   //width: 35%;
-  height: 80px;
+  height: auto;
+  //min-height: 80px;
   border: 5px solid #BC8F8F;
   position: absolute;
   z-index: auto;
   background-color: #FFFAFA;
   cursor: pointer;
-  > .itemName{
+  > .itemNameO{
     width: 100%;
-    height: 40%;
+    height: 30px;
     border-bottom: 1px solid #adadad;
     //background-color: #adadad;
-    text-align: center;
+    display: flex;
+    > .tFlag{
+      width: 10%;
+    }
+    > .itemName {
+      width: 80%;
+      text-align: center;
+      overflow: hidden;
+      //background-color: #a6e1ec;
+    }
+    > .fFlag{
+      width: 10%;
+    }
   }
   > .itemDes{
     width: 100%;
-    height: 60%;
-    //border-bottom: 1px solid #adadad;
+    height: 50px;
+    border-bottom: 1px solid #adadad;
     text-align: center;
     //background-color: #c1e2b3;
+    overflow: hidden;
+  }
+  > .itemTips{
+    display: none;
   }
   > .itemTime {
     width: 100%;
@@ -73,13 +92,19 @@
   z-index: 1000;
   color: #fff;
   background-color: #4cae4c;
-  height: 160px;
+  height: auto;
   > .itemName{
-    height: 40px;
+    height: auto;
+    min-height: 25px;
   }
   > .itemDes{
-    height: calc(100% - 90px);
+    height: auto;
+    min-height: 50px;
     border-bottom: 1px solid #adadad;
+  }
+  > .itemTips{
+    height: auto;
+    display: block;
   }
   > .itemTime{
     width: 100%;
@@ -98,16 +123,44 @@
     width: 100%;
     height: 25px;
     display: flex;
+    padding-left: 10px;
     //color: #fff;
     //float: right;
     //text-align: center;
     > .button1 {
-      width: 24px;
+      width: 30px;
       height: 24px;
-      margin: 0 auto;
+      //margin: 0 auto;
       background: url("../images/delete_white.png") no-repeat;
     }
     > .button1:hover {
+      background: url("../images/delete_solid_white.png") no-repeat;
+    }
+    > .button2 {
+      width: 30px;
+      height: 24px;
+      //margin: 0 auto;
+      background: url("../images/delete_white.png") no-repeat;
+    }
+    > .button2:hover {
+      background: url("../images/delete_solid_white.png") no-repeat;
+    }
+    > .button3 {
+      width: 30px;
+      height: 24px;
+      //margin: 0 auto;
+      background: url("../images/delete_white.png") no-repeat;
+    }
+    > .button3:hover {
+      background: url("../images/delete_solid_white.png") no-repeat;
+    }
+    > .button4 {
+      width: 30px;
+      height: 24px;
+      //margin: 0 auto;
+      background: url("../images/delete_white.png") no-repeat;
+    }
+    > .button4:hover {
       background: url("../images/delete_solid_white.png") no-repeat;
     }
   }
