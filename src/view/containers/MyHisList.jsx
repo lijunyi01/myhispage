@@ -13,6 +13,7 @@ import ResultModal from '../components/ResultModal';
 import AddItemModal from '../components/AddItemModal';
 import MyCanvas from '../components/MyCanvas';
 import ItemInMain from '../components/ItemInMain';
+import ChangeTipsModal from '../components/ChangeTipsModal';
 
 
 
@@ -158,7 +159,7 @@ class MyHisList extends React.Component {
 
         return (
             <div className={styles.myHisListMain}>
-                <div className={styles.list}>
+                <div className={styles.list} style={{display:(containerState.fullsizeShow?"none":"block")}}>
                     <div className={styles.top}>
                         <div className={styles.infoarea}>
                             <p>我的笔记</p>
@@ -184,8 +185,8 @@ class MyHisList extends React.Component {
                         }
                     </div>
                 </div>
-                <div className={styles.main}>
-                    <div className={styles.top}>
+                <div className={styles.main} style={{width:(containerState.fullsizeShow?"100%":"calc(100% - 300px)")}}>
+                    <div className={styles.top} style={{display:(containerState.fullsizeShow?"none":"block")}}>
                         <div className={styles.top2}>
                             <div className={styles.info}>
                             </div>
@@ -230,7 +231,10 @@ class MyHisList extends React.Component {
                                                     leftPos = this.getLeftPos(containerState.activeId,index,topPos,timeLineBeginYear,pxPerYear);
                                                     itemInMainParam[index] = {'topPos':topPos,'leftPos':leftPos};
 
-                                                    return <ItemInMain key={item.itemId} componentState={item} leftPos={leftPos} topPos={topPos}/>
+                                                    return <ItemInMain key={item.itemId} componentState={item} leftPos={leftPos} topPos={topPos} index={index}
+                                                                       actions={{modifyTipsButtonClick:actioncreator.modifyTipsButtonClick,
+                                                                       }}
+                                                           />
                                                 }
                                             )
                                         }
@@ -274,6 +278,13 @@ class MyHisList extends React.Component {
                                   deleteProj: actioncreator.deleteProj
                               }}
 
+                />
+
+                <ChangeTipsModal componentState={containerState.changeTipsModal}
+                                 itemTipMapList={(containerState.activeId != -1 && containerState.activeItemIndex!= -1)? containerState.projectContents[containerState.activeId][containerState.activeItemIndex].itemTipMapList :[]}
+                                 actions={{
+                                     shutChangeTipsModal: actioncreator.shutChangeTipsModal,
+                                 }}
                 />
 
                 <ResultModal componentState={containerState.resultModal} actions={{shutResultModal: actioncreator.shutResultModal}}/>

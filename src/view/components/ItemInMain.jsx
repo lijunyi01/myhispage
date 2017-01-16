@@ -14,13 +14,7 @@ class ItemInMain extends React.Component {
 
     render() {
 
-        let { componentState,leftPos,topPos,actions } = this.props;
-        // let displayStr = "none";
-        // if(){
-        //     diplayStr = "block";
-        // }else{
-        //     diplayStr = "none";
-        // }
+        let { componentState,leftPos,topPos,index,actions } = this.props;
 
         return (
             <div>
@@ -78,7 +72,7 @@ class ItemInMain extends React.Component {
                             <div className={styles.button3} onClick={
                                 (event) => {
                                     event.stopPropagation();
-                                    {/*actions.showConfirm({title:confirmModalTitle,content:confirmModalContent,id:componentState.id})*/}
+                                    actions.modifyTipsButtonClick({itemId:componentState.itemId,itemName:componentState.itemName,itemIndex:index})
                                 }
                             }>
                             </div>

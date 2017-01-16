@@ -273,7 +273,16 @@ let actions = {
     setCanvasWidth2: width => ({
         type: 'lists/SET_CANVASWIDTH',
         payload: width
-    })
+    }),
+
+    modifyTipsButtonClick: param => ({
+        type: 'lists/CLICK_MODIFYTIPSBUTTON',
+        payload: param
+    }),
+
+    shutChangeTipsModal: () => ({
+        type: 'lists/SHUT_CHANGETIPSMODAL',
+    }),
 
 };
 

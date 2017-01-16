@@ -11,9 +11,10 @@ import { fromJS,Map,List } from 'immutable';
 const initState = {
     projectsList: [],
     activeId: -1,
+    activeItemIndex: -1,
     canvasWidthforActiveId: 0,
     justLogin: true,
-    // showTipsInItem: false,
+    fullsizeShow: false,
     projectContents: {},
     addProjectModal: {
         show: false,
@@ -37,6 +38,12 @@ const initState = {
         show: false,
         content: ''
     },
+    changeTipsModal:{
+        show: false,
+        itemId: -1,
+        itemName: '',
+        tipList: []
+    }
 };
 
 export default (state = initState, action) => {
@@ -199,8 +206,22 @@ export default (state = initState, action) => {
         // console.log("sindex:" + sindex);
         return fromJS(state).deleteIn(['projectContents', sindex]).toJS();
 
-    } else if(action.type === 'lists/SET_CANVASWIDTH'){
-        return fromJS(state).set('canvasWidthforActiveId',action.payload).toJS();
+    } else if(action.type === 'lists/SET_CANVASWIDTH') {
+        return fromJS(state).set('canvasWidthforActiveId', action.payload).toJS();
+
+    } else if(action.type == 'lists/CLICK_MODIFYTIPSBUTTON') {
+        return fromJS(state)
+            .setIn(['changeTipsModal','show'], true)
+            .setIn(['changeTipsModal','itemName'],action.payload.itemName)
+            .setIn(['changeTipsModal','itemId'],action.payload.itemId)
+            .set('activeItemIndex',action.payload.itemIndex)
+            .toJS();
+
+    } else if(action.type == 'lists/SHUT_CHANGETIPSMODAL'){
+        return fromJS(state)
+            .setIn(['changeTipsModal', 'show'], false)
+            .set('activeItemIndex',-1)
+            .toJS();
 
     } else {
         return state;

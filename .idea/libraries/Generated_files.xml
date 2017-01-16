@@ -2,8 +2,10 @@
   <library name="Generated files" type="javaScript">
     <properties>
       <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/src/view/components/ChangeTipsModal.js" />
         <item url="file://$PROJECT_DIR$/src/view/components/ItemInMainR.js" />
         <item url="file://$PROJECT_DIR$/src/view/containers/AddHisProj.js" />
+        <item url="file://$PROJECT_DIR$/src/view/components/ItemTipInModal.js" />
         <item url="file://$PROJECT_DIR$/src/view/components/AddItemModal.js" />
         <item url="file://$PROJECT_DIR$/src/view/pages/AddHisProj.js" />
         <item url="file://$PROJECT_DIR$/src/view/components/MyModal.js" />
@@ -23,8 +25,10 @@
       </sourceFilesUrls>
     </properties>
     <CLASSES>
+      <root url="file://$PROJECT_DIR$/src/view/components/ChangeTipsModal.js" />
       <root url="file://$PROJECT_DIR$/src/view/components/ItemInMainR.js" />
       <root url="file://$PROJECT_DIR$/src/view/containers/AddHisProj.js" />
+      <root url="file://$PROJECT_DIR$/src/view/components/ItemTipInModal.js" />
       <root url="file://$PROJECT_DIR$/src/view/components/AddItemModal.js" />
       <root url="file://$PROJECT_DIR$/src/view/pages/AddHisProj.js" />
       <root url="file://$PROJECT_DIR$/src/view/components/MyModal.js" />

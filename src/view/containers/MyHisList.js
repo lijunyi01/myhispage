@@ -54,6 +54,10 @@ var _ItemInMain = require('../components/ItemInMain');
 
 var _ItemInMain2 = _interopRequireDefault(_ItemInMain);
 
+var _ChangeTipsModal = require('../components/ChangeTipsModal');
+
+var _ChangeTipsModal2 = _interopRequireDefault(_ChangeTipsModal);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -225,7 +229,7 @@ var MyHisList = function (_React$Component) {
                 { className: _MyHisList2.default.myHisListMain },
                 _react2.default.createElement(
                     'div',
-                    { className: _MyHisList2.default.list },
+                    { className: _MyHisList2.default.list, style: { display: containerState.fullsizeShow ? "none" : "block" } },
                     _react2.default.createElement(
                         'div',
                         { className: _MyHisList2.default.top },
@@ -278,10 +282,10 @@ var MyHisList = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: _MyHisList2.default.main },
+                    { className: _MyHisList2.default.main, style: { width: containerState.fullsizeShow ? "100%" : "calc(100% - 300px)" } },
                     _react2.default.createElement(
                         'div',
-                        { className: _MyHisList2.default.top },
+                        { className: _MyHisList2.default.top, style: { display: containerState.fullsizeShow ? "none" : "block" } },
                         _react2.default.createElement(
                             'div',
                             { className: _MyHisList2.default.top2 },
@@ -341,7 +345,10 @@ var MyHisList = function (_React$Component) {
                                     leftPos = _this3.getLeftPos(containerState.activeId, index, topPos, timeLineBeginYear, pxPerYear);
                                     itemInMainParam[index] = { 'topPos': topPos, 'leftPos': leftPos };
 
-                                    return _react2.default.createElement(_ItemInMain2.default, { key: item.itemId, componentState: item, leftPos: leftPos, topPos: topPos });
+                                    return _react2.default.createElement(_ItemInMain2.default, { key: item.itemId, componentState: item, leftPos: leftPos, topPos: topPos, index: index,
+                                        actions: { modifyTipsButtonClick: actioncreator.modifyTipsButtonClick
+                                        }
+                                    });
                                 }),
                                 _react2.default.createElement(
                                     'div',
@@ -376,6 +383,12 @@ var MyHisList = function (_React$Component) {
                         deleteProj: actioncreator.deleteProj
                     }
 
+                }),
+                _react2.default.createElement(_ChangeTipsModal2.default, { componentState: containerState.changeTipsModal,
+                    itemTipMapList: containerState.activeId != -1 && containerState.activeItemIndex != -1 ? containerState.projectContents[containerState.activeId][containerState.activeItemIndex].itemTipMapList : [],
+                    actions: {
+                        shutChangeTipsModal: actioncreator.shutChangeTipsModal
+                    }
                 }),
                 _react2.default.createElement(_ResultModal2.default, { componentState: containerState.resultModal, actions: { shutResultModal: actioncreator.shutResultModal } })
             );
