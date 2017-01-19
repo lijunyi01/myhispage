@@ -27,8 +27,8 @@ const mysocket = {
     connect: function(){
         var socketUrl = this.httptype+this.siteip+':'+this.siteport+'/?umid='+this.umid+'&token='+this.token;
         console.log(socketUrl);
-        this.socket = io.connect(socketUrl);
 
+        this.socket = io.connect(socketUrl,{reconnectionAttempts:5});
         this.on();
     },
     emit: function(functionName,sendjson,callback){
@@ -70,17 +70,31 @@ const mysocket = {
         }.bind(this));
 
         this.socket.on('connect',function(){
-            // console.log('socket connect ok ...');
+            console.log('socket connect ok ...');
+            // this.connectTimes = 0;
             // console.log('');
         });
 
-//		this.socket.on('disconnect', function() {
-//		    console.log('与服务其断开');
-//		});
+		this.socket.on('disconnect', function() {
+		    console.log('与服务其断开');
+		});
 //
-//		this.socket.on('reconnect', function() {
-//		    console.log('重新连接到服务器');
-//		});
+// 		this.socket.on('reconnect', function() {
+// 		    console.log('重新连接到服务器');
+// 		});
+
+        this.socket.on('reconnect_attempt',function() {
+            // console.log('reconnect_attempt!');
+        });
+
+        this.socket.on('reconnect_failed',function () {
+            console.log('reconnect failed');
+            sessionStorage.setItem("umid","");
+            sessionStorage.setItem("token","");
+            sessionStorage.setItem("siteip","");
+            sessionStorage.setItem("siteport","");
+            window.location.href="index.html";
+        })
     }
 };
 

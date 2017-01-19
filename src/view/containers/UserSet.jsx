@@ -10,9 +10,6 @@ import actions from '../../actions/userSetAction_creators';
 import { bindActionCreators } from 'redux';
 // import MyModal from '../components/MyModal';
 
-let projectName = "";
-let projectDes = "";
-
 class UserSet extends React.Component {
 
     shouldComponentUpdate(nextProps){

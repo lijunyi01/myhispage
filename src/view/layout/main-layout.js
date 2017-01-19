@@ -28,15 +28,13 @@ export default function(props) {
                 </div>
 
                 <div className={styles.item2}>
-                    <Link activeClassName={styles.active} to="/dd">
+                    <Link activeClassName={styles.active} to="/userSet">
                         <div className={styles.item_bj}></div>
                     </Link>
                 </div>
 
 
-                <div className={styles.itembottom}>
-                    <Link activeClassName={styles.active} to="/userSet">
-                    </Link>
+                <div className={styles.itembottom} onClick={ logout }>
                 </div>
 
             </aside>
@@ -45,5 +43,14 @@ export default function(props) {
             </main>
         </div>
     );
+}
+
+function logout() {
+    // console.log('logout !');
+    sessionStorage.setItem("umid","");
+    sessionStorage.setItem("token","");
+    sessionStorage.setItem("siteip","");
+    sessionStorage.setItem("siteport","");
+    window.location.href="index.html";
 }
 

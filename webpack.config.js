@@ -5,7 +5,7 @@
 var webpack = require('webpack');
 //从webpack参数 判断是否是生产打包(是否含有-p 参数)
 const prod = process.argv.indexOf('-p') !== -1;
-console.log(prod);
+console.log('is for production? '+ prod);
 
 module.exports = {
     entry: prod?
