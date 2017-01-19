@@ -205,7 +205,7 @@ class MyHisList extends React.Component {
                         </div>
                     </div>
 
-                    <div className={styles.bottom}>
+                    <div className={styles.bottom}  onDoubleClick={actioncreator.zoomButtonClick} style={{height:(containerState.fullsizeShow?"100%":"calc(100% - 100px)")}}>
                         {   (containerState.projectContents[containerState.activeId] == undefined || containerState.projectContents[containerState.activeId].length == 0) ?
                             <div className={styles.bottom2empty}>空空如也</div>
                             :
@@ -221,6 +221,13 @@ class MyHisList extends React.Component {
                                     </div>
                                     :
                                     <div className={styles.notimebackground}>
+                                        <div className={styles.zoomdiv} onClick={
+                                            (event) => {
+                                                event.stopPropagation();
+                                                actioncreator.zoomButtonClick();
+                                        }}>
+
+                                        </div>
 
                                         {
                                             containerState.projectContents[containerState.activeId].map(

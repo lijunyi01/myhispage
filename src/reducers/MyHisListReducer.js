@@ -217,11 +217,14 @@ export default (state = initState, action) => {
             .set('activeItemIndex',action.payload.itemIndex)
             .toJS();
 
-    } else if(action.type == 'lists/SHUT_CHANGETIPSMODAL'){
+    } else if(action.type == 'lists/SHUT_CHANGETIPSMODAL') {
         return fromJS(state)
             .setIn(['changeTipsModal', 'show'], false)
-            .set('activeItemIndex',-1)
+            .set('activeItemIndex', -1)
             .toJS();
+
+    } else if(action.type == 'lists/CLICK_ZOOMBUTTON'){
+        return fromJS(state).set('fullsizeShow',!state.fullsizeShow).toJS();
 
     } else {
         return state;

@@ -88,6 +88,14 @@
             margin:0 auto;
             //background-color: #1b6d85;
           }
+          > .zoomdiv {
+            width:25px;
+            height: 20px;
+            background: #c1e2b3;
+            position: absolute;
+            top: 30px;
+            left: 94%;
+          }
         }
         > .timebackground {
           width: 100%;

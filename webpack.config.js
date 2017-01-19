@@ -3,12 +3,22 @@
  */
 
 var webpack = require('webpack');
+//从webpack参数 判断是否是生产打包(是否含有-p 参数)
+const prod = process.argv.indexOf('-p') !== -1;
+console.log(prod);
+
 module.exports = {
-    entry: [
-        'webpack-dev-server/client?http://localhost:8081',
-        'webpack/hot/only-dev-server',
-        './src/index.jsx'
-    ],
+    entry: prod?
+        [
+            './src/index.jsx'
+        ]
+        :
+        [
+            'webpack-dev-server/client?http://localhost:8081',
+            'webpack/hot/only-dev-server',
+            './src/index.jsx'
+        ]
+    ,
     module: {
         loaders: [{
             test: /\.jsx?$/,
@@ -29,15 +39,31 @@ module.exports = {
         ]
     },
     output: {
-        path: __dirname + '/dist',
+        path: prod? __dirname + '/proddist': __dirname + '/dist',
         publicPath: '/',
-        filename: 'bundle.js'
+        filename: prod? 'bundle.min.js':'bundle.js'
     },
     devServer: {
         contentBase: './dist',
         hot: true
     },
-    plugins: [
-        new webpack.HotModuleReplacementPlugin()
-    ]
+    plugins: prod?
+        [
+            new webpack.DefinePlugin({
+                'process.env': {
+                    NODE_ENV: JSON.stringify('production')
+                }
+            }),
+            new webpack.optimize.UglifyJsPlugin({
+                compress: {
+                    warnings: false
+                }
+            }),
+            new webpack.optimize.OccurenceOrderPlugin(),
+            // new webpack.HotModuleReplacementPlugin(),
+        ]
+        :
+        [
+            new webpack.HotModuleReplacementPlugin(),
+        ]
 };

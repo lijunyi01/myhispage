@@ -32,23 +32,41 @@ var _mySocket2 = _interopRequireDefault(_mySocket);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var loggerMiddleware = (0, _reduxLogger2.default)();
-// import io from 'socket.io-client';
-
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 //<Router history={hashHistory}> 兼容低版本浏览器，前端路由通过＃，例如：http://localhost:8080/#/winner
 // import { Router, Route, Link, hashHistory, IndexRoute } from 'react-router';
 //import Voting from './components/Voting';
 //与纯组件Voting不同，VotingContainer 封装了纯组件和一些逻辑用来与Redux Store协同工作，这些特性是react-redux提供的
 // import AppleBasket from './containers/AppleBasket';
 
-var store = (0, _redux.createStore)(_RootReducer2.default, (0, _redux.applyMiddleware)(_reduxThunk2.default, loggerMiddleware));
+// import io from 'socket.io-client';
 
-var siteip = '222.46.16.173';
-var siteport = '8001';
-// let siteip = 'gfax.net';
-// let siteport = '8002';
-var umid = '1';
-var token = '6969da5b-1af1-4ade-8f99-7a174c9d1018';
+var inProduction = false;
+
+var middleware = [_reduxThunk2.default];
+//从webpack参数 判断是否是生产打包(是否含有-p 参数)
+if (!inProduction) {
+    var loggerMiddleware = (0, _reduxLogger2.default)();
+    middleware = [].concat(_toConsumableArray(middleware), [loggerMiddleware]);
+}
+
+var store = (0, _redux.createStore)(_RootReducer2.default, _redux.applyMiddleware.apply(undefined, _toConsumableArray(middleware)));
+
+var siteip = undefined;
+var siteport = undefined;
+var umid = undefined;
+var token = undefined;
+if (!inProduction) {
+    siteip = '222.46.16.173';
+    siteport = '8001';
+    umid = '1';
+    token = '6969da5b-1af1-4ade-8f99-7a174c9d1018';
+} else {
+    umid = sessionStorage.getItem("umid");
+    token = sessionStorage.getItem("token");
+    siteip = sessionStorage.getItem("siteip");
+    siteport = sessionStorage.getItem("siteport");
+}
 //实际通过登录页面传递参数(直接传或通过本地存储传)
 _mySocket2.default.init(siteip, siteport, umid, token);
 

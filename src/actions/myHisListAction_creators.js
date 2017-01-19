@@ -284,6 +284,10 @@ let actions = {
         type: 'lists/SHUT_CHANGETIPSMODAL',
     }),
 
+    zoomButtonClick: ()=>({
+        type: 'lists/CLICK_ZOOMBUTTON',
+    })
+
 };
 
 export default actions;

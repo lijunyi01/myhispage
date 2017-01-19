@@ -68,6 +68,13 @@
             height: auto;
             text-align: center;
             margin: 0 auto; }
+          .myHisListMain > .main > .bottom > .bottom2 > .notimebackground > .zoomdiv {
+            width: 25px;
+            height: 20px;
+            background: #c1e2b3;
+            position: absolute;
+            top: 30px;
+            left: 94%; }
         .myHisListMain > .main > .bottom > .bottom2 > .timebackground {
           width: 100%;
           height: 100%;

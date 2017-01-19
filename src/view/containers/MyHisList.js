@@ -318,7 +318,7 @@ var MyHisList = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: _MyHisList2.default.bottom },
+                        { className: _MyHisList2.default.bottom, onDoubleClick: actioncreator.zoomButtonClick, style: { height: containerState.fullsizeShow ? "100%" : "calc(100% - 100px)" } },
                         containerState.projectContents[containerState.activeId] == undefined || containerState.projectContents[containerState.activeId].length == 0 ? _react2.default.createElement(
                             'div',
                             { className: _MyHisList2.default.bottom2empty },
@@ -338,6 +338,10 @@ var MyHisList = function (_React$Component) {
                             ) : _react2.default.createElement(
                                 'div',
                                 { className: _MyHisList2.default.notimebackground },
+                                _react2.default.createElement('div', { className: _MyHisList2.default.zoomdiv, onClick: function onClick(event) {
+                                        event.stopPropagation();
+                                        actioncreator.zoomButtonClick();
+                                    } }),
                                 containerState.projectContents[containerState.activeId].map(function (item, index) {
                                     var topPos = 0;
                                     topPos = _this3.getTopPos(containerState.activeId, index, timeLineBeginYear, pxPerYear);

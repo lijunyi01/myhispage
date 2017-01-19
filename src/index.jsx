@@ -14,19 +14,36 @@ import router from './router';
 // import io from 'socket.io-client';
 import mySocket from './services/mySocket';
 
+var inProduction = false;
 
-const loggerMiddleware = createLogger();
+let middleware = [thunkMiddleware];
+//从webpack参数 判断是否是生产打包(是否含有-p 参数)
+if(!inProduction){
+    let loggerMiddleware = createLogger();
+    middleware = [ ...middleware,loggerMiddleware];
+}
+
 const store = createStore(
     RootReducer,
-    applyMiddleware(thunkMiddleware,loggerMiddleware)
+    applyMiddleware(...middleware)
 );
 
-let siteip = '222.46.16.173';
-let siteport = '8001';
-// let siteip = 'gfax.net';
-// let siteport = '8002';
-let umid = '1';
-let token = '6969da5b-1af1-4ade-8f99-7a174c9d1018';
+
+let siteip;
+let siteport;
+let umid;
+let token;
+if(!inProduction) {
+    siteip = '222.46.16.173';
+    siteport = '8001';
+    umid = '1';
+    token = '6969da5b-1af1-4ade-8f99-7a174c9d1018';
+}else {
+    umid = sessionStorage.getItem("umid");
+    token = sessionStorage.getItem("token");
+    siteip = sessionStorage.getItem("siteip");
+    siteport = sessionStorage.getItem("siteport");
+}
 //实际通过登录页面传递参数(直接传或通过本地存储传)
 mySocket.init(siteip,siteport,umid,token);
 
