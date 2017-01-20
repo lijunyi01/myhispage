@@ -14,7 +14,7 @@ import router from './router';
 // import io from 'socket.io-client';
 import mySocket from './services/mySocket';
 
-var inProduction = false;
+var inProduction = true;
 
 let middleware = [thunkMiddleware];
 //从webpack参数 判断是否是生产打包(是否含有-p 参数)
@@ -39,10 +39,10 @@ if(!inProduction) {
     umid = '1';
     token = '6969da5b-1af1-4ade-8f99-7a174c9d1018';
 }else {
-    umid = sessionStorage.getItem("umid");
-    token = sessionStorage.getItem("token");
-    siteip = sessionStorage.getItem("siteip");
-    siteport = sessionStorage.getItem("siteport");
+    umid = localStorage.getItem("umid");
+    token = localStorage.getItem("token");
+    siteip = localStorage.getItem("siteip");
+    siteport = localStorage.getItem("siteport");
 }
 //实际通过登录页面传递参数(直接传或通过本地存储传)
 mySocket.init(siteip,siteport,umid,token);

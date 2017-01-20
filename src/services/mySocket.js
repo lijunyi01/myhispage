@@ -89,10 +89,10 @@ const mysocket = {
 
         this.socket.on('reconnect_failed',function () {
             console.log('reconnect failed');
-            sessionStorage.setItem("umid","");
-            sessionStorage.setItem("token","");
-            sessionStorage.setItem("siteip","");
-            sessionStorage.setItem("siteport","");
+            localStorage.setItem("umid","");
+            localStorage.setItem("token","");
+            localStorage.setItem("siteip","");
+            localStorage.setItem("siteport","");
             window.location.href="index.html";
         })
     }
