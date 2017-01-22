@@ -58,6 +58,23 @@ let actions = {
         }
     },
 
+    // getItemTips: (projectId,itemId) => (dispatch, getState) => {
+    //
+    //     mySocket.emit(
+    //         'getItemTips',
+    //         {'projectId':projectId,'itemId':itemId},
+    //         (data)=> {
+    //             console.log(data);
+    //             if (data.errorCode == '0') {
+    //                 let content = JSON.parse(data.generalAckContent);
+    //                 dispatch(actions.pushItemTipMapList(projectId,itemId,content));
+    //             } else {
+    //                 console.log('data error in getItemTips');
+    //             }
+    //         }
+    //     );
+    // },
+
     createProj: inParam => (dispatch, getState) => {
 
         // console.log(getState());
@@ -153,6 +170,74 @@ let actions = {
                 }else{
                     dispatch(actions.doneCreateItemError(data));
                     // console.log('data error');
+                }
+            }
+        );
+    },
+
+    addTip: (itemId,tipContent) => (dispatch,getState) => {
+        if(getState().myHisListState.changeTipsModal.isSubmitting)
+            return;
+
+        //通知开始提交
+        dispatch(actions.beginAddTip());
+
+        //发送add tip请求
+        mySocket.emit(
+            'addItemTip',
+            {'projectId':getState().myHisListState.activeId,'itemId':itemId,'tipContent':tipContent},
+            (data)=>{
+                // console.log(data);
+                if(data.errorCode=='0'){
+                    let projectId = getState().myHisListState.activeId;
+                    // dispatch(actions.getItemTips(projectId,itemId));
+                    mySocket.emit(
+                        'getItemTips',
+                        {'projectId':projectId,'itemId':itemId},
+                        (data)=> {
+                            // console.log(data);
+                            if (data.errorCode == '0') {
+                                let content = JSON.parse(data.generalAckContent);
+                                dispatch(actions.pushItemTipMapList(projectId,itemId,content));
+                                dispatch(actions.doneAddTip());
+                            } else {
+                                console.log('data error in getItemTips');
+                            }
+                        }
+                    );
+                }else{
+                    dispatch(actions.doneAddTipError(data));
+                    // console.log('data error');
+                }
+            }
+        );
+    },
+
+    deleteTip: (tipId,itemId) => (dispatch,getState) => {
+
+        let projectId = getState().myHisListState.activeId;
+        //发送delete tip请求
+        mySocket.emit(
+            'delItemTip',
+            {'projectId':projectId,'tipId':tipId},
+            (data)=> {
+                if (data.errorCode == '0') {
+                    mySocket.emit(
+                        'getItemTips',
+                        {'projectId':projectId,'itemId':itemId},
+                        (data)=> {
+                            // console.log(data);
+                            if (data.errorCode == '0') {
+                                let content = JSON.parse(data.generalAckContent);
+                                dispatch(actions.pushItemTipMapList(projectId,itemId,content));
+                                // dispatch(actions.doneAddTip());
+                            } else {
+                                console.log('data error in getItemTips');
+                            }
+                        }
+                    );
+                }else{
+                    dispatch(actions.doneDeleteTipError(data));
                 }
             }
         );
@@ -286,7 +371,25 @@ let actions = {
 
     zoomButtonClick: ()=>({
         type: 'lists/CLICK_ZOOMBUTTON',
-    })
+    }),
+
+    beginAddTip: ()=>({
+        type: 'lists/BEGIN_ADDTIP',
+    }),
+
+    // recoverActiveItemIndex: index =>({
+    //     type: 'lists/RECOVER_ACTIVEITEMINDEX',
+    //     payload: index
+    // }),
+
+    pushItemTipMapList: (projectId,itemId,content)=>({
+        type: 'lists/PUSH_ITEMTIPMAPLIST',
+        payload: {'projectId':projectId,'itemId':itemId,'content':content}
+    }),
+
+    doneAddTip: ()=>({
+        type: 'lists/DONE_ADDTIP',
+    }),
 
 };
 

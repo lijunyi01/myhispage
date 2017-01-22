@@ -5,10 +5,20 @@
   display: flex;
   //background: #c1e2b3;
   border-bottom: 1px solid #adadad;
-  > .left{
-    width: 10%;
-  }
-  > .right{
+  > .info{
     width: 90%;
+    padding-left: 10px;
+  }
+  > .buttons {
+    width: 10%;
+    > .delbutton{
+      width: 24px;
+      height: 24px;
+      margin: 0 auto;
+      background: url("../images/delete_white.png") no-repeat;
+    }
+    > .delbutton:hover{
+      background: url("../images/delete_solid_white.png") no-repeat;
+    }
   }
 }

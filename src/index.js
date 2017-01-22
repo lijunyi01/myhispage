@@ -41,7 +41,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 // import io from 'socket.io-client';
 
-var inProduction = true;
+var inProduction = false;
 
 var middleware = [_reduxThunk2.default];
 //从webpack参数 判断是否是生产打包(是否含有-p 参数)

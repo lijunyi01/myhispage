@@ -391,7 +391,9 @@ var MyHisList = function (_React$Component) {
                 _react2.default.createElement(_ChangeTipsModal2.default, { componentState: containerState.changeTipsModal,
                     itemTipMapList: containerState.activeId != -1 && containerState.activeItemIndex != -1 ? containerState.projectContents[containerState.activeId][containerState.activeItemIndex].itemTipMapList : [],
                     actions: {
-                        shutChangeTipsModal: actioncreator.shutChangeTipsModal
+                        shutChangeTipsModal: actioncreator.shutChangeTipsModal,
+                        addTip: actioncreator.addTip,
+                        deleteTip: actioncreator.deleteTip
                     }
                 }),
                 _react2.default.createElement(_ResultModal2.default, { componentState: containerState.resultModal, actions: { shutResultModal: actioncreator.shutResultModal } })

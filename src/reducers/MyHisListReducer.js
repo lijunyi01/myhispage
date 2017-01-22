@@ -40,9 +40,10 @@ const initState = {
     },
     changeTipsModal:{
         show: false,
+        isSubmitting: false,
         itemId: -1,
         itemName: '',
-        tipList: []
+        // tipList: []
     }
 };
 
@@ -81,6 +82,12 @@ export default (state = initState, action) => {
         let contentInPayload = action.payload.content;
         let newProjectContents = fromJS(state).get('projectContents').set(idInPayload, contentInPayload).toJS();
         return fromJS(state).set('projectContents', newProjectContents).toJS();
+
+    } else if(action.type == 'lists/PUSH_ITEMTIPMAPLIST'){
+        let sProjectId = action.payload.projectId + '';
+        let sActiveItemIndex = state.activeItemIndex +'';
+        // console.log(action.payload.content);
+        return fromJS(state).setIn(['projectContents',sProjectId,sActiveItemIndex,'itemTipMapList'],action.payload.content).toJS()
 
     } else if(action.type === 'lists/SHUT_ADDPROJECTMODAL') {
         return fromJS(state).setIn(['addProjectModal', 'show'], false).toJS();
@@ -203,8 +210,9 @@ export default (state = initState, action) => {
 
     } else if(action.type === 'lists/CLEAR_PROJECTCONTENT') {
         let sindex = action.payload + '';
-        // console.log("sindex:" + sindex);
-        return fromJS(state).deleteIn(['projectContents', sindex]).toJS();
+        return fromJS(state)
+            .deleteIn(['projectContents', sindex])
+            .toJS();
 
     } else if(action.type === 'lists/SET_CANVASWIDTH') {
         return fromJS(state).set('canvasWidthforActiveId', action.payload).toJS();
@@ -223,8 +231,14 @@ export default (state = initState, action) => {
             .set('activeItemIndex', -1)
             .toJS();
 
-    } else if(action.type == 'lists/CLICK_ZOOMBUTTON'){
-        return fromJS(state).set('fullsizeShow',!state.fullsizeShow).toJS();
+    } else if(action.type == 'lists/CLICK_ZOOMBUTTON') {
+        return fromJS(state).set('fullsizeShow', !state.fullsizeShow).toJS();
+
+    } else if(action.type == 'lists/BEGIN_ADDTIP') {
+        return fromJS(state).setIn(['changeTipsModal', 'isSubmitting'], true).toJS();
+
+    } else if(action.type == 'lists/DONE_ADDTIP'){
+        return fromJS(state).setIn(['changeTipsModal','isSubmitting'],false).toJS();
 
     } else {
         return state;

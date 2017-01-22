@@ -14,7 +14,7 @@ import router from './router';
 // import io from 'socket.io-client';
 import mySocket from './services/mySocket';
 
-var inProduction = true;
+var inProduction = false;
 
 let middleware = [thunkMiddleware];
 //从webpack参数 判断是否是生产打包(是否含有-p 参数)

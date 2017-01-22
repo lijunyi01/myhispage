@@ -26,18 +26,51 @@ class ChangeTipsModal extends React.Component {
                     </Modal.Header>
                     <Modal.Body>
 
-                        <div className={styles.changeTipsModal}>
-                            { itemTipMapList.map((item, index)=> {
-                                {/*return <div key={item.id}>{item.tipcontent}</div>*/}
-                                return <ItemTipInModal key={item.id} componentState={item}></ItemTipInModal>
-
-                                })
-                            }
-
-                        </div>
-
                         <Form horizontal>
+                            <FormGroup controlId="formHorizontalExist">
+                                <Col sm={2}>
+                                    <ControlLabel>当前 Tips:</ControlLabel>
+                                </Col>
+                                <Col sm={9}>
+                                    <div className={styles.tipsExist}>
+                                        { itemTipMapList.map((itemTip, index)=> {
+                                            return <ItemTipInModal key={itemTip.id} componentState={itemTip} itemId={componentState.itemId}
+                                                actions={{
+                                                deleteTip: actions.deleteTip,
+                                            }}>
+                                            </ItemTipInModal>
 
+                                            })
+                                        }
+                                    </div>
+                                </Col>
+                            </FormGroup>
+                            <FormGroup controlId="formHorizontalAdd">
+                                <Col sm={2}>
+                                    <ControlLabel>新增 TIP:</ControlLabel>
+                                </Col>
+                                <Col sm={6}>
+                                    <FormControl type="text" componentClass="textarea" placeholder="请填入TIP内容" ref="tipContent"/>
+                                </Col>
+                                <Col sm={2}>
+                                    {   componentState.isSubmitting ?
+                                        <Button bsStyle="danger" disabled>
+                                            确 认 新 增
+                                        </Button>
+                                        :
+                                        <Button bsStyle="danger" onClick={ () => {
+                                            let tipContent = findDOMNode(this.refs.tipContent).value;
+                                            if(tipContent == ""){
+
+                                            }else {
+                                                actions.addTip(componentState.itemId,tipContent);
+                                            }
+                                        }}>
+                                            确 认 新 增
+                                        </Button>
+                                    }
+                                </Col>
+                            </FormGroup>
                         </Form>
 
 

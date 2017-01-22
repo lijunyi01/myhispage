@@ -291,6 +291,8 @@ class MyHisList extends React.Component {
                                  itemTipMapList={(containerState.activeId != -1 && containerState.activeItemIndex!= -1)? containerState.projectContents[containerState.activeId][containerState.activeItemIndex].itemTipMapList :[]}
                                  actions={{
                                      shutChangeTipsModal: actioncreator.shutChangeTipsModal,
+                                     addTip: actioncreator.addTip,
+                                     deleteTip: actioncreator.deleteTip,
                                  }}
                 />
 
