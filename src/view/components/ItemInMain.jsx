@@ -63,7 +63,7 @@ class ItemInMain extends React.Component {
                             <div className={styles.button2} onClick={
                                 (event) => {
                                     event.stopPropagation();
-                                    {/*actions.showConfirm({title:confirmModalTitle,content:confirmModalContent,id:componentState.id})*/}
+                                    actions.modifyItemButtonClick({itemId:componentState.itemId,itemName:componentState.itemName,itemIndex:index})
                                 }
                             }>
                             </div>

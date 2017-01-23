@@ -46,6 +46,10 @@ var _AddItemModal = require('../components/AddItemModal');
 
 var _AddItemModal2 = _interopRequireDefault(_AddItemModal);
 
+var _ChangeItemModal = require('../components/ChangeItemModal');
+
+var _ChangeItemModal2 = _interopRequireDefault(_ChangeItemModal);
+
 var _MyCanvas = require('../components/MyCanvas');
 
 var _MyCanvas2 = _interopRequireDefault(_MyCanvas);
@@ -350,7 +354,8 @@ var MyHisList = function (_React$Component) {
                                     itemInMainParam[index] = { 'topPos': topPos, 'leftPos': leftPos };
 
                                     return _react2.default.createElement(_ItemInMain2.default, { key: item.itemId, componentState: item, leftPos: leftPos, topPos: topPos, index: index,
-                                        actions: { modifyTipsButtonClick: actioncreator.modifyTipsButtonClick
+                                        actions: { modifyTipsButtonClick: actioncreator.modifyTipsButtonClick,
+                                            modifyItemButtonClick: actioncreator.modifyItemButtonClick
                                         }
                                     });
                                 }),
@@ -373,12 +378,19 @@ var MyHisList = function (_React$Component) {
                 }),
                 _react2.default.createElement(_AddItemModal2.default, { componentState: containerState.addItemModal,
                     actions: { shutAddItemModal: actioncreator.shutAddItemModal,
-                        createItem: actioncreator.createItem,
                         popAlert: actioncreator.popAlert,
                         shutSelfCheckModal: actioncreator.shutSelfCheckModal,
                         changeTmRadio: actioncreator.changeTmRadio,
                         changeYearRadio: actioncreator.changeYearRadio,
                         createProjItem: actioncreator.createProjItem
+                    }
+                }),
+                _react2.default.createElement(_ChangeItemModal2.default, { componentState: containerState.changeItemModal,
+                    actions: { shutChangeItemModal: actioncreator.shutChangeItemModal,
+                        popAlert: actioncreator.popAlert,
+                        shutSelfCheckModal: actioncreator.shutSelfCheckModal,
+                        changeTmRadio: actioncreator.changeTmRadio,
+                        changeYearRadio: actioncreator.changeYearRadio
                     }
                 }),
                 _react2.default.createElement(_ConfirmModal2.default, { componentState: containerState.confirmModal,

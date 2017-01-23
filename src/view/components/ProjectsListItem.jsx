@@ -21,7 +21,7 @@ class ProjectsListItem extends React.Component {
         return (
             //{activeId == componentState.id ? styles.projectsListItemAction :styles.projectsListItem}
             <div className={activeId == componentState.id ? styles.projectsListItemActive :styles.projectsListItem }>
-                <div className={styles.projectsListItem2} onClick={() => actions.getProjectContent(componentState.id)}>
+                <div className={styles.projectsListItem2} onClick={() => actions.getProjectContent(componentState.id,componentState.projectname)}>
                     <div className={styles.left}>
                         <div className={styles.name}>{componentState.projectname}</div>
                         <div className={styles.des}>{componentState.projectdes}</div>

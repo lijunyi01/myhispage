@@ -11,6 +11,7 @@ import AddProjectModal from '../components/AddProjectModal';
 import ConfirmModal from '../components/ConfirmModal';
 import ResultModal from '../components/ResultModal';
 import AddItemModal from '../components/AddItemModal';
+import ChangeItemModal from '../components/ChangeItemModal';
 import MyCanvas from '../components/MyCanvas';
 import ItemInMain from '../components/ItemInMain';
 import ChangeTipsModal from '../components/ChangeTipsModal';
@@ -240,6 +241,7 @@ class MyHisList extends React.Component {
 
                                                     return <ItemInMain key={item.itemId} componentState={item} leftPos={leftPos} topPos={topPos} index={index}
                                                                        actions={{modifyTipsButtonClick:actioncreator.modifyTipsButtonClick,
+                                                                                 modifyItemButtonClick:actioncreator.modifyItemButtonClick,
                                                                        }}
                                                            />
                                                 }
@@ -269,7 +271,6 @@ class MyHisList extends React.Component {
 
                 <AddItemModal componentState={containerState.addItemModal}
                                  actions={{shutAddItemModal: actioncreator.shutAddItemModal,
-                                     createItem: actioncreator.createItem,
                                      popAlert: actioncreator.popAlert,
                                      shutSelfCheckModal: actioncreator.shutSelfCheckModal,
                                      changeTmRadio:actioncreator.changeTmRadio,
@@ -277,6 +278,16 @@ class MyHisList extends React.Component {
                                      createProjItem: actioncreator.createProjItem
                                      }
                                  }
+                />
+
+                <ChangeItemModal componentState={containerState.changeItemModal}
+                              actions={{shutChangeItemModal: actioncreator.shutChangeItemModal,
+                                  popAlert: actioncreator.popAlert,
+                                  shutSelfCheckModal: actioncreator.shutSelfCheckModal,
+                                  changeTmRadio:actioncreator.changeTmRadio,
+                                  changeYearRadio:actioncreator.changeYearRadio
+                                }
+                              }
                 />
 
                 <ConfirmModal componentState={containerState.confirmModal}

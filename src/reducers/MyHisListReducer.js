@@ -11,6 +11,7 @@ import { fromJS,Map,List } from 'immutable';
 const initState = {
     projectsList: [],
     activeId: -1,
+    activeProjectName: '',
     activeItemIndex: -1,
     canvasWidthforActiveId: 0,
     justLogin: true,
@@ -25,6 +26,15 @@ const initState = {
         isSubmitting: false,
         projectId: -1,
         projectName: '',
+        isDotTime: true,
+        isGongYuan: true,
+    },
+    changeItemModal: {
+        show: false,
+        isSubmitting: false,
+        projectId: -1,
+        projectName: '',
+        itemId: -1,
         isDotTime: true,
         isGongYuan: true,
     },
@@ -65,17 +75,23 @@ export default (state = initState, action) => {
     } else if(action.type === 'lists/DONE_GETALLPROJECTS') {
         let projectsList = JSON.parse(action.payload.generalAckContent);
         let firstId = -1;
+        let firstName = '';
         // let noProjectData = false;
         if(projectsList.length > 0) {
             firstId = projectsList[0].id;
+            firstName = projectsList[0].projectname;
         }
         return fromJS(state)
             .set('projectsList', projectsList)
             .set('activeId',firstId)
+            .set('activeProjectName',firstName)
             .toJS();
 
     } else if(action.type === 'lists/CLICK_ITEM') {
-        return fromJS(state).set('activeId', action.payload).toJS();
+        return fromJS(state)
+            .set('activeId', action.payload.projectId)
+            .set('activeProjectName',action.payload.projectName)
+            .toJS();
 
     } else if(action.type === 'lists/PUSH_PCONTENT') {
         let idInPayload = action.payload.id;
@@ -116,10 +132,12 @@ export default (state = initState, action) => {
         return fromJS(state).setIn(['addProjectModal', 'show'], true).toJS();
 
     } else if(action.type === 'lists/CLICK_ADDITEMBUTTON') {
+        let projectName = state.activeProjectName;
+        let projectId = state.activeId;
         return fromJS(state)
             .setIn(['addItemModal', 'show'], true)
-            .setIn(['addItemModal', 'projectName'],action.payload.pname)
-            .setIn(['addItemModal', 'projectId'],action.payload.pid)
+            .setIn(['addItemModal', 'projectName'],projectName)
+            .setIn(['addItemModal', 'projectId'],projectId)
             .toJS();
 
     } else if(action.type === 'lists/BEGIN_CREATEPROJ') {
@@ -225,9 +243,24 @@ export default (state = initState, action) => {
             .set('activeItemIndex',action.payload.itemIndex)
             .toJS();
 
+    } else if(action.type == 'lists/CLICK_MODIFYITEMBUTTON') {
+        let projectName = state.activeProjectName;
+        return fromJS(state)
+            .setIn(['changeItemModal','show'], true)
+            .setIn(['changeItemModal','projectName'],projectName)
+            .setIn(['changeItemModal','itemId'],action.payload.itemId)
+            .set('activeItemIndex',action.payload.itemIndex)
+            .toJS();
+
     } else if(action.type == 'lists/SHUT_CHANGETIPSMODAL') {
         return fromJS(state)
             .setIn(['changeTipsModal', 'show'], false)
+            .set('activeItemIndex', -1)
+            .toJS();
+
+    } else if(action.type == 'lists/SHUT_CHANGEITEMMODAL') {
+        return fromJS(state)
+            .setIn(['changeItemModal', 'show'], false)
             .set('activeItemIndex', -1)
             .toJS();
 

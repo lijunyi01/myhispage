@@ -22,7 +22,7 @@ let actions = {
                 // console.log(data);
                 if(data.errorCode=='0') {
                     dispatch(actions.doneGetAllProjects(data));
-                    dispatch(actions.getProjectContent(getState().myHisListState.activeId));
+                    dispatch(actions.getProjectContent(getState().myHisListState.activeId,getState().myHisListState.activeProjectName));
                     if (getState().myHisListState.justLogin == true) {
                         dispatch(actions.resetJustLogin());
                     }
@@ -33,7 +33,7 @@ let actions = {
         );
     },
 
-    getProjectContent: projectId => (dispatch, getState) => {
+    getProjectContent: (projectId,projectName) => (dispatch, getState) => {
 
         let projectContent = getState().myHisListState.projectContents[projectId];
         // console.log("click");
@@ -45,7 +45,7 @@ let actions = {
                 (data)=> {
                     console.log(data);
                     if (data.errorCode == '0') {
-                        dispatch(actions.clickItem(projectId));
+                        dispatch(actions.clickItem({'projectId':projectId,'projectName':projectName}));
                         let content = JSON.parse(data.generalAckContent);
                         dispatch(actions.pushProjectContent(projectId,content));
                     } else {
@@ -54,7 +54,7 @@ let actions = {
                 }
             );
         }else{
-            dispatch(actions.clickItem(projectId));
+            dispatch(actions.clickItem({'projectId':projectId,'projectName':projectName}));
         }
     },
 
@@ -127,26 +127,19 @@ let actions = {
         );
     },
 
-    addItemButtonClick: projectId => (dispatch, getState) => {
-        if(projectId == -1){
-            dispatch(actions.popAlert('尚未选中笔记,请在左侧列表选择'));
-        }else{
-
-            let name = '';
-            let length = getState().myHisListState.projectsList.length;
-            for(let i=0; i< length; i++){
-               if(getState().myHisListState.projectsList[i].id == projectId){
-                   name = getState().myHisListState.projectsList[i].projectname;
-                   break;
-               }
-            }
-            if(! name == ''){
-                dispatch(actions.addItemButtonClickA({pid:projectId,pname:name}));
-            }else{
-                dispatch(actions.popAlert('未查到项目名称,请先在左侧列表选择项目'));
-            }
-        }
-    },
+    // addItemButtonClick: projectId => (dispatch, getState) => {
+    //     if(projectId == -1){
+    //         dispatch(actions.popAlert('尚未选中笔记,请在左侧列表选择'));
+    //     }else{
+    //
+    //         let name = getState().myHisListState.activeProjectName;
+    //         if(! name == ''){
+    //             dispatch(actions.addItemButtonClickA({pid:projectId,pname:name}));
+    //         }else{
+    //             dispatch(actions.popAlert('未查到项目名称,请先在左侧列表选择项目'));
+    //         }
+    //     }
+    // },
 
     createProjItem: inParam => (dispatch, getState) => {
         //如果正在提交，则结束这个thunk, 不执行
@@ -317,9 +310,9 @@ let actions = {
         type: 'lists/CLICK_ADDPROJECTBUTTON',
     }),
 
-    addItemButtonClickA: inParam => ({
+    addItemButtonClick: () => ({
         type: 'lists/CLICK_ADDITEMBUTTON',
-        payload: inParam
+        // payload: inParam
     }),
 
     popAlert: alertMsg => ({
@@ -365,8 +358,17 @@ let actions = {
         payload: param
     }),
 
+    modifyItemButtonClick: param => ({
+        type: 'lists/CLICK_MODIFYITEMBUTTON',
+        payload: param
+    }),
+
     shutChangeTipsModal: () => ({
         type: 'lists/SHUT_CHANGETIPSMODAL',
+    }),
+
+    shutChangeItemModal: () => ({
+        type: 'lists/SHUT_CHANGEITEMMODAL',
     }),
 
     zoomButtonClick: ()=>({
