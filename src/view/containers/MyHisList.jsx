@@ -281,6 +281,7 @@ class MyHisList extends React.Component {
                 />
 
                 <ChangeItemModal componentState={containerState.changeItemModal}
+                                 componentState2={(containerState.activeId != -1 && containerState.activeItemIndex!= -1)?containerState.projectContents[containerState.activeId][containerState.activeItemIndex]:{}}
                               actions={{shutChangeItemModal: actioncreator.shutChangeItemModal,
                                   popAlert: actioncreator.popAlert,
                                   shutSelfCheckModal: actioncreator.shutSelfCheckModal,

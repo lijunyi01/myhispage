@@ -386,6 +386,7 @@ var MyHisList = function (_React$Component) {
                     }
                 }),
                 _react2.default.createElement(_ChangeItemModal2.default, { componentState: containerState.changeItemModal,
+                    componentState2: containerState.activeId != -1 && containerState.activeItemIndex != -1 ? containerState.projectContents[containerState.activeId][containerState.activeItemIndex] : {},
                     actions: { shutChangeItemModal: actioncreator.shutChangeItemModal,
                         popAlert: actioncreator.popAlert,
                         shutSelfCheckModal: actioncreator.shutSelfCheckModal,

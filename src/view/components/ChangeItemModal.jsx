@@ -33,7 +33,7 @@ class ChangeItemModal extends React.Component {
 
     render() {
 
-        let { componentState, actions } = this.props;
+        let { componentState,componentState2,actions } = this.props;
 
         if(componentState.isDotTime == true){
             tmRadio = 'A';
@@ -61,7 +61,7 @@ class ChangeItemModal extends React.Component {
                                     <ControlLabel>事件名称:</ControlLabel>
                                 </Col>
                                 <Col sm={6}>
-                                    <FormControl type="text" placeholder="请填入事件名称" ref="itemName"/>
+                                    <FormControl type="text" placeholder="请填入事件名称" defaultValue={componentState2.itemName} ref="itemName"/>
                                 </Col>
                                 <Col sm={2}>
                                     <ControlLabel><font color="red" size="5">*</font></ControlLabel>
@@ -73,7 +73,7 @@ class ChangeItemModal extends React.Component {
                                     <ControlLabel>事件描述:</ControlLabel>
                                 </Col>
                                 <Col sm={6}>
-                                    <FormControl type="text" componentClass="textarea" placeholder="请填入事件描述" ref="itemDes"/>
+                                    <FormControl type="text" componentClass="textarea" placeholder="请填入事件描述" defaultValue={componentState2.itemContent} ref="itemDes"/>
                                 </Col>
                             </FormGroup>
 
