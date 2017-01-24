@@ -285,8 +285,9 @@ class MyHisList extends React.Component {
                               actions={{shutChangeItemModal: actioncreator.shutChangeItemModal,
                                   popAlert: actioncreator.popAlert,
                                   shutSelfCheckModal: actioncreator.shutSelfCheckModal,
-                                  changeTmRadio:actioncreator.changeTmRadio,
-                                  changeYearRadio:actioncreator.changeYearRadio
+                                  changeTmRadio2:actioncreator.changeTmRadio2,
+                                  changeYearRadio2:actioncreator.changeYearRadio2,
+                                  modifyProjItem:actioncreator.modifyProjItem
                                 }
                               }
                 />

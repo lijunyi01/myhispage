@@ -168,6 +168,41 @@ let actions = {
         );
     },
 
+    modifyProjItem: inParam => (dispatch, getState) => {
+        //如果正在提交，则结束这个thunk, 不执行
+        if(getState().myHisListState.changeItemModal.isSubmitting)
+            return;
+
+        //通知开始提交
+        dispatch(actions.beginChangeItem());
+
+        //发送create item请求
+        mySocket.emit(
+            'modifyItem',
+            inParam,
+            (data)=>{
+                // console.log(data);
+                if(data.errorCode=='0'){
+                    dispatch(actions.doneModifyItem(inParam));
+                    // mySocket.emit(
+                    //     'getOneProjectItem',
+                    //     {'projectId':inParam.projectId,'itemId':inParam.itemId},
+                    //     date => {
+                    //         if(data.errorCode=='0'){
+                    //             dispatch(actions.doneGetOneProjectItem(data));
+                    //         }else{
+                    //             dispatch(actions.doneGetOneProjectItemError(data));
+                    //         }
+                    //     }
+                    // );
+                }else{
+                    dispatch(actions.doneModifyItemError(data));
+                    // console.log('data error');
+                }
+            }
+        );
+    },
+
     addTip: (itemId,tipContent) => (dispatch,getState) => {
         if(getState().myHisListState.changeTipsModal.isSubmitting)
             return;
@@ -339,8 +374,22 @@ let actions = {
         payload: param
     }),
 
+    changeTmRadio2: param =>({
+        type: 'lists/CHANGE_TMRADIO2',
+        payload: param
+    }),
+
+    changeYearRadio2: param =>({
+        type: 'lists/CHANGE_YEARRADIO2',
+        payload: param
+    }),
+
     beginAddItem: ()=> ({
         type: 'lists/BEGIN_ADDITEM',
+    }),
+
+    beginChangeItem: ()=> ({
+        type: 'lists/BEGIN_CHANGEITEM',
     }),
 
     clearProjectContent: projectId => ({
@@ -391,6 +440,11 @@ let actions = {
 
     doneAddTip: ()=>({
         type: 'lists/DONE_ADDTIP',
+    }),
+
+    doneModifyItem: param=>({
+        type: 'lists/DONE_MODIFYITEM',
+        payload: param
     }),
 
 };

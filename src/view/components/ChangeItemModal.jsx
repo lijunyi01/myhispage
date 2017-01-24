@@ -84,8 +84,8 @@ class ChangeItemModal extends React.Component {
                                 </Col>
                                 <Col sm={6}>
                                     <div>
-                                        <Radio name="tm" value="A" inline checked={componentState.isDotTime} onChange={(e)=> actions.changeTmRadio(e.target.value)}>时间点事件</Radio>
-                                        <Radio name="tm" value="B" inline checked={!componentState.isDotTime} onChange={ (e)=> actions.changeTmRadio(e.target.value)}>时间段事件</Radio>
+                                        <Radio name="tm" value="A" inline checked={componentState.isDotTime} onChange={(e)=> actions.changeTmRadio2(e.target.value)}>时间点事件</Radio>
+                                        <Radio name="tm" value="B" inline checked={!componentState.isDotTime} onChange={ (e)=> actions.changeTmRadio2(e.target.value)}>时间段事件</Radio>
                                     </div>
                                 </Col>
                             </FormGroup>
@@ -96,8 +96,8 @@ class ChangeItemModal extends React.Component {
                                 </Col>
                                 <Col sm={6}>
                                     <div>
-                                        <Radio name="yeartype" value="A" inline checked={componentState.isGongYuan} onChange={ (e)=> actions.changeYearRadio(e.target.value) }>公元纪年</Radio>
-                                        <Radio name="yeartype" value="B" inline checked={!componentState.isGongYuan} onChange={ (e)=> actions.changeYearRadio(e.target.value) }>年号纪年</Radio>
+                                        <Radio name="yeartype" value="A" inline checked={componentState.isGongYuan} onChange={ (e)=> actions.changeYearRadio2(e.target.value) }>公元纪年</Radio>
+                                        <Radio name="yeartype" value="B" inline checked={!componentState.isGongYuan} onChange={ (e)=> actions.changeYearRadio2(e.target.value) }>年号纪年</Radio>
                                     </div>
                                 </Col>
                             </FormGroup>
@@ -111,7 +111,7 @@ class ChangeItemModal extends React.Component {
                                                     <ControlLabel>事件时间:</ControlLabel>
                                                 </Col>
                                                 <Col sm={2}>
-                                                    <FormControl componentClass="select" ref="startBOAFlag">
+                                                    <FormControl componentClass="select" ref="startBOAFlag" defaultValue={componentState2.startYear>0? "After":"Before"}>
                                                         <option value="After">公元</option>
                                                         <option value="Before">公元前</option>
                                                     </FormControl>
@@ -119,20 +119,20 @@ class ChangeItemModal extends React.Component {
 
                                                 <Col sm={2}>
                                                     <InputGroup>
-                                                        <FormControl type="text" placeholder="2016" ref="startYear"/>
+                                                        <FormControl type="text" placeholder="2016" ref="startYear" defaultValue={Math.abs(componentState2.startYear)}/>
                                                         <InputGroup.Addon>年</InputGroup.Addon>
                                                     </InputGroup>
                                                 </Col>
 
                                                 <Col sm={5}>
-                                                    <Checkbox inputRef={ ref => {this.startYearCheckbox = ref;}}>
+                                                    <Checkbox inputRef={ ref => {this.startYearCheckbox = ref;}} defaultChecked={componentState2.startYearNDFlag==1?true:false}>
                                                         这不是确切的年份 (确切年份不详或无法确定年份)
                                                     </Checkbox>
                                                 </Col>
                                             </FormGroup>
                                             <FormGroup>
                                                 <Col sm={6} smOffset={2}>
-                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空" ref="startTime"/>
+                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空" ref="startTime" defaultValue={componentState2.startTime}/>
                                                 </Col>
                                             </FormGroup>
 
@@ -167,7 +167,7 @@ class ChangeItemModal extends React.Component {
                                                     </InputGroup>
                                                 </Col>
                                                 <Col sm={5}>
-                                                    <Checkbox inputRef={ ref => {this.startYearCheckbox = ref;}}>
+                                                    <Checkbox inputRef={ ref => {this.startYearCheckbox = ref;}} defaultChecked={componentState2.startYearNDFlag==1?true:false}>
                                                         这不是确切的年份 (确切年份不详或无法确定年份)
                                                     </Checkbox>
                                                 </Col>
@@ -175,7 +175,7 @@ class ChangeItemModal extends React.Component {
                                             </FormGroup>
                                             <FormGroup>
                                                 <Col sm={6} smOffset={2}>
-                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空" ref="startTime"/>
+                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空" ref="startTime" defaultValue={componentState2.startTime}/>
                                                 </Col>
                                             </FormGroup>
 
@@ -202,7 +202,7 @@ class ChangeItemModal extends React.Component {
                                                 </Col>
 
                                                 <Col sm={2}>
-                                                    <FormControl componentClass="select" ref="startBOAFlag">
+                                                    <FormControl componentClass="select" ref="startBOAFlag" defaultValue={componentState2.startYear>0? "After":"Before"}>
                                                         <option value="After">公元</option>
                                                         <option value="Before">公元前</option>
                                                     </FormControl>
@@ -210,20 +210,20 @@ class ChangeItemModal extends React.Component {
 
                                                 <Col sm={2}>
                                                     <InputGroup>
-                                                        <FormControl type="text" placeholder="2016" ref="startYear"/>
+                                                        <FormControl type="text" placeholder="2016" ref="startYear" defaultValue={Math.abs(componentState2.startYear)}/>
                                                         <InputGroup.Addon>年</InputGroup.Addon>
                                                     </InputGroup>
                                                 </Col>
 
                                                 <Col sm={5}>
-                                                    <Checkbox inputRef={ ref => {this.startYearCheckbox = ref;}}>
+                                                    <Checkbox inputRef={ ref => {this.startYearCheckbox = ref;}} defaultChecked={componentState2.startYearNDFlag==1?true:false}>
                                                         这不是确切的年份 (确切年份不详或无法确定年份)
                                                     </Checkbox>
                                                 </Col>
                                             </FormGroup>
                                             <FormGroup>
                                                 <Col sm={6} smOffset={2}>
-                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空" ref="startTime"/>
+                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空" ref="startTime" defaultValue={componentState2.startTime}/>
                                                 </Col>
                                             </FormGroup>
 
@@ -233,7 +233,7 @@ class ChangeItemModal extends React.Component {
                                                 </Col>
 
                                                 <Col sm={2}>
-                                                    <FormControl componentClass="select" ref="endBOAFlag">
+                                                    <FormControl componentClass="select" ref="endBOAFlag" defaultValue={componentState2.endYear>0? "After":"Before"}>
                                                         <option value="After">公元</option>
                                                         <option value="Before">公元前</option>
                                                     </FormControl>
@@ -241,20 +241,20 @@ class ChangeItemModal extends React.Component {
 
                                                 <Col sm={2}>
                                                     <InputGroup>
-                                                        <FormControl type="text" placeholder="2017" ref="endYear"/>
+                                                        <FormControl type="text" placeholder="2017" ref="endYear" defaultValue={Math.abs(componentState2.endYear)}/>
                                                         <InputGroup.Addon>年</InputGroup.Addon>
                                                     </InputGroup>
                                                 </Col>
 
                                                 <Col sm={5}>
-                                                    <Checkbox inputRef={ ref => {this.endYearCheckbox = ref;}}>
+                                                    <Checkbox inputRef={ ref => {this.endYearCheckbox = ref;}} defaultChecked={componentState2.endYearNDFlag==1?true:false}>
                                                         这不是确切的年份 (确切年份不详或无法确定年份)
                                                     </Checkbox>
                                                 </Col>
                                             </FormGroup>
                                             <FormGroup>
                                                 <Col sm={6} smOffset={2}>
-                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空" ref="endTime"/>
+                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空" ref="endTime" defaultValue={componentState2.endTime}/>
                                                 </Col>
                                             </FormGroup>
 
@@ -290,7 +290,7 @@ class ChangeItemModal extends React.Component {
                                                     </InputGroup>
                                                 </Col>
                                                 <Col sm={5}>
-                                                    <Checkbox inputRef={ ref => {this.startYearCheckbox = ref;}}>
+                                                    <Checkbox inputRef={ ref => {this.startYearCheckbox = ref;}} defaultChecked={componentState2.startYearNDFlag==1?true:false}>
                                                         这不是确切的年份 (确切年份不详或无法确定年份)
                                                     </Checkbox>
                                                 </Col>
@@ -298,7 +298,7 @@ class ChangeItemModal extends React.Component {
                                             </FormGroup>
                                             <FormGroup>
                                                 <Col sm={6} smOffset={2}>
-                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空" ref="startTime"/>
+                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空" ref="startTime" defaultValue={componentState2.startTime}/>
                                                 </Col>
                                             </FormGroup>
 
@@ -320,7 +320,7 @@ class ChangeItemModal extends React.Component {
                                                     </InputGroup>
                                                 </Col>
                                                 <Col sm={5}>
-                                                    <Checkbox inputRef={ ref => {this.endYearCheckbox = ref;}}>
+                                                    <Checkbox inputRef={ ref => {this.endYearCheckbox = ref;}} defaultChecked={componentState2.endYearNDFlag==1?true:false}>
                                                         这不是确切的年份 (确切年份不详或无法确定年份)
                                                     </Checkbox>
                                                 </Col>
@@ -328,7 +328,7 @@ class ChangeItemModal extends React.Component {
                                             </FormGroup>
                                             <FormGroup>
                                                 <Col sm={6} smOffset={2}>
-                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空" ref="endTime"/>
+                                                    <FormControl type="text" placeholder="请输入月日、时间。 例如: 02-01 12:53:36。可留空" ref="endTime" defaultValue={componentState2.endTime}/>
                                                 </Col>
                                             </FormGroup>
 
@@ -353,7 +353,7 @@ class ChangeItemModal extends React.Component {
                                 <Col smOffset={2} sm={10}>
                                     {   componentState.isSubmitting?
                                         <Button bsStyle="danger" disabled>
-                                            提 交
+                                            确 认 修 改
                                         </Button>
                                         :
                                         <Button bsStyle="danger" onClick={ ()=> {
@@ -430,8 +430,9 @@ class ChangeItemModal extends React.Component {
                                                     iendNDFlag = 1;
                                                 }
 
-                                                actions.createProjItem({
+                                                actions.modifyProjItem({
                                                     projectId: componentState.projectId,
+                                                    itemId:componentState.itemId,
                                                     type: itemType,
                                                     itemName: itemName,
                                                     itemDes: itemDes,
@@ -446,7 +447,7 @@ class ChangeItemModal extends React.Component {
                                                 });
                                             }
                                         }}>
-                                            提 交
+                                            确 认 修 改
                                         </Button>
                                     }
                                 </Col>
