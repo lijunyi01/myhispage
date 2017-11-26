@@ -41,10 +41,10 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 // import io from 'socket.io-client';
 
-var inProduction = false;
+var inProduction = true;
 
 var middleware = [_reduxThunk2.default];
-//从webpack参数 判断是否是生产打包(是否含有-p 参数)
+
 if (!inProduction) {
     var loggerMiddleware = (0, _reduxLogger2.default)();
     middleware = [].concat(_toConsumableArray(middleware), [loggerMiddleware]);
@@ -57,10 +57,10 @@ var siteport = undefined;
 var umid = undefined;
 var token = undefined;
 if (!inProduction) {
-    siteip = '222.46.16.173';
-    siteport = '8001';
+    siteip = 'usanode1.51his.com';
+    siteport = '8443';
     umid = '1';
-    token = '6969da5b-1af1-4ade-8f99-7a174c9d1018';
+    token = 'f4fa4a9d-8e93-42ba-8b64-861b1fd2b031';
 } else {
     umid = localStorage.getItem("umid");
     token = localStorage.getItem("token");

@@ -14,10 +14,10 @@ import router from './router';
 // import io from 'socket.io-client';
 import mySocket from './services/mySocket';
 
-var inProduction = false;
+var inProduction = true;
 
 let middleware = [thunkMiddleware];
-//从webpack参数 判断是否是生产打包(是否含有-p 参数)
+
 if(!inProduction){
     let loggerMiddleware = createLogger();
     middleware = [ ...middleware,loggerMiddleware];
@@ -34,10 +34,10 @@ let siteport;
 let umid;
 let token;
 if(!inProduction) {
-    siteip = '222.46.16.173';
-    siteport = '8001';
+    siteip = 'usanode1.51his.com';
+    siteport = '8443';
     umid = '1';
-    token = '6969da5b-1af1-4ade-8f99-7a174c9d1018';
+    token = 'f4fa4a9d-8e93-42ba-8b64-861b1fd2b031';
 }else {
     umid = localStorage.getItem("umid");
     token = localStorage.getItem("token");

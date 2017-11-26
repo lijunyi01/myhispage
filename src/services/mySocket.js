@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 const mysocket = {
     umid: '',
     token: '',
-    httptype: 'http://',
+    httptype: 'https://',
     siteip: '',
     siteport: '',
     socket: null,
