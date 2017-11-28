@@ -37,7 +37,7 @@ if(!inProduction) {
     siteip = 'usanode1.51his.com';
     siteport = '8443';
     umid = '1';
-    token = '69633cb7-998b-44ec-8955-9bbe1590dd5d';
+    token = '0ac760ce-9553-4f4c-93a7-01bb86970a7f';
 }else {
     umid = localStorage.getItem("umid");
     token = localStorage.getItem("token");

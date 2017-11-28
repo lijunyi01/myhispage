@@ -373,13 +373,19 @@ class ChangeItemModal extends React.Component {
                                                     }else{
                                                         startYear = '-'+findDOMNode(this.refs.startYear).value;
                                                     }
+                                                    endYear = startYear;
                                                     startTime = findDOMNode(this.refs.startTime).value;
+                                                    endTime = startTime;
+
 
                                                     itemType = 1;
                                                 }else{
                                                     startNH = findDOMNode(this.refs.startNH).value;
                                                     startYear_des = startNH + ' ' + findDOMNode(this.refs.startYearDes).value;
                                                     startTime = findDOMNode(this.refs.startTime).value;
+
+                                                    endYear = startYear;
+                                                    endTime = startTime;
 
                                                     itemType = 2;
                                                 }
