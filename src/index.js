@@ -41,7 +41,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 // import io from 'socket.io-client';
 
-var inProduction = true;
+var inProduction = false;
 
 var middleware = [_reduxThunk2.default];
 
@@ -60,7 +60,7 @@ if (!inProduction) {
     siteip = 'usanode1.51his.com';
     siteport = '8443';
     umid = '1';
-    token = 'f4fa4a9d-8e93-42ba-8b64-861b1fd2b031';
+    token = '69633cb7-998b-44ec-8955-9bbe1590dd5d';
 } else {
     umid = localStorage.getItem("umid");
     token = localStorage.getItem("token");

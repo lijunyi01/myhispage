@@ -1,3 +1,4 @@
+//事件箭头
 import React from 'react';
 // import PureRenderMixin from 'react-addons-pure-render-mixin';
 // import { findDOMNode } from 'react-dom';

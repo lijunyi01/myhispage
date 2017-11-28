@@ -1,3 +1,5 @@
+//在弹出界面里的tip
+
 import React from 'react';
 // import PureRenderMixin from 'react-addons-pure-render-mixin';
 // import { render } from 'react-dom';

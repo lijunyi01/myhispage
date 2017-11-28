@@ -242,6 +242,7 @@ class MyHisList extends React.Component {
                                                     return <ItemInMain key={item.itemId} componentState={item} leftPos={leftPos} topPos={topPos} index={index}
                                                                        actions={{modifyTipsButtonClick:actioncreator.modifyTipsButtonClick,
                                                                                  modifyItemButtonClick:actioncreator.modifyItemButtonClick,
+                                                                                 showConfirm: actioncreator.showConfirm,
                                                                        }}
                                                            />
                                                 }
@@ -295,7 +296,7 @@ class MyHisList extends React.Component {
                 <ConfirmModal componentState={containerState.confirmModal}
                               actions={{
                                   shutConfirmModal: actioncreator.shutConfirmModal,
-                                  deleteProj: actioncreator.deleteProj
+                                  deleteSomething: actioncreator.deleteSomething
                               }}
 
                 />

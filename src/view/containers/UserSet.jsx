@@ -25,7 +25,7 @@ class UserSet extends React.Component {
                 <h1>用户设置</h1>
 
                 <p>
-                    说明文字
+                    说明文字...
                 </p>
 
 

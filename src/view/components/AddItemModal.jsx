@@ -363,7 +363,7 @@ class AddItemModal extends React.Component {
                                         :
                                         <Button bsStyle="danger" onClick={ ()=> {
                                             let itemType = 0;
-                                            //起止年份不精确的标志
+                                            //起止年份不精确的 标志
                                             let startYearNDFlag = false;
                                             let endYearNDFlag = false;
                                             itemName = findDOMNode(this.refs.itemName).value;

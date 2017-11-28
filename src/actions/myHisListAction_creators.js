@@ -27,7 +27,7 @@ let actions = {
                         dispatch(actions.resetJustLogin());
                     }
                 }else{
-                    console.log('data error');
+                    dispatch(actions.showResult(data));
                 }
             }
         );
@@ -49,7 +49,7 @@ let actions = {
                         let content = JSON.parse(data.generalAckContent);
                         dispatch(actions.pushProjectContent(projectId,content));
                     } else {
-                        console.log('data error');
+                        dispatch(actions.showResult(data));
                     }
                 }
             );
@@ -98,33 +98,54 @@ let actions = {
             (data)=>{
                 // console.log(data);
                 if(data.errorCode=='0'){
+                    dispatch(actions.resetProjList());
                     dispatch(actions.getAllProjects());
-                    dispatch(actions.doneCreateProj());
+                    dispatch(actions.shutAddProjectModal())
                 }else{
-                    dispatch(actions.doneCreateProjError(data));
-                    // console.log('data error');
+                    dispatch(actions.shutAddProjectModal());
+                    dispatch(actions.showResult(data));
                 }
             }
         );
 
     },
 
-    deleteProj: projectId => (dispatch, getState) => {
-        // console.log('deleteproj');
-        mySocket.emit(
-            'delProject',
-            {projectId:projectId},
-            (data)=>{
-                console.log(data);
-                if(data.errorCode=='0'){
-                    dispatch(actions.doneDeleteProj());
-                    dispatch(actions.getAllProjects());
-                }else{
-                    dispatch(actions.doneDeleteProjError(data));
-                    // console.log('data error');
+    //删除project，删除project item 等
+    deleteSomething: (delType,delId) => (dispatch, getState) => {
+        if (delType == 'DELPROJ') {
+            mySocket.emit(
+                'delProject',
+                {projectId: delId},
+                (data)=> {
+                    console.log(data);
+                    if (data.errorCode == '0') {
+                        dispatch(actions.shutConfirmModal());
+                        dispatch(actions.getAllProjects());
+                    } else {
+                        dispatch(actions.shutConfirmModal());
+                        dispatch(actions.showResult(data));
+                        // console.log('data error');
+                    }
                 }
-            }
-        );
+            );
+        } else if(delType == 'DELITEM'){
+            let projectId = getState().myHisListState.activeId;
+            mySocket.emit(
+                'delItem',
+                {itemId: delId,projectId: projectId},
+                (data)=> {
+                    console.log(data);
+                    if (data.errorCode == '0') {
+                        dispatch(actions.clearProjectContent(projectId));
+                        dispatch(actions.getProjectContent(projectId));
+                        dispatch(actions.shutConfirmModal());
+                    } else {
+                        dispatch(actions.shutConfirmModal());
+                        dispatch(actions.showResult(data));
+                    }
+                }
+            );
+        }
     },
 
     // addItemButtonClick: projectId => (dispatch, getState) => {
@@ -158,11 +179,12 @@ let actions = {
                 if(data.errorCode=='0'){
                     dispatch(actions.clearProjectContent(inParam.projectId));
                     dispatch(actions.getProjectContent(inParam.projectId));
-                    dispatch(actions.doneCreateItem());
+                    dispatch(actions.shutAddItemModal());
                     // console.log("pid:"+inParam.projectId);
                 }else{
                     dispatch(actions.doneCreateItemError(data));
-                    // console.log('data error');
+                    dispatch(actions.showResult(data));
+
                 }
             }
         );
@@ -184,19 +206,9 @@ let actions = {
                 // console.log(data);
                 if(data.errorCode=='0'){
                     dispatch(actions.doneModifyItem(inParam));
-                    // mySocket.emit(
-                    //     'getOneProjectItem',
-                    //     {'projectId':inParam.projectId,'itemId':inParam.itemId},
-                    //     date => {
-                    //         if(data.errorCode=='0'){
-                    //             dispatch(actions.doneGetOneProjectItem(data));
-                    //         }else{
-                    //             dispatch(actions.doneGetOneProjectItemError(data));
-                    //         }
-                    //     }
-                    // );
+                    dispatch(actions.shutChangeItemModal())
                 }else{
-                    dispatch(actions.doneModifyItemError(data));
+                    dispatch(actions.showResult(data));
                     // console.log('data error');
                 }
             }
@@ -227,9 +239,10 @@ let actions = {
                             if (data.errorCode == '0') {
                                 let content = JSON.parse(data.generalAckContent);
                                 dispatch(actions.pushItemTipMapList(projectId,itemId,content));
-                                dispatch(actions.doneAddTip());
+                                dispatch(actions.shutChangeTipsModal());
                             } else {
-                                console.log('data error in getItemTips');
+                                dispatch(actions.showResult(data));
+                                // console.log('data error in getItemTips');
                             }
                         }
                     );
@@ -260,7 +273,7 @@ let actions = {
                                 dispatch(actions.pushItemTipMapList(projectId,itemId,content));
                                 // dispatch(actions.doneAddTip());
                             } else {
-                                console.log('data error in getItemTips');
+                                dispatch(actions.showResult(data));
                             }
                         }
                     );
@@ -279,32 +292,13 @@ let actions = {
         type: 'lists/BEGIN_CREATEPROJ'
     }),
 
-    doneCreateProj: () => ({
-        type: 'lists/DONE_CREATEPROJ',
+    resetProjList: () => ({
+        type: 'lists/RESET_PROJLIST'
     }),
 
-    doneCreateProjError: (retMessage) => ({
-        type: 'lists/DONE_CREATEPROJ_ERROR',
-        payload: retMessage
-    }),
-
-    doneCreateItemError: (retMessage) =>({
-        type: 'lists/DONE_CREATEITEM_ERROR',
-        payload: retMessage
-    }),
-
-    doneCreateItem: () => ({
-        type: 'lists/DONE_CREATEITEM',
-    }),
-
-    doneDeleteProj: () => ({
-        type: 'lists/DONE_DELETEPROJ'
-    }),
-
-    doneDeleteProjError: (retMessage) => ({
-        type: 'lists/DONE_DELETEPROJ_ERROR',
-        payload: retMessage
-    }),
+    // doneCreateItem: () => ({
+    //     type: 'lists/DONE_CREATEITEM',
+    // }),
 
     doneGetAllProjects: data => ({
         type: 'lists/DONE_GETALLPROJECTS',
@@ -364,6 +358,11 @@ let actions = {
         payload: inParam
     }),
 
+    showResult: inParam => ({
+        type: 'lists/SHOW_RESULT',
+        payload: inParam
+    }),
+
     changeTmRadio: param =>({
         type: 'lists/CHANGE_TMRADIO',
         payload: param
@@ -407,6 +406,7 @@ let actions = {
         payload: param
     }),
 
+    //点击事件详细信息界面下方的修改item按钮(左起第二个按钮)
     modifyItemButtonClick: param => ({
         type: 'lists/CLICK_MODIFYITEMBUTTON',
         payload: param
@@ -427,11 +427,6 @@ let actions = {
     beginAddTip: ()=>({
         type: 'lists/BEGIN_ADDTIP',
     }),
-
-    // recoverActiveItemIndex: index =>({
-    //     type: 'lists/RECOVER_ACTIVEITEMINDEX',
-    //     payload: index
-    // }),
 
     pushItemTipMapList: (projectId,itemId,content)=>({
         type: 'lists/PUSH_ITEMTIPMAPLIST',

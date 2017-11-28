@@ -2,7 +2,7 @@ import React from 'react';
 // import PureRenderMixin from 'react-addons-pure-render-mixin';
 // import { render } from 'react-dom';
 // import styles from '../styles/AppleItem.css';
-// import appleimage from '../images/apple.png';
+// import appleimage from '../images/apple.png' ;
 import { Modal,Button,Form,FormGroup,Col,FormControl,ControlLabel } from 'react-bootstrap';
 
 

@@ -355,7 +355,8 @@ var MyHisList = function (_React$Component) {
 
                                     return _react2.default.createElement(_ItemInMain2.default, { key: item.itemId, componentState: item, leftPos: leftPos, topPos: topPos, index: index,
                                         actions: { modifyTipsButtonClick: actioncreator.modifyTipsButtonClick,
-                                            modifyItemButtonClick: actioncreator.modifyItemButtonClick
+                                            modifyItemButtonClick: actioncreator.modifyItemButtonClick,
+                                            showConfirm: actioncreator.showConfirm
                                         }
                                     });
                                 }),
@@ -398,7 +399,7 @@ var MyHisList = function (_React$Component) {
                 _react2.default.createElement(_ConfirmModal2.default, { componentState: containerState.confirmModal,
                     actions: {
                         shutConfirmModal: actioncreator.shutConfirmModal,
-                        deleteProj: actioncreator.deleteProj
+                        deleteSomething: actioncreator.deleteSomething
                     }
 
                 }),

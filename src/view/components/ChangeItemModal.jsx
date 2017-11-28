@@ -1,3 +1,5 @@
+//修改item
+
 import React from 'react';
 // import PureRenderMixin from 'react-addons-pure-render-mixin';
 import { render,findDOMNode } from 'react-dom';

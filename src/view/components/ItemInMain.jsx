@@ -1,3 +1,5 @@
+//主界面中事件信息和操作界面的组件
+
 import React from 'react';
 // import PureRenderMixin from 'react-addons-pure-render-mixin';
 // import { render } from 'react-dom';
@@ -48,7 +50,9 @@ class ItemInMain extends React.Component {
                         <div className={styles.button1} onClick={
                             (event) => {
                                 event.stopPropagation();
-                                {/*actions.showConfirm({title:confirmModalTitle,content:confirmModalContent,id:componentState.id})*/}
+                                let confirmModalContent = '您确认删除事件:"'+ componentState.itemName + '" 吗?';
+                                let confirmModalTitle = '删除事件确认';
+                                actions.showConfirm({delType:'DELITEM',title:confirmModalTitle,content:confirmModalContent,delId:componentState.itemId})
                             }
                         }>
                         </div>

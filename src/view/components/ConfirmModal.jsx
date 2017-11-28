@@ -26,7 +26,7 @@ class ConfirmModal extends React.Component {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={() => actions.shutConfirmModal()}>取消</Button>
-                    <Button bsStyle="success" onClick={() => actions.deleteProj(componentState.delId)}>确认</Button>
+                    <Button bsStyle="success" onClick={() => actions.deleteSomething(componentState.delType,componentState.delId)}>确认</Button>
                 </Modal.Footer>
             </Modal>
         );

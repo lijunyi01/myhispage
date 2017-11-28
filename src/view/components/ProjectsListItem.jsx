@@ -39,7 +39,7 @@ class ProjectsListItem extends React.Component {
                                     <div className={styles.button2} onClick={
                                         (event) => {
                                             event.stopPropagation();
-                                            actions.showConfirm({title:confirmModalTitle,content:confirmModalContent,id:componentState.id})
+                                            actions.showConfirm({delType:'DELPROJ',title:confirmModalTitle,content:confirmModalContent,delId:componentState.id})
                                         }
                                     }>
                                     </div>

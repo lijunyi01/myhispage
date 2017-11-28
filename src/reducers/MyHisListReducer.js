@@ -42,6 +42,7 @@ const initState = {
         show: false,
         title: '',
         content: '',
+        delType: '',
         delId: -1,
     },
     resultModal:{
@@ -106,7 +107,10 @@ export default (state = initState, action) => {
         return fromJS(state).setIn(['projectContents',sProjectId,sActiveItemIndex,'itemTipMapList'],action.payload.content).toJS()
 
     } else if(action.type === 'lists/SHUT_ADDPROJECTMODAL') {
-        return fromJS(state).setIn(['addProjectModal', 'show'], false).toJS();
+        return fromJS(state)
+            .setIn(['addProjectModal', 'show'], false)
+            .setIn(['addProjectModal', 'isSubmitting'], false)
+            .toJS();
 
     } else if(action.type === 'lists/SHUT_RESULTMODAL') {
         return fromJS(state).setIn(['resultModal', 'show'], false).toJS();
@@ -118,6 +122,7 @@ export default (state = initState, action) => {
         return fromJS(state)
             .setIn(['confirmModal', 'show'], false)
             .setIn(['confirmModal', 'delId'], -1)
+            .setIn(['confirmModal', 'delType'], '')
             .setIn(['confirmModal', 'title'], '')
             .setIn(['confirmModal', 'content'], '')
             .toJS();
@@ -125,6 +130,7 @@ export default (state = initState, action) => {
     } else if(action.type === 'lists/SHUT_ADDITEMMODAL') {
         return fromJS(state)
             .setIn(['addItemModal', 'show'], false)
+            .setIn(['addItemModal', 'isSubmitting'], false)
             .setIn(['addItemModal', 'projectId'], -1)
             .toJS();
 
@@ -155,49 +161,9 @@ export default (state = initState, action) => {
             .setIn(['resultModal', 'content'], action.payload)
             .toJS();
 
-    } else if(action.type === 'lists/DONE_CREATEPROJ') {
+    } else if(action.type === 'lists/RESET_PROJLIST') {
         return fromJS(state)
-            // .set('projectsList', List())
-            .setIn(['addProjectModal', 'isSubmitting'], false)
-            .setIn(['addProjectModal', 'show'], false)
-            .toJS();
-    } else if(action.type === 'lists/DONE_CREATEITEM') {
-        return fromJS(state)
-            .setIn(['addItemModal', 'isSubmitting'], false)
-            .setIn(['addItemModal', 'show'], false)
-            .toJS();
-
-    } else if(action.type === 'lists/DONE_CREATEPROJ_ERROR') {
-        return fromJS(state)
-            .setIn(['addProjectModal', 'isSubmitting'], false)
-            .setIn(['resultModal', 'show'], true)
-            .setIn(['resultModal', 'content'], action.payload.errorMessage)
-            .toJS();
-
-    } else if(action.type === 'lists/DONE_DELETEPROJ') {
-        return fromJS(state)
-            // .set('projectsList', List())
-            .setIn(['confirmModal', 'show'], false)
-            .setIn(['confirmModal', 'delId'], -1)
-            .setIn(['confirmModal', 'title'], '')
-            .setIn(['confirmModal', 'content'], '')
-            .toJS();
-
-    } else if(action.type === 'lists/DONE_DELETEPROJ_ERROR') {
-        return fromJS(state)
-            .setIn(['confirmModal', 'show'], false)
-            .setIn(['confirmModal', 'delId'], -1)
-            .setIn(['confirmModal', 'title'], '')
-            .setIn(['confirmModal', 'content'], '')
-            .setIn(['resultModal', 'show'], true)
-            .setIn(['resultModal', 'content'], action.payload.errorMessage)
-            .toJS();
-
-    } else if(action.type === 'lists/DONE_CREATEITEM_ERROR') {
-        return fromJS(state)
-            .setIn(['addItemModal', 'isSubmitting'], false)
-            .setIn(['resultModal', 'show'], true)
-            .setIn(['resultModal', 'content'], action.payload.errorMessage)
+            .set('projectsList', List())
             .toJS();
 
     } else if(action.type === 'lists/SHOW_CONFIRM') {
@@ -206,7 +172,15 @@ export default (state = initState, action) => {
             .setIn(['confirmModal', 'show'], true)
             .setIn(['confirmModal', 'title'], action.payload.title)
             .setIn(['confirmModal', 'content'], action.payload.content)
-            .setIn(['confirmModal', 'delId'], action.payload.id)
+            .setIn(['confirmModal', 'delType'], action.payload.delType)
+            .setIn(['confirmModal', 'delId'], action.payload.delId)
+            .toJS();
+
+    } else if(action.type === 'lists/SHOW_RESULT') {
+        console.log(action.payload);
+        return fromJS(state)
+            .setIn(['resultModal', 'show'], true)
+            .setIn(['resultModal', 'content'], action.payload.errorMessage)
             .toJS();
 
     } else if(action.type === 'lists/CHANGE_TMRADIO') {
@@ -262,43 +236,40 @@ export default (state = initState, action) => {
         let itemType = state.projectContents[state.activeId][action.payload.itemIndex].itemType;
         let isDotTime = true;
         let isGongYuan = true;
-        if(itemType >2){
+        if (itemType > 2) {
             isDotTime = false;
         }
-        if(itemType ==2 || itemType==4){
+        if (itemType == 2 || itemType == 4) {
             isGongYuan = false;
         }
         // console.log("projectId:"+projectId);
         return fromJS(state)
-            .setIn(['changeItemModal','show'], true)
-            .setIn(['changeItemModal','projectId'],projectId)
-            .setIn(['changeItemModal','projectName'],projectName)
-            .setIn(['changeItemModal','itemId'],action.payload.itemId)
-            .setIn(['changeItemModal','isDotTime'],isDotTime)
-            .setIn(['changeItemModal','isGongYuan'],isGongYuan)
-            .set('activeItemIndex',action.payload.itemIndex)
+            .setIn(['changeItemModal', 'show'], true)
+            .setIn(['changeItemModal', 'projectId'], projectId)
+            .setIn(['changeItemModal', 'projectName'], projectName)
+            .setIn(['changeItemModal', 'itemId'], action.payload.itemId)
+            .setIn(['changeItemModal', 'isDotTime'], isDotTime)
+            .setIn(['changeItemModal', 'isGongYuan'], isGongYuan)
+            .set('activeItemIndex', action.payload.itemIndex)
             .toJS();
 
     } else if(action.type == 'lists/SHUT_CHANGETIPSMODAL') {
         return fromJS(state)
             .setIn(['changeTipsModal', 'show'], false)
+            .setIn(['changeTipsModal', 'isSubmitting'], false)
+            .setIn(['changeTipsModal', 'itemName'], '')
             .set('activeItemIndex', -1)
             .toJS();
 
     } else if(action.type == 'lists/SHUT_CHANGEITEMMODAL') {
         return fromJS(state)
             .setIn(['changeItemModal', 'show'], false)
+            .setIn(['changeItemModal', 'isSubmitting'], false)
             .set('activeItemIndex', -1)
             .toJS();
 
     } else if(action.type == 'lists/CLICK_ZOOMBUTTON') {
         return fromJS(state).set('fullsizeShow', !state.fullsizeShow).toJS();
-
-    } else if(action.type == 'lists/BEGIN_ADDTIP') {
-        return fromJS(state).setIn(['changeTipsModal', 'isSubmitting'], true).toJS();
-
-    } else if(action.type == 'lists/DONE_ADDTIP') {
-        return fromJS(state).setIn(['changeTipsModal', 'isSubmitting'], false).toJS();
 
     } else if(action.type == 'lists/DONE_MODIFYITEM') {
         let sProjectId = action.payload.projectId +'';
@@ -306,7 +277,7 @@ export default (state = initState, action) => {
         return fromJS(state)
             .setIn(['projectContents',sProjectId,sActiveItemIndex,'itemName'],action.payload.itemName)
             .setIn(['projectContents',sProjectId,sActiveItemIndex,'itemContent'],action.payload.itemDes)
-            .setIn(['projectContents',sProjectId,sActiveItemIndex,'itemType'],action.payload.itemType)
+            .setIn(['projectContents',sProjectId,sActiveItemIndex,'itemType'],action.payload.type)
             .setIn(['projectContents',sProjectId,sActiveItemIndex,'startYear'],action.payload.startYear)
             .setIn(['projectContents',sProjectId,sActiveItemIndex,'startYearDes'],action.payload.startYearDes)
             .setIn(['projectContents',sProjectId,sActiveItemIndex,'startYearNDFlag'],action.payload.startYearNDFlag)
@@ -315,8 +286,6 @@ export default (state = initState, action) => {
             .setIn(['projectContents',sProjectId,sActiveItemIndex,'endYearDes'],action.payload.endYearDes)
             .setIn(['projectContents',sProjectId,sActiveItemIndex,'endYearNDFlag'],action.payload.endYearNDFlag)
             .setIn(['projectContents',sProjectId,sActiveItemIndex,'endTime'],action.payload.endTime)
-            .setIn(['changeItemModal','show'],false)
-            .setIn(['changeItemModal','isSubmitting'],false)
             .set('activeItemIndex',-1)
             .toJS();
 

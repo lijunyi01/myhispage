@@ -14,7 +14,7 @@ import router from './router';
 // import io from 'socket.io-client';
 import mySocket from './services/mySocket';
 
-var inProduction = true;
+var inProduction = false;
 
 let middleware = [thunkMiddleware];
 
@@ -37,7 +37,7 @@ if(!inProduction) {
     siteip = 'usanode1.51his.com';
     siteport = '8443';
     umid = '1';
-    token = 'f4fa4a9d-8e93-42ba-8b64-861b1fd2b031';
+    token = '69633cb7-998b-44ec-8955-9bbe1590dd5d';
 }else {
     umid = localStorage.getItem("umid");
     token = localStorage.getItem("token");
